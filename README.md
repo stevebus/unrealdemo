@@ -8,5 +8,5 @@
 TODO:  description of mock-devices, show how to create or edit the mock-devices config file, etc
 
 * TODO:   via docker
-* TODO:  [Deploy via Azure Kubernetes Service]()
+* TODO:  [Deploy via Azure Kubernetes Service](dev-sim-aks.md)
 
