@@ -1,0 +1,20 @@
+{
+  "@id": "dtmi:digitaltwins:rec_3_3:core:WspLightingSensor;1",
+  "@type": "Interface",
+  "contents": [
+    {
+      "@type": "Property",
+      "displayName": {
+        "en": "State"
+      },
+      "name": "State",
+      "schema": "boolean",
+      "writable": true
+    }
+  ],
+  "displayName": {
+    "en": "Lighting Unit Sensor"
+  },
+  "extends": "dtmi:digitaltwins:rec_3_3:core:Sensor;1",
+  "@context": "dtmi:dtdl:context;2"
+}

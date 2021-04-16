@@ -1,0 +1,1665 @@
+{
+  "devices": [
+    {
+      "comms": [
+        {
+          "_id": "aae7968e-512e-4d5d-90e2-0e750491dd1e",
+          "_type": "property",
+          "name": "airflow",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type:\"airflow\",\"off\":72,\"medium\":68}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 0,
+            "include": true,
+            "unit": "secs",
+            "value": "45",
+            "valueMax": "60"
+          }
+        },
+        {
+          "_id": "501c381a-a7c0-463b-9a27-5c131fac376d",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":66,\"max\":74,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 0,
+            "include": true,
+            "unit": "secs",
+            "value": 30,
+            "valueMax": "45"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "template",
+        "deviceId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
+        "mockDeviceName": "hvac",
+        "mockDeviceCloneId": "",
+        "connectionString": "",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "28fe2de2-528a-496d-bc15-1907593fc2ee",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "9a3ceb65-b503-4560-b3bc-15e8919626a9",
+          "_type": "property",
+          "name": "State",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":80}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 0,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "template",
+        "deviceId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
+        "mockDeviceName": "lighting",
+        "mockDeviceCloneId": "",
+        "connectionString": "",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "f2a86a54-3ad8-4e25-a6fc-a32fbe0bcd75",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":68,\"max\":76,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 0,
+            "include": true,
+            "unit": "secs",
+            "value": "10",
+            "valueMax": "30"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "template",
+        "deviceId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
+        "mockDeviceName": "temp",
+        "mockDeviceCloneId": "",
+        "connectionString": "",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "fb5b1952-a7f7-46ef-808e-38da6481dfa7",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 0,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "template",
+        "deviceId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "mockDeviceName": "presence",
+        "mockDeviceCloneId": "",
+        "connectionString": "",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "7dfca83f-cddf-473d-b7a8-915145d6d757",
+          "_type": "property",
+          "name": "airflow",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type:\"airflow\",\"off\":72,\"medium\":68}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 45000,
+            "include": true,
+            "unit": "secs",
+            "value": "45",
+            "valueMax": "60"
+          }
+        },
+        {
+          "_id": "5e11a761-3a48-4467-988f-5c28d8f42a32",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":66,\"max\":74,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 41000,
+            "include": true,
+            "unit": "secs",
+            "value": 30,
+            "valueMax": "45"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "hvacsensor1",
+        "mockDeviceName": "hvacsensor1",
+        "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor1;SharedAccessKey=Ng9GZyWWmzfMz86PVRpE3lBgJcT53OY/AlI8MHhtIOE=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "hvacsensor1",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "27cb65f8-127d-4750-8128-6c750d81581b",
+          "_type": "property",
+          "name": "airflow",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type:\"airflow\",\"off\":72,\"medium\":68}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 45000,
+            "include": true,
+            "unit": "secs",
+            "value": "45",
+            "valueMax": "60"
+          }
+        },
+        {
+          "_id": "00a8b7d1-c554-45fa-95f7-82ed60d40deb",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":66,\"max\":74,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 41000,
+            "include": true,
+            "unit": "secs",
+            "value": 30,
+            "valueMax": "45"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "hvacsensor2",
+        "mockDeviceName": "hvacsensor2",
+        "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor2;SharedAccessKey=yBXJfbbCmim/Um/YxAsWosZnccNBNplE88RbpAm7HZc=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "hvacsensor2",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "c9968e13-bf1b-41b2-9e8c-63e6ccfd92e4",
+          "_type": "property",
+          "name": "airflow",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type:\"airflow\",\"off\":72,\"medium\":68}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 46000,
+            "include": true,
+            "unit": "secs",
+            "value": "45",
+            "valueMax": "60"
+          }
+        },
+        {
+          "_id": "09ee4072-07f7-4d8e-8f78-32e84da75f4e",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":66,\"max\":74,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 35000,
+            "include": true,
+            "unit": "secs",
+            "value": 30,
+            "valueMax": "45"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "hvacsensor3",
+        "mockDeviceName": "hvacsensor3",
+        "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor3;SharedAccessKey=GjtAPBqqV4ZI6wborklJTb0nRi0KC4BotLnH5C13nsw=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "hvacsensor3",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "0b38b6f3-a31e-4cc4-99c1-cc8aa88bf281",
+          "_type": "property",
+          "name": "airflow",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type:\"airflow\",\"off\":72,\"medium\":68}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 47000,
+            "include": true,
+            "unit": "secs",
+            "value": "45",
+            "valueMax": "60"
+          }
+        },
+        {
+          "_id": "f711a669-0815-4400-b196-9d52397956d3",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":66,\"max\":74,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 40000,
+            "include": true,
+            "unit": "secs",
+            "value": 30,
+            "valueMax": "45"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "hvacsensor4",
+        "mockDeviceName": "hvacsensor4",
+        "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor4;SharedAccessKey=wj9PjWcETP+MHuGQmjTlFTIoVQ8uo97C0FYLIdrkcYQ=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "hvacsensor4",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "f50248a1-43d7-4c94-b05b-2eeba38d1057",
+          "_type": "property",
+          "name": "airflow",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type:\"airflow\",\"off\":72,\"medium\":68}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 49000,
+            "include": true,
+            "unit": "secs",
+            "value": "45",
+            "valueMax": "60"
+          }
+        },
+        {
+          "_id": "983f4c0d-ba86-4aa6-8dc2-d0fdd0ce13be",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":66,\"max\":74,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 37000,
+            "include": true,
+            "unit": "secs",
+            "value": 30,
+            "valueMax": "45"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "hvacsensor5",
+        "mockDeviceName": "hvacsensor5",
+        "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor5;SharedAccessKey=PlRmZf9qUkj5eh5yw8WOaAT5ZDD8OthZCrD9w9OxPmY=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "hvacsensor5",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "612c68c5-a155-4499-a64b-0808e3831d98",
+          "_type": "property",
+          "name": "State",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":80}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 137000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "lightingsensor1",
+        "mockDeviceName": "lightingsensor1",
+        "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor1;SharedAccessKey=tz2/SAI0RwoqlJ1LMl6sFmwpB6H3s/BaK0/SX65DFow=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "lightingsensor1",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "b8b97950-d7a6-468f-999e-5f2bda50aaa5",
+          "_type": "property",
+          "name": "State",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":80}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 158000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "lightingsensor2",
+        "mockDeviceName": "lightingsensor2",
+        "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor2;SharedAccessKey=9V77MbmjlYSeUeGKGkLX9u1yv1xUTbukhDEQFdS+ZsM=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "lightingsensor2",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "de2ecd82-c473-49c0-b5ef-e21127e40469",
+          "_type": "property",
+          "name": "State",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":80}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 224000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "lightingsensor3",
+        "mockDeviceName": "lightingsensor3",
+        "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor3;SharedAccessKey=b34Bv+zhRZxm2YGSqtQpu5josSiLhN2QXMScbziN7zw=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "lightingsensor3",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "e8cdac5d-7f63-45d1-adb9-81ca6446bc52",
+          "_type": "property",
+          "name": "State",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":80}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 227000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "lightingsensor4",
+        "mockDeviceName": "lightingsensor4",
+        "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor4;SharedAccessKey=H0KfUnwQXSBiZCPHk4GHbfpPKo2b5cKaPBoetDmBy60=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "lightingsensor4",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "212c04b7-3efb-403b-a793-2c34b2b302a0",
+          "_type": "property",
+          "name": "State",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":80}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 225000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "lightingsensor5",
+        "mockDeviceName": "lightingsensor5",
+        "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor5;SharedAccessKey=vC/toKVWl5C+L/IxMMbKWctvdAtCvkGDeoRxDLbFvzw=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "lightingsensor5",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "df0824aa-24af-4d2f-873f-0cb120462d17",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":68,\"max\":76,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 13000,
+            "include": true,
+            "unit": "secs",
+            "value": "10",
+            "valueMax": "30"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "tempsensor1",
+        "mockDeviceName": "tempsensor1",
+        "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor1;SharedAccessKey=qnqxeMuStJ+L9ECmvXwqUcedz96Zlr+I5VUJKCRqnUU=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "tempsensor1",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "38ad8184-eac1-4c7c-ab7b-2832f3f37231",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":68,\"max\":76,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 17000,
+            "include": true,
+            "unit": "secs",
+            "value": "10",
+            "valueMax": "30"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "tempsensor2",
+        "mockDeviceName": "tempsensor2",
+        "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor2;SharedAccessKey=tTLHufUHrPfHEGJJWBAPFfKMH8E4ljT2bVX2lThe2/c=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "tempsensor2",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "fcae6659-e42e-4997-a714-db1bda78f3cc",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":68,\"max\":76,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 29000,
+            "include": true,
+            "unit": "secs",
+            "value": "10",
+            "valueMax": "30"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "tempsensor3",
+        "mockDeviceName": "tempsensor3",
+        "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor3;SharedAccessKey=Ro+RVL6ODwbfAUJTqclhUfxUK4A/aXzxkkevRub7U6s=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "tempsensor3",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "22a2e6e7-f25b-4204-b1e4-c8e51e04ff8a",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":68,\"max\":76,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 19000,
+            "include": true,
+            "unit": "secs",
+            "value": "10",
+            "valueMax": "30"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "tempsensor4",
+        "mockDeviceName": "tempsensor4",
+        "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor4;SharedAccessKey=t02SpGAU+w2/3lSpaJYMYv3wtpP3YJADkrsRy6V1wQg=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "tempsensor4",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "925d59f3-4d2e-4d7c-8361-2723d4c6ebec",
+          "_type": "property",
+          "name": "temperature",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"type\":\"temp\",\"min\":68,\"max\":76,\"increment\":0.5}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 22000,
+            "include": true,
+            "unit": "secs",
+            "value": "10",
+            "valueMax": "30"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "tempsensor5",
+        "mockDeviceName": "tempsensor5",
+        "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor5;SharedAccessKey=PRx8Erv5v2oF+fcvVRGjaXoCDY/2ecJ/Fxqy5I1zrjY=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "hvac"
+      },
+      "_id": "tempsensor5",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "128b23b2-8f19-4e00-8f27-14bdc143846c",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 139000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "presencesensor1",
+        "mockDeviceName": "presencesensor1",
+        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor1;SharedAccessKey=1H4btbZpy+5Zxb7bl2wR7DnhcvFatBblwewsFnp8UjY=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "presencesensor1",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "cacd6f92-50c7-482b-9f33-2f93a1a5ec2a",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 127000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "presencesensor2",
+        "mockDeviceName": "presencesensor2",
+        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor2;SharedAccessKey=kqDAes8S/+mpNpfQdJphTGAyvkC5c2BrWoq8Jhsqf1Q=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "presencesensor2",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "7b7e3322-3720-4a4d-9980-734f4014bef9",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 233000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "presencesensor3",
+        "mockDeviceName": "presencesensor3",
+        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor3;SharedAccessKey=U+dxCGlVT3CFdm0lxby0t4wyBxng6cmAs/bXOsqmz5o=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "presencesensor3",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "7157e65d-0cfa-4bda-a72d-7fb25b461c51",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 210000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "presencesensor4",
+        "mockDeviceName": "presencesensor4",
+        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor4;SharedAccessKey=T3LEZml33jHYwt6QXXw9O0zWVYg9LTme9TtHyr1qno4=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "presencesensor4",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "5578fccf-df49-4a25-9b7d-29fdfd543208",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 122000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "presencesensor5",
+        "mockDeviceName": "presencesensor5",
+        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor5;SharedAccessKey=hnDuieCbAfc4rGwEEQHAXKjcywJbwgvbcbqAhK5mhWw=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "presencesensor5",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    }
+  ],
+  "simulation": {
+    "bulk": {
+      "mode": "random",
+      "random": {
+        "min": 5000,
+        "max": 90000
+      },
+      "batch": {
+        "size": 10,
+        "delay": 5000
+      }
+    },
+    "ranges": {
+      "AUTO_INTEGER": {
+        "min": 1,
+        "max": 5000
+      },
+      "AUTO_DOUBLE": {
+        "min": 1,
+        "max": 5000
+      },
+      "AUTO_LONG": {
+        "min": 1,
+        "max": 5000
+      },
+      "AUTO_FLOAT": {
+        "min": 1,
+        "max": 5000
+      },
+      "AUTO_VECTOR": {
+        "min": 1,
+        "max": 500
+      }
+    },
+    "runloop": {
+      "secs": {
+        "min": 30,
+        "max": 90
+      },
+      "mins": {
+        "min": 5,
+        "max": 60
+      }
+    },
+    "geo": [
+      {
+        "latitude": 51.508009,
+        "longitude": -0.128114,
+        "altitude": 100,
+        "radius": 25000
+      },
+      {
+        "latitude": 47.608013,
+        "longitude": -122.335167,
+        "altitude": 100,
+        "radius": 30000
+      },
+      {
+        "latitude": 39.8952663456671,
+        "longitude": -169.80377348147474,
+        "altitude": 0,
+        "radius": 1500000
+      },
+      {
+        "latitude": 40.736291221818526,
+        "longitude": -74.17785632140426,
+        "altitude": 100,
+        "radius": 20000
+      },
+      {
+        "latitude": 47.37358185559139,
+        "longitude": 8.5511341111357,
+        "altitude": 100,
+        "radius": 90000
+      },
+      {
+        "latitude": 33.533965950364625,
+        "longitude": -43.060207013303,
+        "altitude": 0,
+        "radius": 1500000
+      }
+    ],
+    "colors": {
+      "Default": "#333",
+      "Color1": "#3a1e1e",
+      "Color2": "#383a1e",
+      "Color3": "#3e2e12",
+      "Color4": "#ad3523",
+      "Color5": "#313546",
+      "Color6": "#205375",
+      "Color7": "#4a4646",
+      "Color8": "#774b00",
+      "Color9": "#941d49",
+      "Color10": "#000"
+    },
+    "simulation": {
+      "firmware": 30000,
+      "connect": 5000,
+      "restart": {
+        "min": 8,
+        "max": 16
+      },
+      "sasExpire": 168,
+      "dpsRetires": 10
+    },
+    "commands": {
+      "reboot": "reboot",
+      "firmware": "firmware",
+      "shutdown": "shutdown"
+    },
+    "mocks": {
+      "battery": {
+        "init": 100,
+        "running": 0,
+        "variance": 0.1,
+        "timeToRunning": 60400000
+      },
+      "hotplate": {
+        "init": 0,
+        "running": 275,
+        "variance": 0.1,
+        "timeToRunning": 28800000
+      },
+      "fan": {
+        "init": 0,
+        "variance": 2.5,
+        "running": 2000,
+        "timeToRunning": 1
+      },
+      "random": {
+        "init": 0,
+        "variance": 3
+      }
+    },
+    "plan": {
+      "startDelay": 2000,
+      "timelineDelay": 5000
+    },
+    "snippets": {
+      "DTDLv1": {
+        "value": "DESIRED_VALUE",
+        "ac": 200,
+        "ad": "completed",
+        "av": "DESIRED_VERSION"
+      },
+      "DTDLv2": {
+        "value": "DESIRED_VALUE",
+        "status": "completed",
+        "message": "test message",
+        "statusCode": 200,
+        "desiredVersion": "DESIRED_VERSION"
+      },
+      "Response": {
+        "result": "OK"
+      },
+      "Value": {
+        "value": null
+      },
+      "Empty": {}
+    },
+    "dcm": {
+      "import": {
+        "interfaceAsComponents": false
+      }
+    },
+    "ux": {
+      "device": {
+        "expandPropertyCard": true
+      }
+    }
+  }
+}

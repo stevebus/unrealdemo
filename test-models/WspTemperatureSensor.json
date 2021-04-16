@@ -1,0 +1,20 @@
+{
+  "@id": "dtmi:digitaltwins:rec_3_3:core:WspTemperatureSensor;1",
+  "@type": "Interface",
+  "contents": [
+    {
+      "@type": "Property",
+      "displayName": {
+        "en": "Temperature"
+      },
+      "name": "temperature",
+      "schema": "float",
+      "writable": true
+    }
+  ],
+  "displayName": {
+    "en": "Temperature sensor"
+  },
+  "extends": "dtmi:digitaltwins:rec_3_3:core:Sensor;1",
+  "@context": "dtmi:dtdl:context;2"
+}

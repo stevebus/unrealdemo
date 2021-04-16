@@ -1,0 +1,29 @@
+{
+  "@id": "dtmi:digitaltwins:rec_3_3:core:WspHvacSensor;1",
+  "@type": "Interface",
+  "contents": [
+    {
+      "@type": "Property",
+      "displayName": {
+        "en": "TemperatureOutput"
+      },
+      "name": "temperature",
+      "schema": "float",
+      "writable": true
+    },
+	{
+      "@type": "Property",
+      "displayName": {
+        "en": "Airflow Output"
+      },
+      "name": "airflow",
+      "schema": "integer",
+      "writable": true
+    }
+  ],
+  "displayName": {
+    "en": "HVAC Unit Sensor"
+  },
+  "extends": "dtmi:digitaltwins:rec_3_3:core:Sensor;1",
+  "@context": "dtmi:dtdl:context;2"
+}

@@ -1,0 +1,20 @@
+{
+  "@id": "dtmi:digitaltwins:rec_3_3:core:WspOccupancySensor;1",
+  "@type": "Interface",
+  "contents": [
+    {
+      "@type": "Property",
+      "displayName": {
+        "en": "Is Occupied"
+      },
+      "name": "IsOccupied",
+      "schema": "boolean",
+      "writable": true
+    }
+  ],
+  "displayName": {
+    "en": "Occupancy sensor"
+  },
+  "extends": "dtmi:digitaltwins:rec_3_3:core:Sensor;1",
+  "@context": "dtmi:dtdl:context;2"
+}
