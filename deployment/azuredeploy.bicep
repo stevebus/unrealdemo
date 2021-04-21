@@ -4,7 +4,6 @@ param utcValue string = utcNow()
 
 var location = resourceGroup().location
 
-//todo:  decide on naming scheme
 var unique = substring(uniqueString(resourceGroup().id),0,2)
 //var unique = ''
 
@@ -18,7 +17,6 @@ var funcAppName = '${projectName}funcapp${unique}'
 var eventGridIngestName =  '${projectName}egingest${unique}'
 var ingestFuncName = 'IoTHubIngest'
 var signalrFuncName = 'broadcast'
-//var adtChangeLogTopicName='adtchangelogtopic'
 var adtChangeLogTopicName='${projectName}adtchangelogtopic${unique}'
 var funcPackageURI = 'https://github.com/stevebus/stuff/raw/main/unrealdemofuncs.zip'
 var postDeployScriptURI = 'https://raw.githubusercontent.com/stevebus/stuff/main/post-deploy-script'

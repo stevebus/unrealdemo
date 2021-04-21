@@ -8,7 +8,14 @@ TODO:  explain how we automated as much as possible, blah, blah, blah
 
 ## Prepare deployment environment
 
-In the cloud shell you created earlier, at the bash prompt, run this command to download the necessary deployment files.
+
+If this is the first time you've deployed an Azure Digital Twins(ADT)-based solution, we need to register the provider in your subscription. In your cloud shell, run this commmand to register ADT:
+
+```bash
+az provider register --namespace 'Microsoft.DigitalTwins'
+```
+
+Now we need to grab some files that will be used in the deployment. Run this command to download the necessary deployment files.
 
 TODO:  final URL
 
@@ -19,7 +26,7 @@ cd unrealpoc/deployment
 
 Create and Azure Resource Group to contain all the Azure resources we will need for this solution. This will keep all the deployed Azure resources together and will allow you to clean them all up when you are done with the demo by simply deleting the resource group.
 
-First, let's pick a location for deployment.  To view available locations for your subscription, run
+Next, let's pick a location for deployment.  To view available locations for your subscription, run
 
 ``` bash
 az account list-locations -o table
@@ -34,7 +41,7 @@ Pick your desired region, noting the 'short' name (like 'eastus2') that we will 
 Once you have a region, create a resource group in that region with this command:
 
 ```bash
-rgname=$(az group create -n temprg1 --location eastus --query name -o tsv) && echo $rgname
+rgname=$(az group create -n <resource group name> --location eastus --query name -o tsv) && echo $rgname
 ```
 
 where \<resource group name> is the name you wish to name your resource group and \<location> is the short-named location you chose above.  The command will create your resource group and store the name in the $rgname variable we will use later
@@ -42,7 +49,7 @@ where \<resource group name> is the name you wish to name your resource group an
 Next, we need to look up the object id entry in Azure Active Directory for your user name.  To do so, run this command:
 
 ``` bash
-myuserid=$(az ad user show --id <my login account> --query objectId -o tsv) && echo $myuserid
+myuserid=$(userid=$(az ad signed-in-user show --query objectId -o tsv)) && echo $myuserid
 ```
 
 where \<my login account> is the email address you used to sign into the azure portal.
