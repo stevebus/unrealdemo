@@ -5,21 +5,21 @@ param utcValue string = utcNow()
 var location = resourceGroup().location
 
 //todo:  decide on naming scheme
-var unique = substring(uniqueString(resourceGroup().id),2)
+var unique = substring(uniqueString(resourceGroup().id),0,2)
 //var unique = ''
 
-var iotHubName = '${projectName}-hub-${unique}'
-var adtName = '${projectName}-adt-${unique}'
-var signalrName = '${projectName}-signalr-${unique}'
-var serverFarmName = '${projectName}-farm-${unique}'
-var storageName = '${projectName}-store-${unique}'
-var eventGridName = '${projectName}-eg-${unique}'
-var funcAppName = '${projectName}-funcapp-${unique}'
-var eventGridIngestName =  '${projectName}-egingest-${unique}'
+var iotHubName = '${projectName}hub${unique}'
+var adtName = '${projectName}adt${unique}'
+var signalrName = '${projectName}signalr${unique}'
+var serverFarmName = '${projectName}farm${unique}'
+var storageName = '${projectName}store${unique}'
+var eventGridName = '${projectName}eg${unique}'
+var funcAppName = '${projectName}funcapp${unique}'
+var eventGridIngestName =  '${projectName}egingest${unique}'
 var ingestFuncName = 'IoTHubIngest'
 var signalrFuncName = 'broadcast'
 //var adtChangeLogTopicName='adtchangelogtopic'
-var adtChangeLogTopicName='${projectName}adtchangelogtopic'
+var adtChangeLogTopicName='${projectName}adtchangelogtopic${unique}'
 var funcPackageURI = 'https://github.com/stevebus/stuff/raw/main/unrealdemofuncs.zip'
 var postDeployScriptURI = 'https://raw.githubusercontent.com/stevebus/stuff/main/post-deploy-script'
 
@@ -323,7 +323,7 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
     properties: {
     forceUpdateTag: utcValue
     azCliVersion: '2.15.0'
-    arguments: '${iot.name} ${adt.name} ${resourceGroup().name} ${adtChangeLogTopicName} ${location}'
+    arguments: '${adt.name} ${resourceGroup().name} ${adtChangeLogTopicName}'
     primaryScriptUri: '${postDeployScriptURI}'
     supportingScriptUris: []
     timeout: 'PT30M'
@@ -338,4 +338,15 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
   ]
 }
 
-output result object = reference('PostDeploymentscript').outputs
+//output scriptoutput object = reference('PostDeploymentscript').outputs
+//output signalRconnstr string = 'Endpoint=https://${signalrName}.service.signalr.net;AccessKey=${listKeys(signalrName, providers('Microsoft.SignalRService', 'SignalR').apiVersions[0]).primaryKey};Version=1.0;'
+//output iotHubName string = iotHubName
+//output signalRnegotiate string = 'https://${funcApp.name}.azurewebsites.net/functions/negotiate'
+//output adtHostName string = adt.properties.hostName
+
+output importantInfo object = {
+  iotHubName: iotHubName
+  signalRNegotiatePath: 'https://${funcApp.name}.azurewebsites.net/functions/negotiate'
+  adtHostName: 'https://${adt.properties.hostName}'
+}
+

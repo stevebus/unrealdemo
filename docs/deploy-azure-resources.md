@@ -1,0 +1,119 @@
+# Deploy Azure Resources
+
+This document walks you throught steps to deploy the backend Azure resources, blah, blah ,blah
+
+TODO:   assume pre-req's are architecture are covered elsewhere
+
+TODO:  explain how we automated as much as possible, blah, blah, blah
+
+## Prepare deployment environment
+
+In the cloud shell you created earlier, at the bash prompt, run this command to download the necessary deployment files.
+
+TODO:  final URL
+
+``` bash
+git clone http://github.com/stevebus/unrealpoc
+cd unrealpoc/deployment
+```
+
+Create and Azure Resource Group to contain all the Azure resources we will need for this solution. This will keep all the deployed Azure resources together and will allow you to clean them all up when you are done with the demo by simply deleting the resource group.
+
+First, let's pick a location for deployment.  To view available locations for your subscription, run
+
+``` bash
+az account list-locations -o table
+```
+
+that will give you a list of locations that looks something like this (cut off for brevity)
+
+![azure locations](../media/azure-locations.jpg)
+
+Pick your desired region, noting the 'short' name (like 'eastus2') that we will use later.  Also make sure that all of the services used in this demo are available in your chosen region (blue check mark) on [this page](https://azure.microsoft.com/en-us/global-infrastructure/services/?products=functions,signalr-service,digital-twins,event-grid,iot-hub&regions=us-east,us-east-2,us-central,us-north-central,us-south-central,us-west-central,us-west,us-west-2,asia-pacific-east,asia-pacific-southeast,europe-north,europe-west) are available there (ignore "Device Update for IoT Hub", we aren't using it for this demo).  If any of these services are not available, you'll need to pick a different region.
+
+Once you have a region, create a resource group in that region with this command:
+
+```bash
+rgname=$(az group create -n temprg1 --location eastus --query name -o tsv) && echo $rgname
+```
+
+where \<resource group name> is the name you wish to name your resource group and \<location> is the short-named location you chose above.  The command will create your resource group and store the name in the $rgname variable we will use later
+
+Next, we need to look up the object id entry in Azure Active Directory for your user name.  To do so, run this command:
+
+``` bash
+myuserid=$(az ad user show --id <my login account> --query objectId -o tsv) && echo $myuserid
+```
+
+where \<my login account> is the email address you used to sign into the azure portal.
+
+You should see a GUID printed out on the screen
+
+## Deploy Resources
+
+We are now ready to deploy the Azure Resources. This is accomplished by running what's called an Azure Resource Manager (ARM) deployment written in a script language called Bicep.
+
+To execute the Bicep file and begin the deployment, run the following command
+
+```bash
+az deployment group create -g $rgname -f ./azuredeploy.bicep --parameters projectName=<project name> userId=$myuserid
+```
+
+where \<project name> is a name you want to use as the base name for your azure resources. We recommend something you would expect to be unique and, preferably, between 5-8 characters.  NOTE: Project name must be lower case only
+
+The deployment will take several minutes.  Once it is done, you should see a screen full of JSON scroll by.
+
+To confirm a successful deployment, run the following command
+
+```bash
+az deployment group show -n azuredeploy -g $rgname --query {state:properties.provisioningState}
+```
+
+You should see the status:
+
+```json
+{
+    "state":"succeeded"
+}
+```
+
+## Gather important inputs
+
+For subsequent steps in the project, you need to know the final name of several of the azure resources created.  To gather these values, run this command:
+
+```bash
+az deployment group show -n azuredeploy -g $rgname --query properties.outputs.importantInfo.value
+```
+
+Note the values returned from this command. Save them somewhere like notepad for use later.
+
+In particular make note of the "iothubName" as you will need it for the next step
+
+## Create IoT devices and prep simulator
+
+Later in this tutorial, you will use a device simulator to drive simulated data through the IoT and digital twins platforms to the Unreal engine. Before we can do that, we need to create the simulated devices in our IoT Hub
+
+To start the process, change directories to the /unrealpoc/devices folder and set the mock-devices-config.sh script to be executable
+
+```bash
+cd /unrealpoc/devices
+chmod 777 ./mock-devices-config.sh
+```
+
+from the devices folder, run this command to create your devices and apply them to the pre-supplied template
+
+``` bash
+./mock-devices-config.sh ./mock-devices-template.json <iot hub name>
+```
+
+where \<iot hub name> is the name of your IoT Hub created above.  You'll see the devices being created.
+
+Once the scrip completes, the mock-devices-template.json file contains the simulation configuration we will need later. We need to download this file to your desktop.
+
+To do so, in the cloud shell, click on the icon shown below and choose "Download".
+
+![file download](../media/azure-upload-download.jpg)
+
+In the download box, enter '/unrealpoc/devices/mock-devices-template.json' and click "Download"
+
+Depending on your browser, your file will be downloaded somewhere to your machine.  Note the location as we'll need it later.
