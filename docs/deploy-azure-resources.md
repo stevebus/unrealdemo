@@ -41,7 +41,7 @@ Pick your desired region, noting the 'short' name (like 'eastus2') that we will 
 Once you have a region, create a resource group in that region with this command:
 
 ```bash
-rgname=$(az group create -n <resource group name> --location eastus --query name -o tsv) && echo $rgname
+rgname=$(az group create -n <resource group name> --location <location> --query name -o tsv) && echo $rgname
 ```
 
 where \<resource group name> is the name you wish to name your resource group and \<location> is the short-named location you chose above.  The command will create your resource group and store the name in the $rgname variable we will use later
@@ -49,7 +49,7 @@ where \<resource group name> is the name you wish to name your resource group an
 Next, we need to look up the object id entry in Azure Active Directory for your user name.  To do so, run this command:
 
 ``` bash
-myuserid=$(userid=$(az ad signed-in-user show --query objectId -o tsv)) && echo $myuserid
+myuserid=$(az ad signed-in-user show --query objectId -o tsv)) && echo $myuserid
 ```
 
 where \<my login account> is the email address you used to sign into the azure portal.
