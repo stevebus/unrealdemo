@@ -226,7 +226,7 @@
       "configuration": {
         "_kind": "template",
         "deviceId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
-        "mockDeviceName": "presence",
+        "mockDeviceName": "occupancy",
         "mockDeviceCloneId": "",
         "connectionString": "",
         "scopeId": "",
@@ -311,7 +311,7 @@
         "deviceId": "hvacsensor1",
         "mockDeviceName": "hvacsensor1",
         "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor1;SharedAccessKey=Ng9GZyWWmzfMz86PVRpE3lBgJcT53OY/AlI8MHhtIOE=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=hvacsensor1;SharedAccessKey=akCf1qGZ5A+vMMSbePt7gVTei6oNszC1azykipTdP9A=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -395,7 +395,7 @@
         "deviceId": "hvacsensor2",
         "mockDeviceName": "hvacsensor2",
         "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor2;SharedAccessKey=yBXJfbbCmim/Um/YxAsWosZnccNBNplE88RbpAm7HZc=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=hvacsensor2;SharedAccessKey=9jH+i+teK4cTfNc+qOOEMMCxiquNHPuUnxL08Z2oIkU=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -479,7 +479,7 @@
         "deviceId": "hvacsensor3",
         "mockDeviceName": "hvacsensor3",
         "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor3;SharedAccessKey=GjtAPBqqV4ZI6wborklJTb0nRi0KC4BotLnH5C13nsw=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=hvacsensor3;SharedAccessKey=RnK4DDhqYDZ+uAgKNLW3ItCYB/9G27GiHQcZ0pmbOmw=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -563,7 +563,7 @@
         "deviceId": "hvacsensor4",
         "mockDeviceName": "hvacsensor4",
         "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor4;SharedAccessKey=wj9PjWcETP+MHuGQmjTlFTIoVQ8uo97C0FYLIdrkcYQ=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=hvacsensor4;SharedAccessKey=g6c1bGoQbik3LMRq9610rIwKzNHopJ761EGVHrfMgd8=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -647,7 +647,7 @@
         "deviceId": "hvacsensor5",
         "mockDeviceName": "hvacsensor5",
         "mockDeviceCloneId": "28fe2de2-528a-496d-bc15-1907593fc2ee",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=hvacsensor5;SharedAccessKey=PlRmZf9qUkj5eh5yw8WOaAT5ZDD8OthZCrD9w9OxPmY=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=hvacsensor5;SharedAccessKey=2v/MYRgHzI76aqYs/XxMV+tsbcz7S7E6lLa5MwEF7N4=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -702,7 +702,7 @@
         "deviceId": "lightingsensor1",
         "mockDeviceName": "lightingsensor1",
         "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor1;SharedAccessKey=tz2/SAI0RwoqlJ1LMl6sFmwpB6H3s/BaK0/SX65DFow=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=lightingsensor1;SharedAccessKey=qfbKaPBNtF3V0J43LWgZeg1fmVK0mKAHPCObqKYlrQ0=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -757,7 +757,7 @@
         "deviceId": "lightingsensor2",
         "mockDeviceName": "lightingsensor2",
         "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor2;SharedAccessKey=9V77MbmjlYSeUeGKGkLX9u1yv1xUTbukhDEQFdS+ZsM=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=lightingsensor2;SharedAccessKey=E4sFg/uP6XJZT5RBD+pni1b9WdUpuOST5azHmrAHZjU=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -812,7 +812,7 @@
         "deviceId": "lightingsensor3",
         "mockDeviceName": "lightingsensor3",
         "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor3;SharedAccessKey=b34Bv+zhRZxm2YGSqtQpu5josSiLhN2QXMScbziN7zw=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=lightingsensor3;SharedAccessKey=B+mj7N7S+/SLrJ5sU0SujI5KvgmVmSuzSpoq33WPts4=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -867,7 +867,7 @@
         "deviceId": "lightingsensor4",
         "mockDeviceName": "lightingsensor4",
         "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor4;SharedAccessKey=H0KfUnwQXSBiZCPHk4GHbfpPKo2b5cKaPBoetDmBy60=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=lightingsensor4;SharedAccessKey=a3E/fyZ8617nFNxpZN0RIQ6WOQ71QRr7Mjt5+UOQNGI=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -922,7 +922,7 @@
         "deviceId": "lightingsensor5",
         "mockDeviceName": "lightingsensor5",
         "mockDeviceCloneId": "d75cd5f5-a4b4-4d5e-8db9-4d79598ed327",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=lightingsensor5;SharedAccessKey=vC/toKVWl5C+L/IxMMbKWctvdAtCvkGDeoRxDLbFvzw=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=lightingsensor5;SharedAccessKey=PDCMxtSSd3qVdr7gVXGVUsBS3EPGvshzT+b5Dfu5iEI=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -977,7 +977,7 @@
         "deviceId": "tempsensor1",
         "mockDeviceName": "tempsensor1",
         "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor1;SharedAccessKey=qnqxeMuStJ+L9ECmvXwqUcedz96Zlr+I5VUJKCRqnUU=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=tempsensor1;SharedAccessKey=ImWKVqTaHP0T8Y5EV4HM0aazBuiDTyoQk1D9tvTlWeE=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1032,7 +1032,7 @@
         "deviceId": "tempsensor2",
         "mockDeviceName": "tempsensor2",
         "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor2;SharedAccessKey=tTLHufUHrPfHEGJJWBAPFfKMH8E4ljT2bVX2lThe2/c=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=tempsensor2;SharedAccessKey=7sjIk5UyKA+d84AhB0jpZhzbi2V/+IciyNTsBppDuiE=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1087,7 +1087,7 @@
         "deviceId": "tempsensor3",
         "mockDeviceName": "tempsensor3",
         "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor3;SharedAccessKey=Ro+RVL6ODwbfAUJTqclhUfxUK4A/aXzxkkevRub7U6s=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=tempsensor3;SharedAccessKey=zAzPDZih8MpRJPF+2Sz2H6d7mrjNk0/597EtGVpeiBE=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1142,7 +1142,7 @@
         "deviceId": "tempsensor4",
         "mockDeviceName": "tempsensor4",
         "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor4;SharedAccessKey=t02SpGAU+w2/3lSpaJYMYv3wtpP3YJADkrsRy6V1wQg=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=tempsensor4;SharedAccessKey=sOl0Z3vbK5VsWc+xTE+BcDeRpG/U14VG36sHmDOQCdg=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1197,7 +1197,7 @@
         "deviceId": "tempsensor5",
         "mockDeviceName": "tempsensor5",
         "mockDeviceCloneId": "3a7a1958-54b8-4e90-8bd3-94f9b7d3a29f",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=tempsensor5;SharedAccessKey=PRx8Erv5v2oF+fcvVRGjaXoCDY/2ecJ/Fxqy5I1zrjY=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=tempsensor5;SharedAccessKey=za3Db9VIj5QiszSlJRPD/nKOCRC97yyPVTuGkzCcRVM=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1218,7 +1218,7 @@
     {
       "comms": [
         {
-          "_id": "128b23b2-8f19-4e00-8f27-14bdc143846c",
+          "_id": "84e02b13-aac3-4bea-9f20-336fca78e0cb",
           "_type": "property",
           "name": "IsOccupied",
           "component": {
@@ -1239,7 +1239,7 @@
             "direction": "d2c"
           },
           "runloop": {
-            "_ms": 139000,
+            "_ms": 188000,
             "include": true,
             "unit": "secs",
             "value": "120",
@@ -1249,10 +1249,10 @@
       ],
       "configuration": {
         "_kind": "hub",
-        "deviceId": "presencesensor1",
-        "mockDeviceName": "presencesensor1",
+        "deviceId": "occupancysensor1",
+        "mockDeviceName": "occupancysensor1",
         "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor1;SharedAccessKey=1H4btbZpy+5Zxb7bl2wR7DnhcvFatBblwewsFnp8UjY=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=occupancysensor1;SharedAccessKey=waTOXjiAlaUl2LnIUX77fPXQ49/2EdCUwZYnLt0P+7U=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1261,7 +1261,7 @@
         "capabilityUrn": "",
         "plugIn": "smartbinary"
       },
-      "_id": "presencesensor1",
+      "_id": "occupancysensor1",
       "plan": {
         "loop": false,
         "startup": [],
@@ -1273,7 +1273,117 @@
     {
       "comms": [
         {
-          "_id": "cacd6f92-50c7-482b-9f33-2f93a1a5ec2a",
+          "_id": "28ad2be2-d3b1-42e8-9a65-dbecb97a15c7",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 208000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "occupancysensor2",
+        "mockDeviceName": "occupancysensor2",
+        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=occupancysensor2;SharedAccessKey=N2sJN1JWhDAC9xK9LtyOOtj26mBP8AT6PjTiBshmQSA=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "occupancysensor2",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "97a0d0c4-cdbe-4c17-b46d-36aa84833ebf",
+          "_type": "property",
+          "name": "IsOccupied",
+          "component": {
+            "enabled": false,
+            "name": "Component"
+          },
+          "color": "#333",
+          "enabled": true,
+          "string": false,
+          "value": "{\"percentOn\":30}",
+          "sdk": "msg",
+          "propertyObject": {
+            "type": "default"
+          },
+          "version": 0,
+          "type": {
+            "mock": false,
+            "direction": "d2c"
+          },
+          "runloop": {
+            "_ms": 146000,
+            "include": true,
+            "unit": "secs",
+            "value": "120",
+            "valueMax": "240"
+          }
+        }
+      ],
+      "configuration": {
+        "_kind": "hub",
+        "deviceId": "occupancysensor3",
+        "mockDeviceName": "occupancysensor3",
+        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=occupancysensor3;SharedAccessKey=73i1lWnBUSRMAkRcaw2pFSk2N5jPizLthOCftPEFxN0=",
+        "scopeId": "",
+        "dpsPayload": "",
+        "sasKey": "",
+        "isMasterKey": false,
+        "capabilityModel": "",
+        "capabilityUrn": "",
+        "plugIn": "smartbinary"
+      },
+      "_id": "occupancysensor3",
+      "plan": {
+        "loop": false,
+        "startup": [],
+        "timeline": [],
+        "random": [],
+        "receive": []
+      }
+    },
+    {
+      "comms": [
+        {
+          "_id": "09c8bdfa-42bd-4e87-9e3b-abd978ad997c",
           "_type": "property",
           "name": "IsOccupied",
           "component": {
@@ -1304,10 +1414,10 @@
       ],
       "configuration": {
         "_kind": "hub",
-        "deviceId": "presencesensor2",
-        "mockDeviceName": "presencesensor2",
+        "deviceId": "occupancysensor4",
+        "mockDeviceName": "occupancysensor4",
         "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor2;SharedAccessKey=kqDAes8S/+mpNpfQdJphTGAyvkC5c2BrWoq8Jhsqf1Q=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=occupancysensor4;SharedAccessKey=RhjaTVHyDzxy9RCvzJSEfegkIi9MT7kWVGZdaE7eMuQ=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1316,7 +1426,7 @@
         "capabilityUrn": "",
         "plugIn": "smartbinary"
       },
-      "_id": "presencesensor2",
+      "_id": "occupancysensor4",
       "plan": {
         "loop": false,
         "startup": [],
@@ -1328,7 +1438,7 @@
     {
       "comms": [
         {
-          "_id": "7b7e3322-3720-4a4d-9980-734f4014bef9",
+          "_id": "747a61c4-03f3-4fd0-9776-611b524f070b",
           "_type": "property",
           "name": "IsOccupied",
           "component": {
@@ -1349,7 +1459,7 @@
             "direction": "d2c"
           },
           "runloop": {
-            "_ms": 233000,
+            "_ms": 138000,
             "include": true,
             "unit": "secs",
             "value": "120",
@@ -1359,10 +1469,10 @@
       ],
       "configuration": {
         "_kind": "hub",
-        "deviceId": "presencesensor3",
-        "mockDeviceName": "presencesensor3",
+        "deviceId": "occupancysensor5",
+        "mockDeviceName": "occupancysensor5",
         "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor3;SharedAccessKey=U+dxCGlVT3CFdm0lxby0t4wyBxng6cmAs/bXOsqmz5o=",
+        "connectionString": "HostName=unrealhub7p.azure-devices.net;DeviceId=occupancysensor5;SharedAccessKey=jaDBG+terJTazgakje/FiyVRQ7Ejq9jb+wIjmI1+CK8=",
         "scopeId": "",
         "dpsPayload": "",
         "sasKey": "",
@@ -1371,117 +1481,7 @@
         "capabilityUrn": "",
         "plugIn": "smartbinary"
       },
-      "_id": "presencesensor3",
-      "plan": {
-        "loop": false,
-        "startup": [],
-        "timeline": [],
-        "random": [],
-        "receive": []
-      }
-    },
-    {
-      "comms": [
-        {
-          "_id": "7157e65d-0cfa-4bda-a72d-7fb25b461c51",
-          "_type": "property",
-          "name": "IsOccupied",
-          "component": {
-            "enabled": false,
-            "name": "Component"
-          },
-          "color": "#333",
-          "enabled": true,
-          "string": false,
-          "value": "{\"percentOn\":30}",
-          "sdk": "msg",
-          "propertyObject": {
-            "type": "default"
-          },
-          "version": 0,
-          "type": {
-            "mock": false,
-            "direction": "d2c"
-          },
-          "runloop": {
-            "_ms": 210000,
-            "include": true,
-            "unit": "secs",
-            "value": "120",
-            "valueMax": "240"
-          }
-        }
-      ],
-      "configuration": {
-        "_kind": "hub",
-        "deviceId": "presencesensor4",
-        "mockDeviceName": "presencesensor4",
-        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor4;SharedAccessKey=T3LEZml33jHYwt6QXXw9O0zWVYg9LTme9TtHyr1qno4=",
-        "scopeId": "",
-        "dpsPayload": "",
-        "sasKey": "",
-        "isMasterKey": false,
-        "capabilityModel": "",
-        "capabilityUrn": "",
-        "plugIn": "smartbinary"
-      },
-      "_id": "presencesensor4",
-      "plan": {
-        "loop": false,
-        "startup": [],
-        "timeline": [],
-        "random": [],
-        "receive": []
-      }
-    },
-    {
-      "comms": [
-        {
-          "_id": "5578fccf-df49-4a25-9b7d-29fdfd543208",
-          "_type": "property",
-          "name": "IsOccupied",
-          "component": {
-            "enabled": false,
-            "name": "Component"
-          },
-          "color": "#333",
-          "enabled": true,
-          "string": false,
-          "value": "{\"percentOn\":30}",
-          "sdk": "msg",
-          "propertyObject": {
-            "type": "default"
-          },
-          "version": 0,
-          "type": {
-            "mock": false,
-            "direction": "d2c"
-          },
-          "runloop": {
-            "_ms": 122000,
-            "include": true,
-            "unit": "secs",
-            "value": "120",
-            "valueMax": "240"
-          }
-        }
-      ],
-      "configuration": {
-        "_kind": "hub",
-        "deviceId": "presencesensor5",
-        "mockDeviceName": "presencesensor5",
-        "mockDeviceCloneId": "16ad821c-eae6-46a7-8bc7-aadb4673ce7c",
-        "connectionString": "HostName=unrealHubsgx3rrvec6.azure-devices.net;DeviceId=presencesensor5;SharedAccessKey=hnDuieCbAfc4rGwEEQHAXKjcywJbwgvbcbqAhK5mhWw=",
-        "scopeId": "",
-        "dpsPayload": "",
-        "sasKey": "",
-        "isMasterKey": false,
-        "capabilityModel": "",
-        "capabilityUrn": "",
-        "plugIn": "smartbinary"
-      },
-      "_id": "presencesensor5",
+      "_id": "occupancysensor5",
       "plan": {
         "loop": false,
         "startup": [],

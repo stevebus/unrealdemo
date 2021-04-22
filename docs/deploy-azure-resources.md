@@ -8,7 +8,6 @@ TODO:  explain how we automated as much as possible, blah, blah, blah
 
 ## Prepare deployment environment
 
-
 If this is the first time you've deployed an Azure Digital Twins(ADT)-based solution, we need to register the provider in your subscription. In your cloud shell, run this commmand to register ADT:
 
 ```bash
@@ -38,23 +37,56 @@ that will give you a list of locations that looks something like this (cut off f
 
 Pick your desired region, noting the 'short' name (like 'eastus2') that we will use later.  Also make sure that all of the services used in this demo are available in your chosen region (blue check mark) on [this page](https://azure.microsoft.com/en-us/global-infrastructure/services/?products=functions,signalr-service,digital-twins,event-grid,iot-hub&regions=us-east,us-east-2,us-central,us-north-central,us-south-central,us-west-central,us-west,us-west-2,asia-pacific-east,asia-pacific-southeast,europe-north,europe-west) are available there (ignore "Device Update for IoT Hub", we aren't using it for this demo).  If any of these services are not available, you'll need to pick a different region.
 
-Once you have a region, create a resource group in that region with this command:
+Once you have a region, let's set up some variables that we will use in subsequent commands.  Run the following code, substituting the values as described below
 
 ```bash
-rgname=$(az group create -n <resource group name> --location <location> --query name -o tsv) && echo $rgname
+projectname=<project name>
+location=<location>
 ```
 
-where \<resource group name> is the name you wish to name your resource group and \<location> is the short-named location you chose above.  The command will create your resource group and store the name in the $rgname variable we will use later
+where \<project name> is a short name (5-10 characters and MUST be all lowercase) that describes your project and \<location> is the 'short name" of your chosen location (for example 'eastus2').  We will use the \<project name> as the prefix for the name we use for all of the Azure resources we will create.  
 
-Next, we need to look up the object id entry in Azure Active Directory for your user name.  To do so, run this command:
+Create a resource group in that region with this command:
+
+```bash
+rgname=${projectname}-rg
+
+az group create -n $rgname --location $location
+```
+
+## Prepare security credentials
+
+Azure Digital Twins (ADT) is secured by Azure Active Directory (AAD). For both you, and the Unreal application, we need to gather (yours) and create (Unreal's) credentials in AAD.
+
+First, we need to look up the object id entry in Azure Active Directory for your user name.  To do so, run this command:
 
 ``` bash
 myuserid=$(az ad signed-in-user show --query objectId -o tsv)) && echo $myuserid
 ```
 
-where \<my login account> is the email address you used to sign into the azure portal.
-
 You should see a GUID printed out on the screen
+
+Next, we will create an "application registration" in AAD. This will serve as the credentials the Unreal application uses to connect to ADT. We start by creating an AAD service principal
+
+Start the process with the following commands
+
+```bash
+appregname='http://'${projectname}-appreg
+
+appreg=$(az ad sp create-for-rbac --name ${appregname} --skip-assignment) && echo $appreg | jq
+```
+
+Copy the output of this command to your notepad or elsewhere to keep up with it.  __WARNING:  the 'password' shown in this output cannot be retrieved again after this, so keep it in a safe place and keep up with it. You'll need it to connect the Unreal engine to the Azure environment. If you lose it, you'll need to create new credentials.__
+
+Next run these commands to finish setup of the credentials
+
+```bash
+appregobjectid=$(az ad sp show --id $appregname --query objectId -o tsv) && echo $appregobjectid
+
+az ad app permission add --id $appid --api 0b07f429-9f4b-4714-9392-cc5e8e80c8b0 --api-permissions 4589bd03-58cb-4e6c-b17f-b580e39652f8=Scope
+
+az ad app permission grant --id $appid --api 0b07f429-9f4b-4714-9392-cc5e8e80c8b0
+```
 
 ## Deploy Resources
 
@@ -63,10 +95,8 @@ We are now ready to deploy the Azure Resources. This is accomplished by running 
 To execute the Bicep file and begin the deployment, run the following command
 
 ```bash
-az deployment group create -g $rgname -f ./azuredeploy.bicep --parameters projectName=<project name> userId=$myuserid
+az deployment group create -g $rgname -f ./azuredeploy.bicep --parameters projectName=$projectname userId=$myuserid appRegId=$appregobjectid
 ```
-
-where \<project name> is a name you want to use as the base name for your azure resources. We recommend something you would expect to be unique and, preferably, between 5-8 characters.  NOTE: Project name must be lower case only
 
 The deployment will take several minutes.  Once it is done, you should see a screen full of JSON scroll by.
 
@@ -113,9 +143,9 @@ from the devices folder, run this command to create your devices and apply them 
 ./mock-devices-config.sh ./mock-devices-template.json <iot hub name>
 ```
 
-where \<iot hub name> is the name of your IoT Hub created above.  You'll see the devices being created.
+where \<iot hub name> is the name of your IoT Hub created above.  You'll see the devices being created.  Note, you will likely see a number of ERROR messages that say "ErrorCode: DeviceNotFound".  This is normal and expected, as we first check to see if the device is already created and, if we get the error, then we create them.  Ignore this error.
 
-Once the scrip completes, the mock-devices-template.json file contains the simulation configuration we will need later. We need to download this file to your desktop.
+Once the script completes, the mock-devices-template.json file contains the simulation configuration we will need later. We need to download this file to your desktop.
 
 To do so, in the cloud shell, click on the icon shown below and choose "Download".
 

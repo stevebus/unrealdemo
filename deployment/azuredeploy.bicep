@@ -1,5 +1,6 @@
 param projectName string
 param userId string
+param appRegId string
 param utcValue string = utcNow()
 
 var location = resourceGroup().location
@@ -28,6 +29,7 @@ var ADTroleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', 
 var ADTroleDefinitionName = guid(identity.id, ADTroleDefinitionId, resourceGroup().id)
 var ADTroleDefinitionAppName = guid(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', funcAppName), ADTroleDefinitionId, resourceGroup().id)
 var ADTRoleDefinitionUserName = guid(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', userId), ADTroleDefinitionId, resourceGroup().id)
+var ADTRoleDefinitionAppRegName = guid(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', appRegId), ADTroleDefinitionId, resourceGroup().id)
 
 // create iot hub
 resource iot 'microsoft.devices/iotHubs@2020-03-01' = {
@@ -152,6 +154,15 @@ resource funcApp 'Microsoft.Web/sites@2019-08-01' = {
         }
       ]
       alwaysOn:false
+     cors:{
+       supportCredentials: true
+       allowedOrigins: [
+         'http://localhost:3000'
+         'https://functions.azure.com'
+         'https://functions-staging.azure.com'
+         'https://functions-next.azure.com'
+       ]
+     }
     }
     serverFarmId: appserver.id
     clientAffinityEnabled: false
@@ -216,6 +227,7 @@ resource eventGrid_IoTHubIngest 'Microsoft.EventGrid/systemTopics/eventSubscript
     iot
     ingestFunction
     funcApp
+    PostDeploymentscript //hackhack - adding a delay here because of some weird race condition where this still gets created before the function does
   ]
 }
 
@@ -297,13 +309,23 @@ resource adtroledefapp 'Microsoft.Authorization/roleAssignments@2018-09-01-previ
   ]
 }
 
-// assign ADT data role owner permissions to user
+// assign ADT data role owner permissions to the user
 resource ADTRoleDefinitionUser 'Microsoft.Authorization/roleAssignments@2018-09-01-preview' = {
   name: ADTRoleDefinitionUserName
   properties: {
     roleDefinitionId: ADTroleDefinitionId
     principalId: userId
     principalType: 'User'
+  }
+}
+
+// assign ADT data role owner permissions to the app registration
+resource ADTRoleDefinitionAppReg 'Microsoft.Authorization/roleAssignments@2018-09-01-preview' = {
+  name: ADTRoleDefinitionAppRegName
+  properties: {
+    roleDefinitionId: ADTroleDefinitionId
+    principalId: appRegId
+    principalType: 'ServicePrincipal'
   }
 }
 
@@ -344,7 +366,7 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
 
 output importantInfo object = {
   iotHubName: iotHubName
-  signalRNegotiatePath: 'https://${funcApp.name}.azurewebsites.net/functions/negotiate'
+  signalRNegotiatePath: 'https://${funcApp.name}.azurewebsites.net/api'
   adtHostName: 'https://${adt.properties.hostName}'
 }
 
