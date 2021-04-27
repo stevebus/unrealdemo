@@ -9,11 +9,11 @@ do
 #    echo $deviceId
 #    echo $connstr
 
-    newconnstr=$(az iot hub device-identity connection-string show -n $iothub_name -d $deviceId -o tsv)
+    newconnstr=$(az iot hub device-identity connection-string show -n $iothub_name -d $deviceId -o tsv 2>null)
     if [ -z "$newconnstr" ]
     then
         echo "device $deviceId does not exist, creating... "
-        resp=$(az iot hub device-identity create -n $iothub_name -d $deviceId --query "authentication.symmetricKey.primaryKey" -o tsv)
+        resp=$(az iot hub device-identity create -n $iothub_name -d $deviceId --query "authentication.symmetricKey.primaryKey" -o tsv 2>null)
         newconnstr="HostName=$iothub_name.azure-devices.net;DeviceId=$deviceId;SharedAccessKey=$resp"
     fi
 

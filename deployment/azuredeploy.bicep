@@ -60,6 +60,9 @@ resource iot 'microsoft.devices/iotHubs@2020-03-01' = {
       ]
     }
   }
+  dependsOn:[
+    ingestFunction //hackhack - make as much as possible 'dependon' the azure function app to deal w/ some timing issues
+  ]
 }
 
 //create storage account (used by the azure function app)
@@ -173,6 +176,7 @@ resource funcApp 'Microsoft.Web/sites@2019-08-01' = {
     identity
     adt
     signalr
+    appserver
   ]
 }
 
@@ -199,7 +203,6 @@ resource eventGridIngestTopic 'Microsoft.EventGrid/systemTopics@2020-04-01-previ
   dependsOn: [
     iot
     ingestFunction
-    funcApp
   ]
 }
 
@@ -226,8 +229,6 @@ resource eventGrid_IoTHubIngest 'Microsoft.EventGrid/systemTopics/eventSubscript
     eventGridIngestTopic
     iot
     ingestFunction
-    funcApp
-    PostDeploymentscript //hackhack - adding a delay here because of some weird race condition where this still gets created before the function does
   ]
 }
 
@@ -246,6 +247,16 @@ resource eventGridADTChangeLogTopic 'Microsoft.EventGrid/topics@2020-10-15-previ
     inputSchema: 'EventGridSchema'
     publicNetworkAccess: 'Enabled'
   }
+  dependsOn:[
+    ingestFunction
+    iot  //hackhack - make this run as late as possible because of a tricky timing issue w/ the /broadcast function
+    eventGrid_IoTHubIngest
+    rgroledef
+    adtroledef
+    adtroledefapp
+    ADTRoleDefinitionUser
+    ADTRoleDefinitionAppReg
+  ]
 }
 
 // EventGrid subscription for ADT twin changes (invokes function to post to signalr)
@@ -264,8 +275,6 @@ resource eventGrid_Signalr 'Microsoft.EventGrid/eventSubscriptions@2020-06-01' =
   }
    dependsOn:[
      eventGridADTChangeLogTopic
-     funcApp
-     ingestFunction
    ]
 }
 

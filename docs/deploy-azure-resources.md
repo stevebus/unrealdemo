@@ -61,7 +61,7 @@ Azure Digital Twins (ADT) is secured by Azure Active Directory (AAD). For both y
 First, we need to look up the object id entry in Azure Active Directory for your user name.  To do so, run this command:
 
 ``` bash
-myuserid=$(az ad signed-in-user show --query objectId -o tsv)) && echo $myuserid
+myuserid=$(az ad signed-in-user show --query objectId -o tsv) && echo $myuserid
 ```
 
 You should see a GUID printed out on the screen
@@ -76,11 +76,13 @@ appregname='http://'${projectname}-appreg
 appreg=$(az ad sp create-for-rbac --name ${appregname} --skip-assignment) && echo $appreg | jq
 ```
 
-Copy the output of this command to your notepad or elsewhere to keep up with it.  __WARNING:  the 'password' shown in this output cannot be retrieved again after this, so keep it in a safe place and keep up with it. You'll need it to connect the Unreal engine to the Azure environment. If you lose it, you'll need to create new credentials.__
+Copy the output of this command to your notepad or elsewhere to keep up with it.  __WARNING:  the 'password' shown in this output CANNOT be retrieved again after this, so keep it in a safe place and keep up with it. You'll need it to connect the Unreal engine to the Azure environment. If you lose it, you'll need to create new credentials.__
 
 Next run these commands to finish setup of the credentials
 
 ```bash
+appid=$(echo $appreg | jq -r .appId)
+
 appregobjectid=$(az ad sp show --id $appregname --query objectId -o tsv) && echo $appregobjectid
 
 az ad app permission add --id $appid --api 0b07f429-9f4b-4714-9392-cc5e8e80c8b0 --api-permissions 4589bd03-58cb-4e6c-b17f-b580e39652f8=Scope
