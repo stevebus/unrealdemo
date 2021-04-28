@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mock-devices
-        image: codetunez/mock-devices-de
+        image: sdbunrealdemo/mock-devices-de:1.0
         ports:
         - containerPort: 9000
 ---
@@ -25,6 +25,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 9000
+  - port: 8989
+    targetPort: 9000
   selector:
     app: mock-devices

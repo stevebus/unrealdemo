@@ -4,7 +4,7 @@ If you don't have, or don't want to install, Docker Desktop and want to keep you
 
 This guide gives step by step instructions on setting up a very basic single-node AKS cluster and getting the mock-devices simulator running on it with our pre-built device simulation configuration, but does not cover the basic AKS or Kubernetes concepts. For those, refer to the documention linked above.
 
-This guide also assumes you already have an Azure subscription, and the appropriate permissions to deploy new services in that subscription.
+This guide also assumes you already have the mock-devices UI application installed via the previous [simulate iot devices](/docs/simulate-iot-devices.md) documentation.  We will use this user interface to manage our AKS hosted mock-devices engine
 
 ## Install the Azure CLI
 
@@ -32,14 +32,14 @@ Creating the cluster will take several minutes.  Once this is done, we want to m
 
 To install kubectl on your machine (or cloud shell), run
 
-```bash 
+```bash
     az aks install-cli
 ```
 
 Once installed, we need to configure kubectl to point to, and authenticate to, our AKS cluster
 
 ```bash
-    az aks get-credentials --resource-group <group name --name <cluster name>
+    az aks get-credentials --resource-group <group name> --name <cluster name>
 ```
 
 This downloads the ssh credentials you created when you created your cluster and configures kubectl to use them.
@@ -47,7 +47,7 @@ This downloads the ssh credentials you created when you created your cluster and
 To confirm success to this point, run
 
 ```bash
-    kubectl get pods
+    kubectl get nodes
 ```
 
 You should see something similar to this
@@ -82,7 +82,7 @@ Initially, you will probably see a 'ContainerCreating...' status as shown below
 
 Re-running the `kubectl get pods` command should eventually give you a 'Running' status
 
-![container running](media/kubectl-get-pods-running.jpg)
+![container running](/media/kubectl-get-pods-running.jpg)
 
 You can also check on the status of the load balancer by running
 
@@ -92,7 +92,7 @@ You can also check on the status of the load balancer by running
 
 That will show you the running load balancer.  
 
-![running load balancer](media/kubectl-get-services.jpg)
+![running load balancer](/media/kubectl-get-services.jpg)
 
 Make note of the IP address returned, as you will use it to invoke the configuration APIs of the mock-devices containers.
 
@@ -100,29 +100,27 @@ Make note of the IP address returned, as you will use it to invoke the configura
 
 The mock-devices container is now running, but is idle waiting on configuration.
 
-The docker version of mock-devices can use the same device configuration file we created in the GUI version of mock-devices. To leverage it, we need to make two API calls.
+To configure, start the mock-devices engine (npm run app from the mock-devices folder).  Once you start the UI, click the UX button in the lower left hand corner
 
-The first API call uploads the device configuration file.
+![mock-devices ux](/media/mock-devices-ux-button.jpg)
 
-```bash
-curl -d "@<mock devices file>" -H "Content-Type: application/json" -X POST http://<ip address of cluster>:9000/api/state
-```
+This will bring up the dialog to point your mock-devices UI at the AKS hosted version of your engine.  Enter ```http://<aks external ip>:8989``` as the server+port and choose "UX" as the type as shown below
 
-there \<mock devices file> is the device config file created earlier, and \<ip address of cluster> is the IP address you noted earlier from the load balancer in AKS
+![mock devices aks config](/media/mock-devices-aks-config.jpg)
 
-you should get a return value that looks something like this (the returned json will reflect your sample json file)
+Click on "Change" to save your changes.  Right below the console window, you should see that the UI is configured to point to the cluster IP address
 
-![set device config](/media/mock-devices-api-submit-config.jpg)
+Now we can manage the devices in AKS.  This process is very similar to managing locally with one exception. Click on the +Add/Save button and, instead of clicking "load/save from file system", click "Editor"  (we can't load or save from file system, since the engine is running in the cloud).
 
-Now the simulation engine must be started with a second API call
+Open up the [mock-devices-template](/devices/mock-devices-template.json) file in your favorite editor, select the entire file, and paste its contents into the Editor window (as shown below) and click "Update Current State"
 
-```bash
-curl http://<ip address of cluster>:9000/api/devices/start
-```
+![update current state](/media/mock-devices-editor.jpg)
 
-Again, you should get a return that looks something like this
+At this point you should see our list of simulated devices and the experience is the same as running interactively.  You can start and stop simulations, etc.
 
-![start simulation](/media/mock-devices-api-start-sim.jpg)
+___The one exception is that now you can exit the UI and your simulation will continue running!!___  At any time in the future, you can re-run the mock-devices UI, reconnect it to your cluster IP address and port, and pick up where you left off
+
+>NOTE Even though the mock-devices engine can run in a container and continue running when not connected to the UI, it does not re-start the simulations if the container should reboot. If the container restarts for any reason, you'll need to restart the simulation by connecting via the GUI and restarting
 
 ## Verify success
 
@@ -130,11 +128,11 @@ You can verify success in two steps  (if you aren't interested in the container 
 
 ### 1) Look at container logs
 
-You can view the 'docker logs' for the mock-devices container. 
+You can view the 'docker logs' for the mock-devices container.
 
 As before, run `kubectl get pods` to get the name of your container pod, as below
 
-![get pods](media/kubectl-get-pods.jpg)
+![get pods](/media/kubectl-get-pods.jpg)
 
 Once you have that, run
 
@@ -144,7 +142,7 @@ kubectl logs -f <pod name>
 
 where \<pod name> is the name of your pod returned above.  For example:
 
-![container logs](media/kubectl-logs.jpg)
+![container logs](/media/kubectl-logs.jpg)
 
 In the logs you can see the logging output of the mock-devices container, including (circled) where it has started sending temperature data
 
@@ -160,7 +158,7 @@ where \<iot hub name> is the short name of your IoT Hub (without the .azure-devi
 
 You will see an output similar to this (with the name of our IoT Hub blacked out)
 
-![iot hub messages](media/iothub-monitor-events.jpg)
+![iot hub messages](/media/iothub-monitor-events.jpg)
 
 If it's the first time you've run this command, you may be prompted to install the amqp libraries.  Answer yes.
 
