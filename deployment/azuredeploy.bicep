@@ -375,7 +375,7 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
 
 output importantInfo object = {
   iotHubName: iotHubName
-  signalRNegotiatePath: 'https://${funcApp.name}.azurewebsites.net/api'
-  adtHostName: 'https://${adt.properties.hostName}'
+  signalRNegotiatePath: 'https://${funcApp.name}.azurewebsites.net/api/negotiate'
+  adtHostName: '${adt.properties.hostName}'
 }
 

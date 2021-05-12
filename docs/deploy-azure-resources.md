@@ -1,10 +1,8 @@
 # Deploy Azure Resources
 
-This document walks you throught steps to deploy the backend Azure resources, blah, blah ,blah
+This document walks you throught steps to deploy the backend Azure resources for the demo.
 
-TODO:   assume pre-req's are architecture are covered elsewhere
-
-TODO:  explain how we automated as much as possible, blah, blah, blah
+> NOTE:  this section assumes you have already set up the pre-requisites mentioned on the home page, in particular that you have an Azure Subscription and have set up a cloud shell connection
 
 ## Prepare deployment environment
 
@@ -16,7 +14,7 @@ az provider register --namespace 'Microsoft.DigitalTwins'
 
 Now we need to grab some files that will be used in the deployment. Run this command to download the necessary deployment files.
 
-TODO:  final URL
+TODO:  final URL - here any anywhere we use stuff from our github repo
 
 ``` bash
 git clone http://github.com/stevebus/unrealpoc
@@ -45,6 +43,8 @@ location=<location>
 ```
 
 where \<project name> is a short name (5-10 characters and MUST be all lowercase) that describes your project and \<location> is the 'short name" of your chosen location (for example 'eastus2').  We will use the \<project name> as the prefix for the name we use for all of the Azure resources we will create.  
+
+> NOTE:  the variables that we are setting as we progress through the instructions from here on are only valid for the lifetime of the cloud shell session. If you close your cloud shell before completing the deployment, you will need to restart from the top
 
 Create a resource group in that region with this command:
 
@@ -85,9 +85,13 @@ appid=$(echo $appreg | jq -r .appId)
 
 appregobjectid=$(az ad sp show --id $appregname --query objectId -o tsv) && echo $appregobjectid
 
-az ad app permission add --id $appid --api 0b07f429-9f4b-4714-9392-cc5e8e80c8b0 --api-permissions 4589bd03-58cb-4e6c-b17f-b580e39652f8=Scope
+az ad app permission add \
+--id $appid \
+--api 0b07f429-9f4b-4714-9392-cc5e8e80c8b0 \
+--api-permissions 4589bd03-58cb-4e6c-b17f-b580e39652f8=Scope
 
-az ad app permission grant --id $appid --api 0b07f429-9f4b-4714-9392-cc5e8e80c8b0
+az ad app permission grant --id $appid \
+--api 0b07f429-9f4b-4714-9392-cc5e8e80c8b0
 ```
 
 ## Deploy Resources
@@ -97,7 +101,8 @@ We are now ready to deploy the Azure Resources. This is accomplished by running 
 To execute the Bicep file and begin the deployment, run the following command
 
 ```bash
-az deployment group create -g $rgname -f ./azuredeploy.bicep --parameters projectName=$projectname userId=$myuserid appRegId=$appregobjectid
+az deployment group create -g $rgname -f ./azuredeploy.bicep \
+--parameters projectName=$projectname userId=$myuserid appRegId=$appregobjectid
 ```
 
 The deployment will take several minutes.  Once it is done, you should see a screen full of JSON scroll by.
@@ -118,15 +123,24 @@ You should see the status:
 
 ## Gather important inputs
 
-For subsequent steps in the project, you need to know the final name of several of the azure resources created.  To gather these values, run this command:
+The Unreal plug-in provides the capability to feed it a configuration file for the inputs necessary to connect it to our Azure resources. To gather these values into a config file, run this command:
 
 ```bash
-az deployment group show -n azuredeploy -g $rgname --query properties.outputs.importantInfo.value
+echo $appreg $deployvalues \ | jq -s add \
+| jq '{appId:.appId,password:.password,tenant:.tenant,adtHostName:.adtHostName,signalRNegotiatePath:.signalRNegotiatePath}' \
+> unreal-plugin-config.json
+
 ```
 
-Note the values returned from this command. Save them somewhere like notepad for use later.
+Later in these instructions, we will download that file for later use.
 
-In particular make note of the "iothubName" as you will need it for the next step
+Finally, we need to retrieve the value of our IoT Hub name that we will need in the next step. To gather that name, run this command:
+
+```bash
+echo $deployvalues | jq -r .iotHubName
+```
+
+Save this return value for use in the next step
 
 ## Create IoT devices and prep simulator
 
@@ -145,9 +159,11 @@ from the devices folder, run this command to create your devices and apply them 
 ./mock-devices-config.sh ./mock-devices-template.json <iot hub name>
 ```
 
-where \<iot hub name> is the name of your IoT Hub created above.  You'll see the devices being created.  Note, you will likely see a number of ERROR messages that say "ErrorCode: DeviceNotFound".  This is normal and expected, as we first check to see if the device is already created and, if we get the error, then we create them.  Ignore this error.
+where \<iot hub name> is the name of your IoT Hub created above.  You'll see the devices being created.
 
 Once the script completes, the mock-devices-template.json file contains the simulation configuration we will need later. We need to download this file to your desktop.
+
+## Download config files
 
 To do so, in the cloud shell, click on the icon shown below and choose "Download".
 
@@ -155,4 +171,6 @@ To do so, in the cloud shell, click on the icon shown below and choose "Download
 
 In the download box, enter '/unrealpoc/devices/mock-devices-template.json' and click "Download"
 
-Depending on your browser, your file will be downloaded somewhere to your machine.  Note the location as we'll need it later.
+Repeat the steps above to also download '/unrealpoc/deployment/unreal-plugin-config.json'
+
+Depending on your browser, your files will be downloaded somewhere to your machine.  Note the location as we'll need it later.

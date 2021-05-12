@@ -16,9 +16,23 @@ A high level architecture of the sample is shown below
 
 ![high level architecture](media/solution-architecture.jpg)
 
+## Prerequsites
+
+To start the process of deploying the demo, you must first work through a few pre-requisites.
+
+### Unreal prerequisites
+
+### Azure Resources and simulated IoT devices
+
+* To deploy the Azure resources, you must have an active Azure subscription in which you have owner permissions. If you do not have an Azure subscription, you can sign up for a free account [here](https://azure.microsoft.com/en-us/free/)
+* [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/quickstart) -- just create the bash cloud shell, stop before you create the resource group
+* [NodeJS](https://nodejs.org/en/download/) - you need NodeJS on your local development machine to run the IoT device simulator we will use
+
+With the pre-requisites installed, you are ready to begin work on the demo
+
 ## Unreal stuff goes here
 
-blah blah blah
+TODO:  
 
 ## Deploy Azure Infrastructure
 
@@ -31,12 +45,16 @@ At a high level, the key Azure components are:
 * [Azure SignalR Service] - SignalR is a high scale, high performance pub-sub service hosted in Azure. It allows a sender to submit messages in real time to a large number of simultaneous listening applications. In the sample here, we will only have one listener, but for the playable sample demo, we may have many listening
 * [Event Grid] and [Azure Functions] - these components act as the routing and glue between the major components. EventGrid routes messages to the functions in response to events (telemetry received or twin data updated) and the functions perform message transformation and updating.
 
-To deploy the backend Azure services involved, follow the instructions here. Note that there are a number of pieces of information you need to save from this process for later use.
+To deploy the backend Azure services involved, follow the instructions [here](docs/deploy-azure-resources.md). Note that there are a number of pieces of information you need to save from this process for later use.
 
-## Configure Unreal connection to SignalR
+## Configure Unreal connections to Azure
+
+TODO:  
 
 ## Simulate Devices
 
-The next step is to simulate device data from our building IoT sensors. To set up the simulated devices, follow the instructions [here]
+The next step is to simulate device data from our building IoT sensors. To set up the simulated devices, follow the instructions [here](docs/simulate-iot-devices.md)
 
 > NOTE:  the instructions referenced above describe an interactive simulation of devices run from your desktop, which we recommend running first. However, if you want or need to have the device simulation running all the time, follow the alternate instructions [here](/devices/kubernetes/dev-sim-aks.md) to run the mock-devices in a docker container in [Azure Kubernetes Service]
+
+## View results in the Unreal Engine
