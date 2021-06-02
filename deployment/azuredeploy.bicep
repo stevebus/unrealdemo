@@ -8,21 +8,24 @@ var location = resourceGroup().location
 var unique = substring(uniqueString(resourceGroup().id),0,2)
 //var unique = ''
 
-var iotHubName = '${projectName}hub${unique}'
-var adtName = '${projectName}adt${unique}'
-var signalrName = '${projectName}signalr${unique}'
-var serverFarmName = '${projectName}farm${unique}'
-var storageName = '${projectName}store${unique}'
-var eventGridName = '${projectName}eg${unique}'
-var funcAppName = '${projectName}funcapp${unique}'
-var eventGridIngestName =  '${projectName}egingest${unique}'
+// storage accounts (and maybe others) must be lower case, so we ToLower the name the user passed in
+var baseName=toLower(projectName)
+
+var iotHubName = '${baseName}hub${unique}'
+var adtName = '${baseName}adt${unique}'
+var signalrName = '${baseName}signalr${unique}'
+var serverFarmName = '${baseName}farm${unique}'
+var storageName = '${baseName}store${unique}'
+var eventGridName = '${baseName}eg${unique}'
+var funcAppName = '${baseName}funcapp${unique}'
+var eventGridIngestName =  '${baseName}egingest${unique}'
 var ingestFuncName = 'IoTHubIngest'
 var signalrFuncName = 'broadcast'
-var adtChangeLogTopicName='${projectName}adtchangelogtopic${unique}'
+var adtChangeLogTopicName='${baseName}adtchangelogtopic${unique}'
 var funcPackageURI = 'https://github.com/stevebus/stuff/raw/main/unrealdemofuncs.zip'
 var postDeployScriptURI = 'https://raw.githubusercontent.com/stevebus/stuff/main/post-deploy-script'
 
-var identityName = '${projectName}-scriptidentity'
+var identityName = '${baseName}-scriptidentity'
 var rgRoleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')
 var rgRoleDefinitionName = guid(identity.id, rgRoleDefinitionId, resourceGroup().id)
 var ADTroleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', 'bcd981a7-7f74-457b-83e1-cceb9e632ffe')
@@ -366,12 +369,6 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
     eventGridADTChangeLogTopic
   ]
 }
-
-//output scriptoutput object = reference('PostDeploymentscript').outputs
-//output signalRconnstr string = 'Endpoint=https://${signalrName}.service.signalr.net;AccessKey=${listKeys(signalrName, providers('Microsoft.SignalRService', 'SignalR').apiVersions[0]).primaryKey};Version=1.0;'
-//output iotHubName string = iotHubName
-//output signalRnegotiate string = 'https://${funcApp.name}.azurewebsites.net/functions/negotiate'
-//output adtHostName string = adt.properties.hostName
 
 output importantInfo object = {
   iotHubName: iotHubName

@@ -126,10 +126,11 @@ You should see the status:
 The Unreal plug-in provides the capability to feed it a configuration file for the inputs necessary to connect it to our Azure resources. To gather these values into a config file, run this command:
 
 ```bash
-echo $appreg $deployvalues \ | jq -s add \
+deployvalues=$(az deployment group show -n azuredeploy -g $rgname --query properties.outputs.importantInfo.value)
+
+echo $appreg $deployvalues | jq -s add \
 | jq '{appId:.appId,password:.password,tenant:.tenant,adtHostName:.adtHostName,signalRNegotiatePath:.signalRNegotiatePath}' \
 > unreal-plugin-config.json
-
 ```
 
 Later in these instructions, we will download that file for later use.
