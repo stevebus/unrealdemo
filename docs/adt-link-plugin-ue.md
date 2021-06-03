@@ -236,7 +236,7 @@ Now that they are detected and valid, we will create new Blueprint Actors in our
 
 
 
-![Utility_SelectTwins](i../media/adt-link-plugin-ue/Utility_SelectTwins.PNG "Utility_SelectTwins")
+![Utility_SelectTwins](i../media/adt-link-plugin-ue/Utility_SelectTwins.png "Utility_SelectTwins")
 
 
 Then press “Create Selected Twins” below.
