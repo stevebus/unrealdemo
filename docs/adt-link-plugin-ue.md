@@ -42,12 +42,12 @@ Open the “DigitalTwinProject” Unreal Engine project. In the Plugins window (
 
 
 
-![AdtLink_Plugin](../media/adt-link-plugin-ue/AdtLink_Plugin.png "AdtLink_Plugin")
+![AdtLink_Plugin](../media/adt-link-plugin-ue/AdtLink_Plugin.PNG "AdtLink_Plugin")
 
 
 
 
-![Datasmith_Plugin](../media/adt-link-plugin-ue/Datasmith_Plugin.png "Datasmith_Plugin")
+![Datasmith_Plugin](../media/adt-link-plugin-ue/Datasmith_Plugin.PNG "Datasmith_Plugin")
 
 
 Create a new level in the project however you like. Going to File > New Level > TimeOfDay will give the best visuals for the next steps.
@@ -236,7 +236,7 @@ Now that they are detected and valid, we will create new Blueprint Actors in our
 
 
 
-![Utility_SelectTwins](i../media/adt-link-plugin-ue/Utility_SelectTwins.png "Utility_SelectTwins")
+![Utility_SelectTwins](i../media/adt-link-plugin-ue/Utility_SelectTwins.PNG "Utility_SelectTwins")
 
 
 Then press “Create Selected Twins” below.
