@@ -17,8 +17,8 @@ Now we need to grab some files that will be used in the deployment. Run this com
 TODO:  final URL - here any anywhere we use stuff from our github repo
 
 ``` bash
-git clone http://github.com/stevebus/unrealpoc
-cd unrealpoc/deployment
+git clone http://github.com/stevebus/unrealdemo
+cd unrealdemo/deployment
 ```
 
 Create and Azure Resource Group to contain all the Azure resources we will need for this solution. This will keep all the deployed Azure resources together and will allow you to clean them all up when you are done with the demo by simply deleting the resource group.
@@ -147,10 +147,10 @@ Save this return value for use in the next step
 
 Later in this tutorial, you will use a device simulator to drive simulated data through the IoT and digital twins platforms to the Unreal engine. Before we can do that, we need to create the simulated devices in our IoT Hub
 
-To start the process, change directories to the /unrealpoc/devices folder and set the mock-devices-config.sh script to be executable
+To start the process, change directories to the /unrealdemo/devices folder and set the mock-devices-config.sh script to be executable
 
 ```bash
-cd /unrealpoc/devices
+cd /unrealdemo/devices
 chmod 777 ./mock-devices-config.sh
 ```
 
@@ -170,8 +170,8 @@ To do so, in the cloud shell, click on the icon shown below and choose "Download
 
 ![file download](../media/azure-upload-download.jpg)
 
-In the download box, enter '/unrealpoc/devices/mock-devices-template.json' and click "Download"
+In the download box, enter '/unrealdemo/devices/mock-devices-template.json' and click "Download"
 
-Repeat the steps above to also download '/unrealpoc/deployment/unreal-plugin-config.json'
+Repeat the steps above to also download '/unrealdemo/deployment/unreal-plugin-config.json'
 
 Depending on your browser, your files will be downloaded somewhere to your machine.  Note the location as we'll need it later.
