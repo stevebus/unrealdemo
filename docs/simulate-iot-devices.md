@@ -7,7 +7,7 @@ For this demo, we will be simulating the IoT devices shown in the building model
 * Lighting - simulating lighting control sensors, toggling lights off and on
 * Presence - simulating presence sensors which detect the presence of people in an area
 
-## pull down mock-devices
+## Pull Down Mock-Devices
 
 For the demo, we use the [mock-devices](https://github.com/codetunez/mock-devices) tool to simulate the IoT sensors.  To install the tool, open a command prompt on your desktop, change to a folder where you have write priviledges (under your "Documents" folder is a good candidate), and run this command to pull down the mock-services repo:
 
@@ -17,11 +17,9 @@ git clone http://github.com/codetunez/mock-devices
 
 > NOTE:  Alternately, if you don't have git installed, on the home page of the mock-devices github repo, you can download a 'zip' of the solution by clicking on the "Code" button above the list of files and choosing "Download Zip". If you download it, unzip it to the folder you chose above
 
-TODO:  fix final link.  Fix here and update repo name everywhere else
+Separately clone or download the [Unreal Demo](http://github.com/stevebus/unrealdemo) repo as well, if you haven't already.
 
-Separately clone or download the [Unreal POC](http://github.com/stevebus/unrealpoc) repo as well.
-
-## add plugins and build mock-devices
+## Add Plugins and Build Mock-Devices
 
 For the POC, we wrote a couple of plug-ins to add some pseudo-realism to the data created by the simulators. To deploy the plug-ins, follow these steps
 
@@ -68,4 +66,4 @@ On the left nav, click on "PWR ALL".  This will power all of the devices.  You'l
 
 You will see temperature data first, then likely airflow.  Those are sent randomly between 30-60 seconds by default.  Lighting and Occupancy is sent less frequently, so it should be a few more minute before they are sent.
 
-You are now ready to return to the Unreal app and see the data changing live in your 3D environment.
+You are now ready to return to the Unreal app and see the data changing live in your 3D environment when you play the game.

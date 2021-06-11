@@ -28,13 +28,15 @@ To showcase the general workflow and capabilities, this Unreal Engine plugin con
 
 ![PluginFolder](../media/adt-link-plugin-ue/PluginFolder.png "PluginFolder")
 
- Open your project, and when it's open, enable the ADT Link plugin by going to Edit > Plugins and searching for it. Also verify that the Datasmith plugin is enabled. This may require a restart for your project.
+ Open your project, and when it's open, enable the ADT Link plugin by going to Edit > Plugins and searching for it. Also verify that the Datasmith plugin and LiDAR Point Cloud plugin are enabled. This may require a restart for your project.
 
 ![EditPlugins](../media/adt-link-plugin-ue/EditPlugins.png "Edit Plugins")
 
 ![AdtLink_Plugin](../media/adt-link-plugin-ue/AdtLink_Plugin.PNG "AdtLink_Plugin")
 
 ![Datasmith_Plugin](../media/adt-link-plugin-ue/Datasmith_Plugin.PNG "Datasmith_Plugin")
+
+![LidarPlugin](../media/adt-link-plugin-ue/LidarPlugin.PNG "LidarPlugin")
 
 We provide a sample level in the plugin content that already has a Datasmith scene that correlates with the sensors being set up in this guide. To access it, you need to make sure you have Show Plugin Content enabled in your Content Browser. If the AdtLink plugin is enabled, you should see a “AdtLink Content” folder in your list of sources. If you don’t see this list, click on the Sources icon next to Filters.
 
@@ -118,19 +120,19 @@ In the “Create Model” menu, you can see the three steps to the left:
 2. Press “Convert to JSON”
 3. Press “Upload to ADT”
 
-Upload your first model by navigating to AdtLink Content/AdtLink/ModelBP/REC and selecting “BP_Space.” Then click “Convert to JSON”, which should populate the text box with the converted JSON data contained in the Blueprint. Press “Upload to ADT” to send it to the ADT instance. Watch the Log to make sure there aren’t any errors.
+Upload your first model by navigating to AdtLink Content/AdtLink/ModelBP/REC/Space and selecting “BP_Space.” Then click “Convert to JSON”, which should populate the text box with the converted JSON data contained in the Blueprint. Press “Upload to ADT” to send it to the ADT instance. Watch the Log to make sure there aren’t any errors.
 
 ![Utility_UploadToADT](../media/adt-link-plugin-ue/Utility_UploadToADT.png "Utility_UploadToADT")
 
 Assuming the first model works, proceed to convert and upload the other models in this exact order:
 
-From /AdtLink/ModelBP/**REC:**
+From /AdtLink/ModelBP/**REC**/...:
 
 1. BP_Space (_done)_
 2. BP_Capability
 3. BP_Sensor
 
-From /AdtLink/WspOfficeDemo/Blueprint/**RECExtended:**
+From /AdtLink/WspOfficeDemo/Blueprint/**RECExtended**/...:
 
 4. BP_WspHvacSensor
 5. BP_WspLightingSensor
