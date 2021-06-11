@@ -1,26 +1,36 @@
-# Epic Unreal Engine and Azure Digital Twins integration demo
+# Unreal Engine and Azure Digital Twins integration demo
 
 TODO:  hyperlinks, etc
 
-The purpose of this sample is to demonstrate how to integrate [Azure Digital Twins (ADT)] with the [Epic Unreal Engine] via the [Unreal ADT Plug-in]. This sample shows you the "backstage" of the downloadable and playable demo hosted [here]. If you just want to see a playable sample of the integration, feel free to walk through that demo. If you want to know how it works, read on.
+ The ADT Link plugin and this sample content was developed by WSP in collaboration with Microsoft and Epic Games in order to demonstrate how to integrate [Azure Digital Twins (ADT)](https://docs.microsoft.com/en-us/azure/digital-twins/overview) with the [Unreal Engine](https://www.unrealengine.com/). This sample shows you the "backstage" of the downloadable and playable demo hosted [here]. If you just want to see a playable sample of the integration, feel free to walk through that demo. If you want to know how it works and recreate it, read on.
 
-In this sample, you will walk through the process of:
+In this sample, you will:
 
-* importing a building model into the Unreal Engine,
-* use the Unreal ADT plug-in to model sensors of various types in the building
+* establish a building model in Unreal Engine,
+* use the ADT Link plugin to model sensors of various types in the building
 * push those sensors and their hierarchy in the building to an ADT model and twin graph
 * hook up simulated versions of those sensors to the Azure IoT Hub and use that data to update the twins with the latest readings
 * tour the building virtually and see the sensor data changing in real time
 
-A high level architecture of the sample is shown below
+A high level architecture of the sample is shown below.
 
 ![high level architecture](media/solution-architecture.jpg)
+
+## Important Limitations
+
+The ADT Link plugin and the example content used here are under active development, and access is granted with the understanding that this is a Beta software.
+
+### What It Does
+
+This documentation will get you set up with an example scene of a WSP office building digital twin, with pre-determined sensors and settings.
+
+### What It Does Not Do
+
+This documentation will not show you how to configure bespoke sensors and settings for your own digital twin. The backbone is there, but this workflow is not polished yet. If attempting this, support may be limited.
 
 ## Prerequsites
 
 To start the process of deploying the demo, you must first work through a few pre-requisites.
-
-### Unreal prerequisites
 
 ### Azure Resources and simulated IoT devices
 
@@ -29,10 +39,6 @@ To start the process of deploying the demo, you must first work through a few pr
 * [NodeJS](https://nodejs.org/en/download/) - you need NodeJS on your local development machine to run the IoT device simulator we will use
 
 With the pre-requisites installed, you are ready to begin work on the demo
-
-## Unreal stuff goes here
-
-TODO:  
 
 ## Deploy Azure Infrastructure
 
@@ -47,14 +53,15 @@ At a high level, the key Azure components are:
 
 To deploy the backend Azure services involved, follow the instructions [here](docs/deploy-azure-resources.md). Note that there are a number of pieces of information you need to save from this process for later use.
 
-## Configure Unreal connections to Azure
+## Configure Unreal Connections to Azure
 
-TODO:  
+Following [these instructions](docs/adt-link-plugin-ue.md) will get you set up with the ADT Link plugin for Unreal Engine and walks you through steps required for establishing a connection to ADT and creating virtual sensors in the example scene.
 
 ## Simulate Devices
 
 The next step is to simulate device data from our building IoT sensors. To set up the simulated devices, follow the instructions [here](docs/simulate-iot-devices.md)
 
-> NOTE:  the instructions referenced above describe an interactive simulation of devices run from your desktop, which we recommend running first. However, if you want or need to have the device simulation running all the time, follow the alternate instructions [here](/devices/kubernetes/dev-sim-aks.md) to run the mock-devices in a docker container in [Azure Kubernetes Service]
+> NOTE:  the instructions referenced above describe an interactive simulation of devices run from your desktop, which we recommend running first. However, if you want or need to have the device simulation running all the time, follow the alternate instructions [here](/devices/kubernetes/dev-sim-aks.md) to run the mock-devices in a docker container in [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/)
 
 ## View results in the Unreal Engine
+After following the three guides above, you should end up with a playable office scene that visualizes live data coming from your own Azure Digital Twin.
