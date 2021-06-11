@@ -36,7 +36,7 @@ To showcase the general workflow and capabilities, this Unreal Engine plugin con
 
 ![Datasmith_Plugin](../media/adt-link-plugin-ue/Datasmith_Plugin.PNG "Datasmith_Plugin")
 
-![LidarPlugin](../media/adt-link-plugin-ue/LidarPlugin.PNG "LidarPlugin")
+![LidarPlugin](../media/adt-link-plugin-ue/LidarPlugin.png "LidarPlugin")
 
 We provide a sample level in the plugin content that already has a Datasmith scene that correlates with the sensors being set up in this guide. To access it, you need to make sure you have Show Plugin Content enabled in your Content Browser. If the AdtLink plugin is enabled, you should see a “AdtLink Content” folder in your list of sources. If you don’t see this list, click on the Sources icon next to Filters.
 
