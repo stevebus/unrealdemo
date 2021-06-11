@@ -26,7 +26,7 @@ To showcase the general workflow and capabilities, this Unreal Engine plugin con
 
  To use the ADT Link plugin, you'll need to create a new Unreal Engine project or use an existing one (4.26). We recommend starting a project from the "Architecure, Engineering, and Construction" category. Make sure your project is closed before proceeding. You need to add the ADT Link plugin to your chosen project by copying the "AdtLink" folder you unzipped and placing it into the "Plugins" folder of your Unreal Engine project. If no Plugins folder exists, create one.
 
-![PluginFolder](../media/adt-link-plugin-ue/PluginFolder.PNG "PluginFolder")
+![PluginFolder](../media/adt-link-plugin-ue/PluginFolder.png "PluginFolder")
 
  Open your project, and when it's open, enable the ADT Link plugin by going to Edit > Plugins and searching for it. Also verify that the Datasmith plugin is enabled. This may require a restart for your project.
 
@@ -42,8 +42,8 @@ We provide a sample level in the plugin content that already has a Datasmith sce
 
 It's called "StartupLevel" and is located in AdtLink Content/WspOfficeDemo/Level. Double-click to open it.
 
-![StartupLevel](../media/adt-link-plugin-ue/StartupLevel.PNG "StartupLevel")
-![StartupLevel_View](../media/adt-link-plugin-ue/StartupLevel_View.PNG "StartupLevel_View")
+![StartupLevel](../media/adt-link-plugin-ue/StartupLevel.png "StartupLevel")
+![StartupLevel_View](../media/adt-link-plugin-ue/StartupLevel_View.png "StartupLevel_View")
 
 ### Connecting to Azure Digital Twin
 
