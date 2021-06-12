@@ -28,7 +28,7 @@ This documentation will get you set up with an example scene of a WSP office bui
 
 This documentation will not show you how to configure bespoke sensors and settings for your own digital twin. The backbone is there, but this workflow is not polished yet. If attempting this, support may be limited.
 
-## Prerequsites
+## Prerequisites
 
 To start the process of deploying the demo, you must first work through a few pre-requisites.
 
@@ -64,4 +64,5 @@ The next step is to simulate device data from our building IoT sensors. To set u
 > NOTE:  the instructions referenced above describe an interactive simulation of devices run from your desktop, which we recommend running first. However, if you want or need to have the device simulation running all the time, follow the alternate instructions [here](/devices/kubernetes/dev-sim-aks.md) to run the mock-devices in a docker container in [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/)
 
 ## View results in the Unreal Engine
+
 After following the three guides above, you should end up with a playable office scene that visualizes live data coming from your own Azure Digital Twin.

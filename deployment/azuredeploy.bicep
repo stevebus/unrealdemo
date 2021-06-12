@@ -16,7 +16,7 @@ var adtName = '${baseName}adt${unique}'
 var signalrName = '${baseName}signalr${unique}'
 var serverFarmName = '${baseName}farm${unique}'
 var storageName = '${baseName}store${unique}'
-var eventGridName = '${baseName}eg${unique}'
+//var eventGridName = '${baseName}eg${unique}'
 var funcAppName = '${baseName}funcapp${unique}'
 var eventGridIngestName =  '${baseName}egingest${unique}'
 var ingestFuncName = 'IoTHubIngest'
@@ -372,7 +372,7 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
 
 output importantInfo object = {
   iotHubName: iotHubName
-  signalRNegotiatePath: 'https://${funcApp.name}.azurewebsites.net/api/negotiate'
-  adtHostName: '${adt.properties.hostName}'
+  signalRNegotiatePath: '${funcApp.name}.azurewebsites.net/api/'
+  adtHostName: replace('${adt.properties.hostName}','https://','')  //remove https:// from the front
 }
 
