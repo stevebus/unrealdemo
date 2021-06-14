@@ -188,7 +188,7 @@ resource funcApp 'Microsoft.Web/sites@2019-08-01' = {
 resource ingestFunction 'Microsoft.Web/sites/extensions@2020-12-01' = {
   name: '${funcApp.name}/MSDeploy'
   properties: {
-  packageUri: '${funcPackageURI}'
+  packageUri: funcPackageURI
   }
   dependsOn: [
     funcApp
@@ -264,7 +264,7 @@ resource eventGridADTChangeLogTopic 'Microsoft.EventGrid/topics@2020-10-15-previ
 
 // EventGrid subscription for ADT twin changes (invokes function to post to signalr)
 resource eventGrid_Signalr 'Microsoft.EventGrid/eventSubscriptions@2020-06-01' = {
-  name: '${signalrFuncName}'
+  name: signalrFuncName
   scope: eventGridADTChangeLogTopic
   properties: {
     destination: {
@@ -356,7 +356,7 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
     forceUpdateTag: utcValue
     azCliVersion: '2.15.0'
     arguments: '${adt.name} ${resourceGroup().name} ${adtChangeLogTopicName}'
-    primaryScriptUri: '${postDeployScriptURI}'
+    primaryScriptUri: postDeployScriptURI
     supportingScriptUris: []
     timeout: 'PT30M'
     cleanupPreference: 'OnExpiration'
