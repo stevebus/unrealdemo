@@ -12,6 +12,12 @@ If this is the first time you've deployed an Azure Digital Twins(ADT)-based solu
 az provider register --namespace 'Microsoft.DigitalTwins'
 ```
 
+You also may need to install the Azure IOT extension for the Azure CLI. To do so, run this command
+
+```bash
+az extension add --name azure-iot
+```
+
 Now we need to grab some files that will be used in the deployment. Run this command to download the necessary deployment files.
 
 TODO:  final URL - here any anywhere we use stuff from our github repo
