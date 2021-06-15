@@ -150,7 +150,7 @@ Later in this tutorial, you will use a device simulator to drive simulated data 
 To start the process, change directories to the /unrealdemo/devices folder and set the mock-devices-config.sh script to be executable
 
 ```bash
-cd /unrealdemo/devices
+cd ~/unrealdemo/devices
 chmod 777 ./mock-devices-config.sh
 ```
 
