@@ -18,7 +18,7 @@ TODO:  final URL - here any anywhere we use stuff from our github repo
 
 ``` bash
 git clone http://github.com/stevebus/unrealdemo
-cd unrealdemo/deployment
+cd ~/unrealdemo/deployment
 ```
 
 Create and Azure Resource Group to contain all the Azure resources we will need for this solution. This will keep all the deployed Azure resources together and will allow you to clean them all up when you are done with the demo by simply deleting the resource group.
@@ -42,7 +42,7 @@ projectname=<project name>
 location=<location>
 ```
 
-where \<project name> is a short name (5-10 characters and MUST be all lowercase) that describes your project and \<location> is the 'short name" of your chosen location (for example 'eastus2').  We will use the \<project name> as the prefix for the name we use for all of the Azure resources we will create.  
+where \<project name> is a short name (5-10 characters and MUST be all lowercase, no special characters) that describes your project and \<location> is the 'short name" of your chosen location (for example 'eastus2').  We will use the \<project name> as the prefix for the name we use for all of the Azure resources we will create.  
 
 > NOTE:  the variables that we are setting as we progress through the instructions from here on are only valid for the lifetime of the cloud shell session. If you close your cloud shell before completing the deployment, you will need to restart from the top
 
