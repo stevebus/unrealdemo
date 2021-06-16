@@ -3,11 +3,6 @@
 
 This guide walks you through the installation and setup of the ADT Link plugin for Unreal Engine. By the end of this document you will have a sample scene of the WSP office building connected to an Azure Digital Twins instance. Virtual sensors will exist in both environments and will stay in sync once the sensor data is activated in a later stage.
 
-## Prerequisites
-
-1. This process assumes you already set up your ADT infrastructure following [this guide](https://github.com/stevebus/unrealdemo).
-2. This plugin and its sample content are designed for UE 4.26.
-
 ## Installing the Plugin
 
 This GitHub repository hosts the files and documentation required to deploy an Azure Digital Twins solution, but the Unreal Engine plugin is hosted externally. You will first need to [download the zip file](https://epicgames.box.com/s/x1nx6o45tsghoh3shj9zg4jjg5wzq2gk) and unzip it somewhere convenient.
