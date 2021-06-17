@@ -5,7 +5,7 @@ This guide walks you through the installation and setup of the ADT Link plugin f
 
 ## Installing the Plugin
 
-This GitHub repository hosts the files and documentation required to deploy an Azure Digital Twins solution, but the Unreal Engine plugin is hosted externally. You will first need to [download the zip file](https://epicgames.box.com/s/x1nx6o45tsghoh3shj9zg4jjg5wzq2gk) and unzip it somewhere convenient.
+This GitHub repository hosts the files and documentation required to deploy an Azure Digital Twins solution, but the Unreal Engine plugin is hosted externally. You will first need to [download the zip file] titled "AdtLink_plugin" (https://epicgames.box.com/s/x1nx6o45tsghoh3shj9zg4jjg5wzq2gk) and unzip it somewhere convenient.
 
 ## What's Included
 
