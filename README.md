@@ -36,6 +36,10 @@ To start the process of deploying the demo, you must first work through a few pr
 * [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/quickstart) -- just create the bash cloud shell, stop before you create the resource group
 * [NodeJS](https://nodejs.org/en/download/) - you need NodeJS on your local development machine to run the IoT device simulator we will use
 
+### Unreal Engine Prerequisites
+
+* The ADT Link plugin and its sample content are designed for UE 4.26.
+
 With the pre-requisites installed, you are ready to begin work on the demo
 
 ## Deploy Azure Infrastructure
