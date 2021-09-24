@@ -1,9 +1,9 @@
-name: Build and publish .NET Core Web App zip package
+name: Build and publish .NET Core Function App zip package
 on:
   push:
     paths:
-    - 'webapp-code/**'
-    - '!webapp-code/TsiWebApp/deploy.zip'
+    - 'function-code/UnrealIoTIngest/**'
+    - '!function-code/UnrealIoTIngest/deploy.zip'
   workflow_dispatch:
     inputs:
       comment:
@@ -11,8 +11,8 @@ on:
         required: false
 env:
   DOTNET_CORE_VERSION: 3.1.x
-  WORKING_DIRECTORY: webapp-code/TsiWebApp
-  PUBLISH_DIRECTORY: webapp-code/TsiWebApp/bin/Publish
+  WORKING_DIRECTORY: function-code/UnrealIoTIngest
+  PUBLISH_DIRECTORY: function-code/UnrealIoTIngest/bin/Publish
   FLOW_EMAIL: no-reply@microsoft.com
   FLOW_NAME: "github-actions"
 jobs:
