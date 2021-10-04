@@ -3,7 +3,7 @@ on:
   push:
     paths:
     - 'webapp-code/**'
-    - '!webapp-code/TsiWebApp/deploy.zip'
+    - '!webapp-code/TsiWebApp/webapp-deploy.zip'
   workflow_dispatch:
     inputs:
       comment:
@@ -37,11 +37,11 @@ jobs:
       run: dotnet publish /p:CreatePackageOnPublish=true -o ${{ env.PUBLISH_DIRECTORY }} ${{ env.WORKING_DIRECTORY }}
     - name: Package
       shell: pwsh
-      run: Compress-Archive -Path ${{ env.PUBLISH_DIRECTORY }}/*  -DestinationPath ${{ env.WORKING_DIRECTORY }}/deploy.zip -Update
+      run: Compress-Archive -Path ${{ env.PUBLISH_DIRECTORY }}/*  -DestinationPath ${{ env.WORKING_DIRECTORY }}/webapp-deploy.zip -Update
     - name: Check for changes
       run: git status
     - name: Stage changed files
-      run: git add ${{ env.WORKING_DIRECTORY }}/deploy.zip
+      run: git add ${{ env.WORKING_DIRECTORY }}/webapp-deploy.zip
     - name: Commit changes
       run: |
         git config --local user.email ${{ env.FLOW_EMAIL }}
