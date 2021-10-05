@@ -1,0 +1,3 @@
+deployment/azuredeploy.parameters.json
+deployment/azuredeploy.original.bicep
+deployment/azuredeploy.ps1
