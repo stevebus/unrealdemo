@@ -3,7 +3,7 @@ param userId string
 param appRegId string
 @secure()
 param appRegPassword string
-param tenantId string
+param tenantId string = subscription().tenantId
 param utcValue string = utcNow()
 param repoOrgName string = 'stevebus'
 param repoName string = 'unrealdemo'
@@ -653,6 +653,9 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
 }
 
 output importantInfo object = {
+  appId: appRegId
+  password: appRegPassword
+  tenant: tenantId
   iotHubName: iotHubName
   signalRNegotiatePath: '${funcApp.name}.azurewebsites.net/api/'
   adtHostName: replace('${adt.properties.hostName}', 'https://', '') //remove https:// from the 
