@@ -8,10 +8,10 @@ param utcValue string = utcNow()
 param repoOrgName string = 'stevebus'
 param repoName string = 'unrealdemo'
 param repoBranchName string = 'main'
+param unique string = substring(uniqueString(resourceGroup().id), 0, 2)
 
 var location = resourceGroup().location
 
-var unique = substring(uniqueString(resourceGroup().id), 0, 2)
 //var unique = ''
 
 // storage accounts (and maybe others) must be lower case, so we ToLower the name the user passed in
