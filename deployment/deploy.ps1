@@ -257,7 +257,7 @@ function New-IoTMockDevices {
                 Write-Host
                 Write-Host "Creating mock device '$($mock_devices.devices[$i].configuration.deviceId)' in IoT hub"
                 $device = az iot hub device-identity create `
-                    -g $resource_group_name `
+                    -g $resource_group `
                     -n $iot_hub_name `
                     -d $mock_devices.devices[$i].configuration.deviceId
 
@@ -267,7 +267,7 @@ function New-IoTMockDevices {
                 Write-Host
                 Write-Host "Retrieving symmetric key for device '$($mock_devices.devices[$i].configuration.deviceId)' from IoT hub"
                 $device_conn_string = az iot hub device-identity connection-string show `
-                    -g $resource_group_name `
+                    -g $resource_group `
                     -n $iot_hub_name `
                     -d $device.deviceId `
                     --query connectionString -o tsv
