@@ -1,6 +1,6 @@
 $root_path = Split-Path $PSScriptRoot -Parent
-# Import-Module "$root_path\deployment\PS-Library" #-Global
 
+#region functions
 function New-Password {
     param(
         [int] $length = 15
@@ -281,6 +281,7 @@ function New-IoTMockDevices {
     Write-Host "Writing mock devices' configuration"
     Set-Content -Path $output_file -Value (ConvertTo-Json $mock_devices -Depth 10)
 }
+#endregion
 
 function New-Deployment() {
 
@@ -290,7 +291,7 @@ function New-Deployment() {
     Write-Host "################################################"
     Write-Host "####                                        ####"
     Write-Host "#### Unreal Engine and Azure Digital Twins  ####"
-    Write-Host "####             integration demo           ####"
+    Write-Host "####           integration demo             ####"
     Write-Host "####                                        ####"
     Write-Host "################################################"
     Write-Host "################################################"
@@ -339,7 +340,7 @@ function New-Deployment() {
 
     Write-Host
     if ($script:create_resource_group) {
-        Write-Host "Resource group '$script:resource_group_name' does not exist. Creating now."
+        Write-Host "Creating resource group '$script:resource_group_name'..."
         $null = az group create -n $script:resource_group_name --location $script:location
     }
     else {
@@ -422,6 +423,11 @@ function New-Deployment() {
         -n $deployment_id `
         --query properties.outputs.importantInfo.value
     
+    $webAppHostname = az deployment group show `
+        -g $script:resource_group_name `
+        -n $deployment_id `
+        --query properties.outputs.webAppUrl.value `
+        -o tsv
     Write-Host
     Write-Host "Azure deployment completed."
     #endregion
@@ -449,6 +455,7 @@ function New-Deployment() {
     Write-Host
     Write-Host -ForegroundColor Yellow "Unreal config file path: $((Get-ChildItem -Path $unreal_file).FullName)"
     Write-Host -ForegroundColor Yellow "Mock devices config file: $((Get-ChildItem -Path $devices_file).FullName)"
+    Write-Host -ForegroundColor Yellow "Web App Hostname URL: https://$webAppHostname"
 
     Write-Host
     Write-Host -ForegroundColor Green "##############################################"

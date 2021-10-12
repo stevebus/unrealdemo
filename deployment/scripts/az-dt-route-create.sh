@@ -1,4 +1,3 @@
-
 adtname=$1
 rgname=$2
 epname=$3

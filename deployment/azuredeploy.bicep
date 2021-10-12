@@ -37,6 +37,8 @@ var ehTsiName = '${baseName}ehtsi'
 var ehTsiAuthRule = 'tsiauthrule'
 var adtEhEndpoint = 'twinendpoint'
 var adtEhRoute = 'twinroute'
+var adtEgEndpoint = 'changelogendpoint'
+var adtEgRoute = 'changelogroute'
 var tsiName = '${baseName}tsi${unique}'
 var tsiStorageName = '${baseName}tsistr${unique}'
 var tsiSkuName = 'L1'
@@ -48,10 +50,10 @@ var tsiEventSourceName = ehTsiName
 // Update later when repo becomes public
 // var funcPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/function-code/UnrealIoTIngest/funcapp-deploy.zip'
 // var webAppPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/webapp-code/TsiWebApp/webapp-deploy.zip'
-// var postDeployScriptUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/deployment/scripts/post-deploy.sh'
+// var 'azDtCreateScriptUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/deployment/scripts/az-dt-route-create.sh'
 var funcPackageUri = 'https://github.com/marvin-garcia/stuff/raw/main/funcapp-deploy.zip'
 var webAppPackageUri = 'https://github.com/marvin-garcia/stuff/raw/main/webapp-deploy.zip'
-var postDeployScriptUri = 'https://github.com/marvin-garcia/stuff/raw/main/post-deploy.sh'
+var azDtCreateScriptUri = 'https://github.com/marvin-garcia/stuff/raw/main/az-dt-route-create.sh'
 
 var identityName = '${baseName}-scriptidentity'
 var rgRoleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')
@@ -184,7 +186,7 @@ resource iot 'microsoft.devices/iotHubs@2020-03-01' = {
     }
   }
   dependsOn: [
-    ingestFunction //hackhack - make as much as possible 'dependon' the azure function app to deal w/ some timing issues
+    funcAppDeploy //hackhack - make as much as possible 'dependon' the azure function app to deal w/ some timing issues
   ]
 }
 
@@ -211,7 +213,7 @@ resource adt 'Microsoft.DigitalTwins/digitalTwinsInstances@2020-12-01' = {
     identity
     twinsEventHub
   ]
-  // ADT event hub endpoint
+  // event hub endpoint
   resource adtEventHubEndpoint 'endpoints@2020-12-01' = {
     name: adtEhEndpoint
     properties: {
@@ -219,6 +221,17 @@ resource adt 'Microsoft.DigitalTwins/digitalTwinsInstances@2020-12-01' = {
       endpointType: 'EventHub'
       connectionStringPrimaryKey: '${listKeys(ehTwinsAuthRule, '2021-01-01-preview').primaryConnectionString}'
       connectionStringSecondaryKey: '${listKeys(ehTwinsAuthRule, '2021-01-01-preview').secondaryConnectionString}'
+    }
+  }
+  // event grid endpoint
+  resource adtEventGridEndpoint 'endpoints@2020-12-01' = {
+    name: adtEgEndpoint
+    properties: {
+      endpointType: 'EventGrid'
+      authenticationType: 'KeyBased'
+      TopicEndpoint: eventGridADTChangeLogTopic.properties.endpoint
+      accessKey1: '${listKeys(adtChangeLogTopicName, '2020-10-15-preview').key1}'
+      accessKey2:'${listKeys(adtChangeLogTopicName, '2020-10-15-preview').key2}'
     }
   }
 }
@@ -336,19 +349,17 @@ resource funcApp 'Microsoft.Web/sites@2021-01-15' = {
     clientAffinityEnabled: false
   }
   dependsOn: [
-    storage
-    identity
     adt
+    storage
     signalr
-    appserver
+    identity
     tsiEventHub
     twinsEventHub
   ]
 }
 
 // deploy the code for the two azure functionss (iot hub ingest and signalr)
-//resource ingestFunction 'Microsoft.Web/sites/extensions@2015-08-01' = {
-resource ingestFunction 'Microsoft.Web/sites/extensions@2020-12-01' = {
+resource funcAppDeploy 'Microsoft.Web/sites/extensions@2020-12-01' = {
   name: '${funcApp.name}/MSDeploy'
   properties: {
   packageUri: funcPackageUri
@@ -368,12 +379,12 @@ resource eventGridIngestTopic 'Microsoft.EventGrid/systemTopics@2020-04-01-previ
   }
   dependsOn: [
     iot
-    ingestFunction
+    funcAppDeploy
   ]
 }
 
 // event grid subscription for iot hub telemetry data (posts to iot hub ingestion function)
-resource eventGrid_IoTHubIngest 'Microsoft.EventGrid/systemTopics/eventSubscriptions@2020-04-01-preview' = {
+resource eventGridIoTHubIngest 'Microsoft.EventGrid/systemTopics/eventSubscriptions@2020-04-01-preview' = {
   name: '${eventGridIngestTopic.name}/${ingestFuncName}'
   properties: {
     destination: {
@@ -392,9 +403,9 @@ resource eventGrid_IoTHubIngest 'Microsoft.EventGrid/systemTopics/eventSubscript
     }
   }
   dependsOn: [
-    eventGridIngestTopic
     iot
-    ingestFunction
+    funcAppDeploy
+    eventGridIngestTopic
   ]
 }
 
@@ -414,9 +425,9 @@ resource eventGridADTChangeLogTopic 'Microsoft.EventGrid/topics@2020-10-15-previ
     publicNetworkAccess: 'Enabled'
   }
   dependsOn: [
-    ingestFunction
+    funcAppDeploy
     iot //hackhack - make this run as late as possible because of a tricky timing issue w/ the /broadcast function
-    eventGrid_IoTHubIngest
+    eventGridIoTHubIngest
     rgroledef
     adtroledef
     adtroledefapp
@@ -426,7 +437,7 @@ resource eventGridADTChangeLogTopic 'Microsoft.EventGrid/topics@2020-10-15-previ
 }
 
 // EventGrid subscription for ADT twin changes (invokes function to post to signalr)
-resource eventGrid_Signalr 'Microsoft.EventGrid/eventSubscriptions@2020-06-01' = {
+resource eventGridSignalr 'Microsoft.EventGrid/eventSubscriptions@2020-06-01' = {
   name: signalrFuncName
   scope: eventGridADTChangeLogTopic
   properties: {
@@ -440,6 +451,7 @@ resource eventGrid_Signalr 'Microsoft.EventGrid/eventSubscriptions@2020-06-01' =
     }
   }
   dependsOn: [
+    funcAppDeploy
     eventGridADTChangeLogTopic
   ]
 }
@@ -651,9 +663,9 @@ resource webAppDeploy 'Microsoft.Web/sites/extensions@2020-12-01' = {
   ]
 }
   
-// execute post deployment script
-resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
-  name: 'PostDeploymentscript'
+// post deployment script: ADT event hub route
+resource adtEventHubRoute 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+  name: 'adtEventHubRoute'
   location: location
   kind: 'AzureCLI'
   identity: {
@@ -666,7 +678,36 @@ resource PostDeploymentscript 'Microsoft.Resources/deploymentScripts@2020-10-01'
     forceUpdateTag: utcValue
     azCliVersion: '2.15.0'
     arguments: '${adt.name} ${resourceGroup().name} ${adtEhEndpoint} ${adtEhRoute}'
-    primaryScriptUri: postDeployScriptUri
+    primaryScriptUri: azDtCreateScriptUri
+    supportingScriptUris: []
+    timeout: 'PT30M'
+    cleanupPreference: 'OnExpiration'
+    retentionInterval: 'P1D'
+  }
+  dependsOn: [
+    iot
+    adt
+    rgroledef
+    eventGridADTChangeLogTopic
+  ]
+}
+
+// post deployment script: ADT event grid route
+resource azDtEventGridRoute 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+  name: 'azDtEventGridRoute'
+  location: location
+  kind: 'AzureCLI'
+  identity: {
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${identity.id}': {}
+    }
+  }
+  properties: {
+    forceUpdateTag: utcValue
+    azCliVersion: '2.15.0'
+    arguments: '${adt.name} ${resourceGroup().name} ${adtEgEndpoint} ${adtEgRoute}'
+    primaryScriptUri: azDtCreateScriptUri
     supportingScriptUris: []
     timeout: 'PT30M'
     cleanupPreference: 'OnExpiration'
@@ -689,3 +730,5 @@ output importantInfo object = {
   adtHostName: replace('${adt.properties.hostName}', 'https://', '') //remove https:// from the 
   tsiEnvFqdn: 'https://insights.timeseries.azure.com/?environmentId=${tsiEnvironment.properties.dataAccessId}'
 }
+
+output webAppUrl string = webApp.properties.hostNames[0]
