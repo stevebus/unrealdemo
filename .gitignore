@@ -1,4 +1,5 @@
 deployment/azuredeploy.parameters.json
+deployment/unreal-plugin-config.json
 deployment/manifest.json
-manifest.json
 devices/mock-devices.json
+manifest.json

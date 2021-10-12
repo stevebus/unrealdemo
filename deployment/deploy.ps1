@@ -1,7 +1,286 @@
 $root_path = Split-Path $PSScriptRoot -Parent
-Import-Module "$root_path\deployment\PS-Library" -Global
+# Import-Module "$root_path\deployment\PS-Library" #-Global
 
+function New-Password {
+    param(
+        [int] $length = 15
+    )
 
+    $punc = 46..46
+    $digits = 48..57
+    $lcLetters = 65..90
+    $ucLetters = 97..122
+    $password = `
+        [char](Get-Random -Count 1 -InputObject ($lcLetters)) + `
+        [char](Get-Random -Count 1 -InputObject ($ucLetters)) + `
+        [char](Get-Random -Count 1 -InputObject ($digits)) + `
+        [char](Get-Random -Count 1 -InputObject ($punc))
+    $password += get-random -Count ($length - 4) `
+        -InputObject ($punc + $digits + $lcLetters + $ucLetters) |`
+        ForEach-Object -begin { $aa = $null } -process { $aa += [char] $_ } -end { $aa }
+
+    return $password
+}
+function Get-EnvironmentHash {
+    param(
+        [int] $hash_length = 8
+    )
+    $env_hash = (New-Guid).Guid.Replace('-', '').Substring(0, $hash_length).ToLower()
+
+    return $env_hash
+}
+
+function Get-ResourceProviderLocations {
+    param(
+        [string] $provider,
+        [string] $typeName
+    )
+
+    $providers = $(az provider show --namespace $provider | ConvertFrom-Json)
+    $resourceType = $providers.ResourceTypes | Where-Object { $_.ResourceType -eq $typeName } | Sort-Object -Property locations
+
+    return $resourceType.locations
+}
+
+function Set-EnvironmentHash {
+    param(
+        [int] $hash_length = 4
+    )
+    $script:env_hash = Get-EnvironmentHash -hash_length $hash_length
+}
+
+function Read-CliVersion {
+    param (
+        [version]$min_version = "2.21"
+    )
+
+    $az_version = az version | ConvertFrom-Json
+    [version]$cli_version = $az_version.'azure-cli'
+
+    Write-Host
+    Write-Host "Verifying your Azure CLI installation version..."
+    Start-Sleep -Milliseconds 500
+
+    if ($min_version -gt $cli_version) {
+        Write-Host
+        Write-Host "You are currently using the Azure CLI version $($cli_version) and this wizard requires version $($min_version) or later. You can update your CLI installation with 'az upgrade' and come back at a later time."
+
+        return $false
+    }
+    else {
+        Write-Host
+        Write-Host "Great! You are using a supported Azure CLI version."
+
+        return $true
+    }
+}
+
+function Read-CliExtensionVersion {
+    param(
+        [string]$name,
+        [version]$min_version,
+        [bool]$auto_update = $true
+    )
+
+    $az_version = az version | ConvertFrom-Json -Depth 5
+    [version]$extension_version = $az_version.extensions.$name
+
+    Write-Host
+    Write-Host "Verifying '$name' extension version..."
+    Start-Sleep -Milliseconds 500
+
+    if ($min_version -gt $extension_version) {
+        
+        Write-Host
+        Write-Host "You are currently using the version $($extension_version) of the extension '$($name)' and this wizard requires version $($min_version) or later."
+
+        if ($auto_update) {
+            $update = Get-InputSelection `
+                -text "Do you want to update it now?" `
+                -options @("Yes", "No") `
+                -default_index 1
+            
+            if ($update -eq 1) {
+                az extension update -n $name
+    
+                return $true
+            }
+            else {
+                Write-Host
+                Write-Host "You can find more details to manage extensions with Azure CLI here. https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview"
+    
+                return $false
+            }
+        }
+        else {
+            Write-Host
+            Write-Host "You can find more details to manage extensions with Azure CLI here. https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview"
+
+            return $false
+        }
+    }
+    elseif (!$extension_version) {
+        Write-Host
+        Write-Host "Adding '$name' CLI extension"
+        az extension add --name $name
+    }
+    else {
+        Write-Host
+        Write-Host "Great! You are using a supported version of the extension $name."
+
+        return $true
+    }
+}
+
+function Set-AzureAccount {
+    param()
+
+    Write-Host
+    Write-Host "Retrieving your current Azure subscription..."
+    Start-Sleep -Milliseconds 500
+
+    $account = az account show | ConvertFrom-Json
+
+    $option = Get-InputSelection `
+        -options @("Yes", "No. I want to use a different subscription") `
+        -text "You are currently using the Azure subscription '$($account.name)'. Do you want to keep using it?" `
+        -default_index 1
+    
+    if ($option -eq 2) {
+        $accounts = az account list | ConvertFrom-Json | Sort-Object -Property name
+
+        $account_list = $accounts | Select-Object -Property @{ label="displayName"; expression={ "$($_.name): $($_.id)" } }
+        $option = Get-InputSelection `
+            -options $account_list.displayName `
+            -text "Choose a subscription to use from this list (using its Index):" `
+            -separator "`r`n`r`n"
+
+        $account = $accounts[$option - 1]
+
+        Write-Host "Switching to Azure subscription '$($account.name)' with id '$($account.id)'."
+        az account set -s $account.id
+    }
+}
+function Set-ProjectName {
+    param()
+
+    $script:project_name = $null
+    $script:resource_group_name = $null
+    $script:create_resource_group = $false
+    $first = $true
+
+    while ([string]::IsNullOrEmpty($script:project_name) -or ($script:project_name -notmatch "^[a-z0-9]{5,10}$")) {
+        if ($first -eq $false) {
+            Write-Host "Use alphanumeric characters only"
+        }
+        else {
+            Write-Host
+            Write-Host "Provide a name that describes your project. This will be used to create the resource group and the deployment resources."
+            $first = $false
+        }
+        $script:project_name = Read-Host -Prompt ">"
+
+        $script:resource_group_name = "$($script:project_name)-rg"
+        $resourceGroup = az group list | ConvertFrom-Json | Where-Object { $_.name -eq $script:resource_group_name }
+        if (!$resourceGroup) {
+            $script:create_resource_group = $true
+        }
+        else {
+            $script:create_resource_group = $false
+        }
+    }
+}
+
+function Get-InputSelection {
+    param(
+        [array] $options,
+        $text,
+        $separator = "`r`n",
+        $default_index = $null
+    )
+
+    Write-Host
+    Write-Host $text -Separator "`r`n`r`n"
+    $indexed_options = @()
+    for ($index = 0; $index -lt $options.Count; $index++) {
+        $indexed_options += ("$($index + 1): $($options[$index])")
+    }
+
+    Write-Host $indexed_options -Separator $separator
+
+    if (!$default_index) {
+        $prompt = ">"
+    }
+    else {
+        $prompt = "> $default_index"
+    }
+
+    while ($true) {
+        $option = Read-Host -Prompt $prompt
+        try {
+            if (!!$default_index -and !$option)  {
+                $option = $default_index
+                break
+            }
+            elseif ([int] $option -ge 1 -and [int] $option -le $options.Count) {
+                break
+            }
+        }
+        catch {
+            Write-Host "Invalid index '$($option)' provided."
+        }
+
+        Write-Host
+        Write-Host "Choose from the list using an index between 1 and $($options.Count)."
+    }
+
+    return $option
+}
+
+function New-IoTMockDevices {
+    param (
+        [string]$resource_group,
+        [string]$hub_name,
+        [string]$template_file,
+        [string]$output_file
+    )
+
+    $iot_hub = az iot hub show -g $resource_group -n $hub_name | ConvertFrom-Json
+    $iot_hub_devices = az iot hub device-identity list -g $resource_group -n $hub_name |ConvertFrom-Json
+
+    $mock_devices = Get-Content -Path $template_file | ConvertFrom-Json -Depth 10
+    for ($i = 0; $i -lt $mock_devices.devices.Count; $i++) {
+        if ($mock_devices.devices[$i].configuration._kind -eq "hub") {
+            $device = $iot_hub_devices | Where-Object { $_.deviceId -eq $mock_devices.devices[$i].configuration.deviceId }
+
+            if (!$device) {
+                Write-Host
+                Write-Host "Creating mock device '$($mock_devices.devices[$i].configuration.deviceId)' in IoT hub"
+                $device = az iot hub device-identity create `
+                    -g $resource_group_name `
+                    -n $iot_hub_name `
+                    -d $mock_devices.devices[$i].configuration.deviceId
+
+                $device_conn_string = "HostName=$($iot_hub.properties.hostName);DeviceId=$($device.deviceId);SharedAccessKey=$($device.authentication.symmetricKey.primaryKey)"
+            }
+            else {
+                Write-Host
+                Write-Host "Retrieving symmetric key for device '$($mock_devices.devices[$i].configuration.deviceId)' from IoT hub"
+                $device_conn_string = az iot hub device-identity connection-string show `
+                    -g $resource_group_name `
+                    -n $iot_hub_name `
+                    -d $device.deviceId `
+                    --query connectionString -o tsv
+            }
+
+            $mock_devices.devices[$i].configuration.connectionString = $device_conn_string
+        }
+    }
+
+    Write-Host
+    Write-Host "Writing mock devices' configuration"
+    Set-Content -Path $output_file -Value (ConvertTo-Json $mock_devices -Depth 10)
+}
 
 function New-Deployment() {
 
@@ -126,8 +405,7 @@ function New-Deployment() {
 
     Write-Host
     Write-Host "Creating resource group deployment with id '$deployment_id'"
-    Read-Host ">"
-
+    
     $script:deployment_output = az deployment group create `
         --resource-group $script:resource_group_name `
         --name $deployment_id `
@@ -143,49 +421,44 @@ function New-Deployment() {
         -g $script:resource_group_name `
         -n $deployment_id `
         --query properties.outputs.importantInfo.value
+    
+    Write-Host
+    Write-Host "Azure deployment completed."
     #endregion
 
     #region create unreal config file
+    $unreal_file = "$($root_path)/deployment/unreal-plugin-config.json"
+
     Write-Host
     Write-Host "Creating unreal config file"
-    Set-Content -Path "$($root_path)/deployment/unreal-plugin-config.json" -Value ($important_info)
+    Set-Content -Path $unreal_file -Value ($important_info)
     #endregion
 
     #region mock devices config file
+    $devices_template = "$root_path/devices/mock-devices-template.json"
+    $devices_file = "$root_path/devices/mock-devices.json"
     $script:iot_hub_name = ($important_info | ConvertFrom-Json).iotHubName
 
-    $mock_devices = Get-Content -Path "$($root_path)/devices/mock-devices-template.json" | ConvertFrom-Json
-    $iot_hub = az iot hub show -g $script:resource_group_name -n $script:iot_hub_name | ConvertFrom-Json
-    $iot_hub_devices = az iot hub device-identity list -g $script:resource_group_name -n $script:iot_hub_name |ConvertFrom-Json
-
-    foreach ($mock_device in $mock_devices) {
-        if ($mock_device.configuration._kind -eq "hub") {
-            $device = $iot_hub_devices | Where-Object { $_.deviceId -eq $mock_device.configuration.deviceId }
-
-            if (!$device) {
-                Write-Host
-                Write-Host "Creating mock device $($mock_device.configuration.deviceId) in IoT hub"
-                $device = az iot hub device-identity create `
-                    -g $script:resource_group_name `
-                    -n $script:iot_hub_name `
-                    -d $mock_device.configuration.deviceId
-
-                $device_conn_string = "HostName=$($iot_hub.properties.hostName);DeviceId=$($device.deviceId);SharedAccessKey=$($device.authentication.symmetricKey.primaryKey)"
-            }
-            else {
-                $device_conn_string = az iot hub device-identity connection-string show `
-                    -g $script:resource_group_name `
-                    -n $script:iot_hub_name `
-                    -d $device.deviceId `
-                    --query connectionString -o tsv
-            }
-
-            $mock_device.configuration.connectionString = $device_conn_string
-        }
-    }
-
-    Set-Content -Path "$($root_path)/devices/mock-devices.json" -Value (ConvertTo-Json $mock_devices -Depth 20)
+    New-IoTMockDevices `
+        -resource_group $script:resource_group_name `
+        -hub_name $script:iot_hub_name `
+        -template_file $devices_template `
+        -output_file $devices_file
     #endregion
+
+    Write-Host
+    Write-Host -ForegroundColor Yellow "Unreal config file path: $((Get-ChildItem -Path $unreal_file).FullName)"
+    Write-Host -ForegroundColor Yellow "Mock devices config file: $((Get-ChildItem -Path $devices_file).FullName)"
+
+    Write-Host
+    Write-Host -ForegroundColor Green "##############################################"
+    Write-Host -ForegroundColor Green "##############################################"
+    Write-Host -ForegroundColor Green "####                                      ####"
+    Write-Host -ForegroundColor Green "####        Deployment Succeeded          ####"
+    Write-Host -ForegroundColor Green "####                                      ####"
+    Write-Host -ForegroundColor Green "##############################################"
+    Write-Host -ForegroundColor Green "##############################################"
+    Write-Host
 }
 
 New-Deployment
