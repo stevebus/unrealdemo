@@ -1,0 +1,9 @@
+{
+  "adtHostName": "unrealadt3adtd900.api.eus.digitaltwins.azure.net",
+  "appId": "f5b4c265-0497-4539-abb2-8af22647e65b",
+  "iotHubName": "unrealadt3hubd900",
+  "password": "tYplPrxhL64AdI2Qy_Bd.eNxMxNkoY7Gnk",
+  "signalRNegotiatePath": "unrealadt3funcappd900.azurewebsites.net/api/",
+  "tenant": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+  "tsiEnvFqdn": "https://insights.timeseries.azure.com/?environmentId=26a822e0-7486-4a4d-987d-8b70d1d13c48"
+}

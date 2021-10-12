@@ -73,6 +73,63 @@ function Read-CliVersion {
     }
 }
 
+function Read-CliExtensionVersion {
+    param(
+        [string]$name,
+        [version]$min_version,
+        [bool]$auto_update = $true
+    )
+
+    $az_version = az version | ConvertFrom-Json -Depth 5
+    [version]$extension_version = $az_version.extensions.$name
+
+    Write-Host
+    Write-Host "Verifying '$name' extension version..."
+    Start-Sleep -Milliseconds 500
+
+    if ($min_version -gt $extension_version) {
+        
+        Write-Host
+        Write-Host "You are currently using the version $($extension_version) of the extension '$($name)' and this wizard requires version $($min_version) or later."
+
+        if ($auto_update) {
+            $update = Get-InputSelection `
+                -text "Do you want to update it now?" `
+                -options @("Yes", "No") `
+                -default_index 1
+            
+            if ($update -eq 1) {
+                az extension update -n $name
+    
+                return $true
+            }
+            else {
+                Write-Host
+                Write-Host "You can find more details to manage extensions with Azure CLI here. https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview"
+    
+                return $false
+            }
+        }
+        else {
+            Write-Host
+            Write-Host "You can find more details to manage extensions with Azure CLI here. https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview"
+
+            return $false
+        }
+    }
+    elseif (!$extension_version) {
+        Write-Host
+        Write-Host "Adding '$name' CLI extension"
+        az extension add --name $name
+    }
+    else {
+        Write-Host
+        Write-Host "Great! You are using a supported version of the extension $name."
+
+        return $true
+    }
+}
+
 function Set-AzureAccount {
     param()
 
@@ -176,4 +233,49 @@ function Get-InputSelection {
     }
 
     return $option
+}
+
+function New-IoTMockDevices {
+    param (
+        [string]$resource_group,
+        [string]$hub_name,
+        [string]$template_file,
+        [string]$output_file
+    )
+
+    $iot_hub = az iot hub show -g $resource_group -n $hub_name | ConvertFrom-Json
+    $iot_hub_devices = az iot hub device-identity list -g $resource_group -n $hub_name |ConvertFrom-Json
+
+    $mock_devices = Get-Content -Path $template_file | ConvertFrom-Json -Depth 10
+    foreach ($mock_device in $mock_devices.devices) {
+        if ($mock_device.configuration._kind -eq "hub") {
+            $device = $iot_hub_devices | Where-Object { $_.deviceId -eq $mock_device.configuration.deviceId }
+
+            if (!$device) {
+                Write-Host
+                Write-Host "Creating mock device '$($mock_device.configuration.deviceId)' in IoT hub"
+                $device = az iot hub device-identity create `
+                    -g $resource_group_name `
+                    -n $iot_hub_name `
+                    -d $mock_device.configuration.deviceId
+
+                $device_conn_string = "HostName=$($iot_hub.properties.hostName);DeviceId=$($device.deviceId);SharedAccessKey=$($device.authentication.symmetricKey.primaryKey)"
+            }
+            else {
+                Write-Host
+                Write-Host "Retrieving symmetric key for device '$($mock_device.configuration.deviceId)' from IoT hub"
+                $device_conn_string = az iot hub device-identity connection-string show `
+                    -g $resource_group_name `
+                    -n $iot_hub_name `
+                    -d $device.deviceId `
+                    --query connectionString -o tsv
+            }
+
+            $mock_device.configuration.connectionString = $device_conn_string
+        }
+    }
+
+    Write-Host
+    Write-Host "Writing mock devices' configuration"
+    Set-Content -Path $output_file -Value (ConvertTo-Json $mock_devices -Depth 10)
 }

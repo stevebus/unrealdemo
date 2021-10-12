@@ -1,5 +1,5 @@
 $root_path = Split-Path $PSScriptRoot -Parent
-Import-Module "$root_path\deployment\PS-Library"
+Import-Module "$root_path\deployment\PS-Library" -Global
 
 
 
@@ -30,6 +30,11 @@ function New-Deployment() {
     if (!$cli_valid) {
         return $null
     }
+
+    $iot_ext_valid = Read-CliExtensionVersion -min_version "0.11.0" -name 'azure-iot' -auto_update $true
+    if (!$iot_ext_valid) {
+        return $null
+    }
     #endregion
 
     #region set azure susbcription and resource providers
@@ -38,10 +43,6 @@ function New-Deployment() {
     Write-Host
     Write-Host "Registering ADT resource provider in your subscription"
     az provider register --namespace 'Microsoft.DigitalTwins'
-
-    Write-Host
-    Write-Host "Adding Azure IoT CLI extension"
-    az extension add --name azure-iot
     #endregion
 
     #region region
@@ -137,20 +138,21 @@ function New-Deployment() {
     if (!$script:deployment_output) {
         throw "Something went wrong with the resource group deployment. Ending script."        
     }
+
+    $important_info = az deployment group show `
+        -g $script:resource_group_name `
+        -n $deployment_id `
+        --query properties.outputs.importantInfo.value
     #endregion
 
     #region create unreal config file
     Write-Host
     Write-Host "Creating unreal config file"
-    $importantInfo = az deployment group show `
-        -g $script:resource_group_name `
-        -n $deployment_id `
-        --query properties.outputs.importantInfo.value
-    Set-Content -Path "$($root_path)/deployment/unreal-plugin-config.json" -Value ($importantInfo)
+    Set-Content -Path "$($root_path)/deployment/unreal-plugin-config.json" -Value ($important_info)
     #endregion
 
     #region mock devices config file
-    $script:iot_hub_name = ($importantInfo | ConvertFrom-Json).iotHubName
+    $script:iot_hub_name = ($important_info | ConvertFrom-Json).iotHubName
 
     $mock_devices = Get-Content -Path "$($root_path)/devices/mock-devices-template.json" | ConvertFrom-Json
     $iot_hub = az iot hub show -g $script:resource_group_name -n $script:iot_hub_name | ConvertFrom-Json
@@ -182,7 +184,7 @@ function New-Deployment() {
         }
     }
 
-    Set-Content -Path "$($root_path)/devices/mock-devices.json" -Value (ConvertTo-Json $mock_devices)
+    Set-Content -Path "$($root_path)/devices/mock-devices.json" -Value (ConvertTo-Json $mock_devices -Depth 20)
     #endregion
 }
 
