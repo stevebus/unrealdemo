@@ -729,5 +729,5 @@ output importantInfo object = {
   signalRNegotiatePath: '${funcApp.name}.azurewebsites.net/api/'
   adtHostName: replace('${adt.properties.hostName}', 'https://', '') //remove https:// from the 
   tsiEnvFqdn: 'https://insights.timeseries.azure.com/?environmentId=${tsiEnvironment.properties.dataAccessId}'
-  TSIWebAppPath: 'https://${webApp.properties.hostNames[0]}'
+  tsiWebAppPath: 'https://${webApp.properties.hostNames[0]}'
 }
