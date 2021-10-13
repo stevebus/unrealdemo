@@ -23,7 +23,7 @@ To showcase the general workflow and capabilities, this Unreal Engine plugin con
 
 ![PluginFolder](../media/adt-link-plugin-ue/PluginFolder.png "PluginFolder")
 
- Open your project, and when it's open, enable the ADT Link plugin by going to Edit > Plugins and searching for it. Also verify that the Datasmith plugin and LiDAR Point Cloud plugin are enabled. This may require a restart for your project.
+ Open your project, and when it's open, enable the ADT Link plugin by going to Edit > Plugins and searching for it. Also verify that the Datasmith plugin, LiDAR Point Cloud plugin, and Sun Position Calculator plugin are enabled. This may require a restart for your project.
 
 ![EditPlugins](../media/adt-link-plugin-ue/EditPlugins.png "Edit Plugins")
 
@@ -32,6 +32,8 @@ To showcase the general workflow and capabilities, this Unreal Engine plugin con
 ![Datasmith_Plugin](../media/adt-link-plugin-ue/Datasmith_Plugin.PNG "Datasmith_Plugin")
 
 ![LidarPlugin](../media/adt-link-plugin-ue/LidarPlugin.png "LidarPlugin")
+
+![SunPosition_Plugin](../media/adt-link-plugin-ue/SunPosition_Plugin.png ""SunPositionPlugin"")
 
 We provide a sample level in the plugin content that already has a Datasmith scene that correlates with the sensors being set up in this guide. To access it, you need to make sure you have Show Plugin Content enabled in your Content Browser. If the AdtLink plugin is enabled, you should see a “AdtLink Content” folder in your list of sources. If you don’t see this list, click on the Sources icon next to Filters.
 
