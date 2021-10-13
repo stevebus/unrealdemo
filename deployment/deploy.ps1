@@ -455,7 +455,6 @@ function New-Deployment() {
     Write-Host
     Write-Host -ForegroundColor Yellow "Unreal config file path: $((Get-ChildItem -Path $unreal_file).FullName)"
     Write-Host -ForegroundColor Yellow "Mock devices config file: $((Get-ChildItem -Path $devices_file).FullName)"
-    Write-Host -ForegroundColor Yellow "Web App Hostname URL: https://$webAppHostname"
 
     Write-Host
     Write-Host -ForegroundColor Green "##############################################"
