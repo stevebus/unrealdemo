@@ -433,7 +433,7 @@ function New-Deployment() {
     #endregion
 
     #region create unreal config file
-    $unreal_file = "$($root_path)/deployment/unreal-plugin-config.json"
+    $unreal_file = "$($root_path)/output/unreal-plugin-config.json"
 
     Write-Host
     Write-Host "Creating unreal config file"
@@ -442,7 +442,7 @@ function New-Deployment() {
 
     #region mock devices config file
     $devices_template = "$root_path/devices/mock-devices-template.json"
-    $devices_file = "$root_path/devices/mock-devices.json"
+    $devices_file = "$root_path/output/mock-devices.json"
     $script:iot_hub_name = ($important_info | ConvertFrom-Json).iotHubName
 
     New-IoTMockDevices `
