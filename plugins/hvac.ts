@@ -37,7 +37,9 @@ export class hvac implements PlugIn {
                 {
                     currAirFlow: this.possibleAirflows[0], 
                     currTemp: 0,
-                    currGoingUp: true
+                    currGoingUp: true,
+                    minTempConfig: 0,
+                    maxTempConfig: 100
                 });
         }
     }
@@ -63,13 +65,17 @@ export class hvac implements PlugIn {
         var value = JSON.parse(payload);
         var devState = this.deviceState.get(deviceId);
         var currTemp = devState.currTemp;
-        var currAirFlow = devState.currAirFlow;
+//        var currAirFlow = devState.currAirFlow;
         var currGoingUp = devState.currGoingUp;     
+        var minTempConfig = devState.minTempConfig;
+        var maxTempConfig = devState.maxTempConfig;  
 
         if(value.type === 'temp')
         {
             var min=value.min;
             var max=value.max;
+            minTempConfig = value.min;
+            maxTempConfig = value.max;
             var increment = value.increment;
 
             //console.log('payload=' + payload + ', min= ' + value.min + ', max=' + value.max+ ', increment=' + value.increment);
@@ -105,21 +111,28 @@ export class hvac implements PlugIn {
         }
         else if (value.type === 'airflow')
         {
-            switch (true)
-            {
-                case (currTemp > value.off):
-                    currAirFlow = this.possibleAirflows[0];
-                    break;
-                case ((currTemp > value.medium) && (currTemp <= value.off)):
-                    currAirFlow = this.possibleAirflows[1];
-                    break;
-                case (currTemp <= value.medium):
-                    currAirFlow = this.possibleAirflows[2];
-                    break;
-                default:
-                    currAirFlow = this.possibleAirflows[0];
-            }
-            this.devices[deviceId][capability._id] = currAirFlow;
+            // switch (true)
+            // {
+            //     case (currTemp > value.off):
+            //         currAirFlow = this.possibleAirflows[0];
+            //         break;
+            //     case ((currTemp > value.medium) && (currTemp <= value.off)):
+            //         currAirFlow = this.possibleAirflows[1];
+            //         break;
+            //     case (currTemp <= value.medium):
+            //         currAirFlow = this.possibleAirflows[2];
+            //         break;
+            //     default:
+            //         currAirFlow = this.possibleAirflows[0];
+            // }
+
+            var airFlowPercent= (((currTemp - minTempConfig) / (maxTempConfig-minTempConfig)) * 100).toFixed();
+            // console.log('currTemp=' + currTemp);
+            // console.log('maxTempConfig=' + maxTempConfig);
+            // console.log('minTempConfig=' + minTempConfig);
+            // console.log('airflowPercent=' + airFlowPercent);
+//            this.devices[deviceId][capability._id] = currAirFlow;
+            this.devices[deviceId][capability._id] = airFlowPercent;
         }
         else
         {
@@ -129,9 +142,12 @@ export class hvac implements PlugIn {
 //        this.devices[deviceId][capability._id] = (Math.random() * 100);
         this.deviceState.set(deviceId,
             {
-                currAirFlow: currAirFlow, 
+//                currAirFlow: currAirFlow, 
+                currAirFlow: airFlowPercent, 
                 currTemp: currTemp,
-                currGoingUp: currGoingUp
+                currGoingUp: currGoingUp,
+                minTempConfig: minTempConfig,
+                maxTempConfig: maxTempConfig
             });
             
         // }
