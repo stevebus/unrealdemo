@@ -171,7 +171,7 @@ function Set-ProjectName {
 
     while ([string]::IsNullOrEmpty($script:project_name) -or ($script:project_name -notmatch "^[a-z0-9]{5,10}$")) {
         if ($first -eq $false) {
-            Write-Host "Use alphanumeric characters only"
+            Write-Host "Use alphanumeric characters only, between 5 and 10 characters long"
         }
         else {
             Write-Host
@@ -245,6 +245,9 @@ function New-IoTMockDevices {
         [string]$output_file
     )
 
+    Write-Host
+    Write-Host "Looking at devices in IoT hub '$($hub_name)' from resource group '$($resource_group)'"
+
     $iot_hub = az iot hub show -g $resource_group -n $hub_name | ConvertFrom-Json
     $iot_hub_devices = az iot hub device-identity list -g $resource_group -n $hub_name |ConvertFrom-Json
 
@@ -259,9 +262,14 @@ function New-IoTMockDevices {
                 $device = az iot hub device-identity create `
                     -g $resource_group `
                     -n $hub_name `
-                    -d $mock_devices.devices[$i].configuration.deviceId
+                    -d $mock_devices.devices[$i].configuration.deviceId | ConvertFrom-Json
 
-                $device_conn_string = "HostName=$($iot_hub.properties.hostName);DeviceId=$($device.deviceId);SharedAccessKey=$($device.authentication.symmetricKey.primaryKey)"
+                if (!!$device.authentication.symmetricKey.primaryKey) {
+                    $device_conn_string = "HostName=$($iot_hub.properties.hostName);DeviceId=$($device.deviceId);SharedAccessKey=$($device.authentication.symmetricKey.primaryKey)"
+                }
+                else {
+                    Write-Warning "Unable to create connection string for device '$($device.deviceId)'"
+                }
             }
             else {
                 Write-Host
@@ -382,8 +390,13 @@ function New-Deployment() {
         --required-resource-accesses "@manifest.json" | ConvertFrom-Json
 
     Write-Host
-    Write-Host "Creating client secret for app registration '$($script:appRegName)'"
-    Start-Sleep -Milliseconds 1500
+    Write-Host "Creating service principal associated with the app registration"
+    Start-Sleep -Milliseconds 3000
+    $script:service_ppal = az ad sp create --id $script:appReg.appid | ConvertFrom-Json
+
+    Write-Host
+    Write-Host "Creating client secret for app registration"
+    Start-Sleep -Milliseconds 3000
     $script:appRegSecret = az ad app credential reset --id $script:appReg.appId --append | ConvertFrom-Json
     #endregion
 
@@ -429,7 +442,7 @@ function New-Deployment() {
         --query properties.outputs.webAppUrl.value `
         -o tsv
     Write-Host
-    Write-Host "Azure deployment completed."
+    Write-Host "Rsrouce group deployment completed."
     #endregion
 
     #region create unreal config file
