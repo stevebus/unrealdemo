@@ -401,8 +401,8 @@ function New-Deployment() {
     #endregion
 
     #region create deployment
-    $template = "$($root_path)\deployment\azuredeploy.bicep"
-    $parameters = "$($root_path)\deployment\azuredeploy.parameters.json"
+    $template = Join-Path $root_path "deployment" "azuredeploy.bicep"
+    $parameters = Join-Path $root_path "deployment" "azuredeploy.parameters.json"
     $deployment_id = "$($script:project_name)-$($script:env_hash)"
 
     $template_parameters = @{
@@ -447,7 +447,7 @@ function New-Deployment() {
     #endregion
 
     #region create unreal config file
-    $unreal_file = "$($root_path)/output/unreal-plugin-config.json"
+    $unreal_file = Join-Path $root_path "output" "unreal-plugin-config.json"
 
     Write-Host
     Write-Host "Creating unreal config file"
@@ -455,8 +455,8 @@ function New-Deployment() {
     #endregion
 
     #region mock devices config file
-    $devices_template = "$root_path/devices/mock-devices-template.json"
-    $devices_file = "$root_path/output/mock-devices.json"
+    $devices_template = Join-Path $root_path "devices" "mock-devices-template.json"
+    $devices_file = Join-Path $root_path "output" "mock-devices.json"
     $script:iot_hub_name = ($important_info | ConvertFrom-Json).iotHubName
 
     New-IoTMockDevices `
