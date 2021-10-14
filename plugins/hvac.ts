@@ -5,15 +5,10 @@ export class hvac implements PlugIn {
 
     // Sample code
     private devices = {};
-//    private currentTemp = 0;
-//    private tempGoingUp = true;
-    private possibleAirflows=[0,500,1000];
-//    private currentAirflow = this.possibleAirflows[0];
-//    private devState;
     private deviceState = new Map();
 
     // this is used by the UX to show some information about the plugin
-    public usage: string = "This is a sample plugin that will provide an integer that decrements by 1 on every loop or manual send. Acts on the device for all capabilities"
+    public usage: string = "This plugin simulates a simple hvac system"
 
     // this is called when mock-devices first starts. time hear adds to start up time
     public initialize = () => {
@@ -35,9 +30,11 @@ export class hvac implements PlugIn {
         {
             this.deviceState.set(deviceId,
                 {
-                    currAirFlow: this.possibleAirflows[0], 
+                    currAirFlow: 0, 
                     currTemp: 0,
-                    currGoingUp: true
+                    currGoingUp: true,
+                    minTempConfig: 0,
+                    maxTempConfig: 100
                 });
         }
     }
@@ -54,22 +51,20 @@ export class hvac implements PlugIn {
 
     // this is called during the loop cycle for a given capability or if Send is pressed in UX
     public propertyResponse = (deviceId: string, capability: any, payload: any) => {
-        // if (Object.getOwnPropertyNames(this.devices[deviceId]).indexOf(capability._id) > -1) {
-        //     this.devices[deviceId][capability._id] = this.devices[deviceId][capability._id] - 1;
-        //     this.devices[deviceId][capability._id]
-        // } else {
 
-//        var temp = 0;
         var value = JSON.parse(payload);
         var devState = this.deviceState.get(deviceId);
         var currTemp = devState.currTemp;
-        var currAirFlow = devState.currAirFlow;
         var currGoingUp = devState.currGoingUp;     
+        var minTempConfig = devState.minTempConfig;
+        var maxTempConfig = devState.maxTempConfig;  
 
         if(value.type === 'temp')
         {
             var min=value.min;
             var max=value.max;
+            minTempConfig = value.min;
+            maxTempConfig = value.max;
             var increment = value.increment;
 
             //console.log('payload=' + payload + ', min= ' + value.min + ', max=' + value.max+ ', increment=' + value.increment);
@@ -101,37 +96,31 @@ export class hvac implements PlugIn {
             }
 
             this.devices[deviceId][capability._id] = currTemp;
-            //this.currentTemp = temp;
         }
         else if (value.type === 'airflow')
         {
-            switch (true)
-            {
-                case (currTemp > value.off):
-                    currAirFlow = this.possibleAirflows[0];
-                    break;
-                case ((currTemp > value.medium) && (currTemp <= value.off)):
-                    currAirFlow = this.possibleAirflows[1];
-                    break;
-                case (currTemp <= value.medium):
-                    currAirFlow = this.possibleAirflows[2];
-                    break;
-                default:
-                    currAirFlow = this.possibleAirflows[0];
-            }
-            this.devices[deviceId][capability._id] = currAirFlow;
+            // calculate airflow as a percentage of the temperature between the min and max
+            // i.e. the further the air gets away from the min-setpoint, the harder it blows on a scale of 0-100%
+            // return as 'int'
+            var airFlowPercent= (((currTemp - minTempConfig) / (maxTempConfig-minTempConfig)) * 100).toFixed();
+            // console.log('currTemp=' + currTemp);
+            // console.log('maxTempConfig=' + maxTempConfig);
+            // console.log('minTempConfig=' + minTempConfig);
+            // console.log('airflowPercent=' + airFlowPercent);
+            this.devices[deviceId][capability._id] = airFlowPercent;
         }
         else
         {
             console.log('bad hvac data type:' + value.type);
         }
 
-//        this.devices[deviceId][capability._id] = (Math.random() * 100);
         this.deviceState.set(deviceId,
             {
-                currAirFlow: currAirFlow, 
+                currAirFlow: airFlowPercent, 
                 currTemp: currTemp,
-                currGoingUp: currGoingUp
+                currGoingUp: currGoingUp,
+                minTempConfig: minTempConfig,
+                maxTempConfig: maxTempConfig
             });
             
         // }

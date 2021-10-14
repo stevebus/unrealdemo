@@ -13,7 +13,7 @@
           "color": "#333",
           "enabled": true,
           "string": false,
-          "value": "{\"type\":\"airflow\",\"off\":72,\"medium\":68}",
+          "value": "{\"type\":\"airflow\"}",
           "sdk": "msg",
           "propertyObject": {
             "type": "default"
@@ -258,7 +258,7 @@
           "color": "#333",
           "enabled": true,
           "string": false,
-          "value": "{\"type\":\"airflow\",\"off\":72,\"medium\":68}",
+          "value": "{\"type\":\"airflow\"}",
           "sdk": "msg",
           "propertyObject": {
             "type": "default"
@@ -342,7 +342,7 @@
           "color": "#333",
           "enabled": true,
           "string": false,
-          "value": "{\"type\":\"airflow\",\"off\":72,\"medium\":68}",
+          "value": "{\"type\":\"airflow\"}",
           "sdk": "msg",
           "propertyObject": {
             "type": "default"
@@ -426,7 +426,7 @@
           "color": "#333",
           "enabled": true,
           "string": false,
-          "value": "{\"type\":\"airflow\",\"off\":72,\"medium\":68}",
+          "value": "{\"type\":\"airflow\"}",
           "sdk": "msg",
           "propertyObject": {
             "type": "default"
@@ -510,7 +510,7 @@
           "color": "#333",
           "enabled": true,
           "string": false,
-          "value": "{\"type\":\"airflow\",\"off\":72,\"medium\":68}",
+          "value": "{\"type\":\"airflow\"}",
           "sdk": "msg",
           "propertyObject": {
             "type": "default"
@@ -594,7 +594,7 @@
           "color": "#333",
           "enabled": true,
           "string": false,
-          "value": "{\"type\":\"airflow\",\"off\":72,\"medium\":68}",
+          "value": "{\"type\":\"airflow\"}",
           "sdk": "msg",
           "propertyObject": {
             "type": "default"
