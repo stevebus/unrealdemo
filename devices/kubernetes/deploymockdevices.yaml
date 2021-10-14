@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mock-devices
-        image: unrealadtcr.azurecr.io/mock-devices-de:1.0
+        image: unrealadtcr.azurecr.io/mock-devices-de:1.1
         ports:
         - containerPort: 9000
 ---
