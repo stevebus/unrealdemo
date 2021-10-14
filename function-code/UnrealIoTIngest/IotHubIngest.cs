@@ -47,7 +47,7 @@ namespace Unreal
                     if (deviceMessage.SelectToken("body.temperature", errorWhenNoMatch: false) != null)
                     {
                         log.LogInformation($"Device:{deviceId} contains temperature data");
-                    updateTwinData.AppendAdd("/temperature", deviceMessage["body"]["temperature"].Value<double>());
+                        updateTwinData.AppendAdd("/temperature", deviceMessage["body"]["temperature"].Value<double>());
                     }
                     if (deviceMessage.SelectToken("body.airflow", errorWhenNoMatch: false) != null)
                     {
@@ -72,7 +72,8 @@ namespace Unreal
             }
             catch (Exception e)
             {
-                log.LogError(e.Message);
+                log.LogError(e.ToString());
+                throw e;
             }
         }
     }
