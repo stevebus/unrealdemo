@@ -3,6 +3,7 @@ param userId string
 param appRegId string
 @secure()
 param appRegPassword string
+param servicePrincipalObjectId string
 param tenantId string = subscription().tenantId
 param utcValue string = utcNow()
 param repoOrgName string = 'stevebus'
@@ -546,7 +547,7 @@ resource tsiEnvironment 'Microsoft.TimeSeriesInsights/environments@2020-05-15' =
       dataRetention: tsiWarmStoreDataRetention
     }
   }
-  // user TSI reader access policy
+  // user TSI access policy
   resource tsiUserPolicy 'accessPolicies@2020-05-15' = {
     name: 'ownerAccessPolicy'
     properties: {
@@ -557,11 +558,11 @@ resource tsiEnvironment 'Microsoft.TimeSeriesInsights/environments@2020-05-15' =
       ]
     }
   }
-  // app registration TSI reader access policy
+  // service principal TSI reader access policy
   resource tsiAppRegPolicy 'accessPolicies@2020-05-15' = {
     name: 'appRegAccessPolicy'
     properties: {
-      principalObjectId: appRegId
+      principalObjectId: servicePrincipalObjectId
       roles: [
         'Reader'
       ]

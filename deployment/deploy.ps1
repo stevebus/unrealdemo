@@ -391,12 +391,12 @@ function New-Deployment() {
 
     Write-Host
     Write-Host "Creating service principal associated with the app registration"
-    Start-Sleep -Milliseconds 3000
+    Start-Sleep -Seconds 10
     $script:service_ppal = az ad sp create --id $script:appReg.appid | ConvertFrom-Json
 
     Write-Host
     Write-Host "Creating client secret for app registration"
-    Start-Sleep -Milliseconds 3000
+    Start-Sleep -Seconds 10
     $script:appRegSecret = az ad app credential reset --id $script:appReg.appId --append | ConvertFrom-Json
     #endregion
 
@@ -406,14 +406,15 @@ function New-Deployment() {
     $deployment_id = "$($script:project_name)-$($script:env_hash)"
 
     $template_parameters = @{
-        "projectName"    = @{ "value" = $script:project_name }
-        "unique"         = @{ "value" = $script:env_hash }
-        "userId"         = @{ "value" = $script:userId }
-        "appRegId"       = @{ "value" = $script:appReg.appId }
-        "appRegPassword" = @{ "value" = $script:appRegSecret.password }
-        "tenantId"       = @{ "value" = $script:appRegSecret.tenant }
-        "repoOrgName"    = @{ "value" = "stevebus" }
-        "repoBranchName" = @{ "value" = $(git rev-parse --abbrev-ref HEAD) }
+        "projectName"              = @{ "value" = $script:project_name }
+        "unique"                   = @{ "value" = $script:env_hash }
+        "userId"                   = @{ "value" = $script:userId }
+        "appRegId"                 = @{ "value" = $script:appReg.appId }
+        "appRegPassword"           = @{ "value" = $script:appRegSecret.password }
+        "servicePrincipalObjectId" = @{ "value" = $script:service_ppal.objectId }
+        "tenantId"                 = @{ "value" = $script:appRegSecret.tenant }
+        "repoOrgName"              = @{ "value" = "stevebus" }
+        "repoBranchName"           = @{ "value" = $(git rev-parse --abbrev-ref HEAD) }
     }
     Set-Content -Path $parameters -Value (ConvertTo-Json $template_parameters -Depth 5)
 
