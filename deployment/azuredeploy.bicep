@@ -564,7 +564,6 @@ resource tsiEnvironment 'Microsoft.TimeSeriesInsights/environments@2020-05-15' =
       principalObjectId: appRegId
       roles: [
         'Reader'
-        'Contributor'
       ]
     }
   }
@@ -577,7 +576,7 @@ resource tsiEventSource 'Microsoft.TimeSeriesInsights/environments/eventSources@
   kind: 'Microsoft.EventHub'
   properties: {
     eventSourceResourceId: '${tsiEventHub.id}'
-    eventHubName: '${tsiEventHub.name}'
+    eventHubName: ehTsiName
     serviceBusNamespace: '${eventHubNamespace.name}'
     consumerGroupName: '$Default'
     keyName: ehTsiAuthRule
