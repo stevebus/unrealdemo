@@ -382,7 +382,11 @@ function New-Deployment() {
         --required-resource-accesses "@manifest.json" | ConvertFrom-Json
 
     Write-Host
-    Write-Host "Creating client secret for app registration '$($script:appRegName)'"
+    Write-Host "Creating service principal associated with the app registration"
+    $script:service_ppal = az ad sp create --id $script:appReg.appid | ConvertFrom-Json
+
+    Write-Host
+    Write-Host "Creating client secret for app registration"
     Start-Sleep -Milliseconds 1500
     $script:appRegSecret = az ad app credential reset --id $script:appReg.appId --append | ConvertFrom-Json
     #endregion
