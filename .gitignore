@@ -1,3 +1,5 @@
 deployment/azuredeploy.parameters.json
 deployment/manifest.json
 manifest.json
+deployment/scripts/unreal-adt-graph.json
+function-code/UnrealIoTIngest/Properties/PublishProfiles/*
