@@ -43,7 +43,7 @@ namespace TsiWebApp.Models
         {
             shared,
             stacked,
-            //overlap,
+            overlap,
         }
 
         /// <summary>
