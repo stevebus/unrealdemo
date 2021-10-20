@@ -27,3 +27,5 @@ Now if you click on any 3D element in your scene, you can see that they have ava
 Now we can export the 3D view from the Datasmith tab and it would be ready for automatic twin placement in the ADT Setup process.
 
 ![ViewExport](../media/preparing-cad-models/ViewExport.png "ViewExport")
+
+Inside Unreal, the imported Datasmith mesh should have the relevant metadata embedded in Asset User Data > Datasmith User Data > Metadata

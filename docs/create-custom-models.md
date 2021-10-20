@@ -2,7 +2,7 @@
 
 The sample project provided here uses very specific virtual IOT devices that we simulate with MockDevices. If you are setting up your own Azure Digital Twins ecosystem with your own real devices, sensors, and models, then you'll need to define your models with these steps.
 
-NOTE: At this time, the ADTLink plugin is unable to import existing models or devices from an ADT instance. To properly mirror any pre-existing models you will need to carefully define them all here and upload them individually via the ADT Link Setup utility. If all the IDs and properties match, you should have a functional digital twin. However, this current implementation does not account for all possible ADT features and should be used primarily for reference.
+> NOTE: At this time, the ADTLink plugin is unable to import existing models or devices from an ADT instance. To properly mirror any pre-existing models you will need to carefully define them all here and upload them individually via the ADT Link Setup utility. If all the IDs and properties match, you should have a functional digital twin. However, this current implementation does not account for all possible ADT features and should be used primarily as a reference.
 
 ## Create the Model Blueprint
 As you will remember from the sample project setup, for every model type (Building, Room, Sensor, TemperatureSensor, etc) there is a separate corresponding Blueprint that defines all its properties. 
@@ -13,7 +13,15 @@ When creating your own model, it's best to start from an existing Blueprint clas
 
 ![DuplicateModel](../media/create-custom-models/DuplicateModel.png "DuplicateModel")
 
-You can also "Create Child Blueprint Class" from the right-click menu if you want to maintain inheretence, but you will need to copy and replace the Construction Script with the Construction Script of another class to access all the parameters.
+You can also "Create Child Blueprint Class" from the right-click menu if you want to extend an existing class and inherit its properties. In the sample you can see that the VolumeSensor is a child of Sensor, which is a child of Capability.
+
+![SensorHierarchy](../media/create-custom-models/SensorHierarchy.png "SensorHierarchy")
+
+ If you create a child class in this way you will need to copy and replace the Construction Script with the Construction Script of another class to properly define its new properties. Do not call the inherited construction script of a parent class, as this might create duplicated properties.
+
+![NoParentScript](../media/create-custom-models/NoParentScript.png "NoParentScript")
+
+## Defining Model Properties
 
 A Model blueprint must have 3 important things:
 1) ADT Twin Component
@@ -24,7 +32,7 @@ A Model blueprint must have 3 important things:
 
 The construction script is used to set up the model data, including Interface, Properties, and Relationships. This data is what gets converted to JSON/DTDL and synced with ADT in order to create the models in Azure. The Interface data is required, but if your model type does not need Properties or Relationships you can disconnect those pins.
 
-The Interface is where you define the Display name and optional description of the model, and the "Id" variable is the [TODO - what is this?]
+The Interface is where you define the Display name and optional description of the model. The "Id" variable is the DTMI, which should follow the DTDL standards [defined here.](https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md#digital-twin-model-identifier) The ID must consist of ```<scheme> : <path> ; <version>```
 
 ![Interface](../media/create-custom-models/Interface.png "Interface")
 
