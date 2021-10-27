@@ -414,6 +414,7 @@ function New-Deployment() {
         "servicePrincipalObjectId" = @{ "value" = $script:service_ppal.objectId }
         "tenantId"                 = @{ "value" = $script:appRegSecret.tenant }
         "repoOrgName"              = @{ "value" = "stevebus" }
+        "repoName"                 = @{ "value" = "unrealdemo" }
         "repoBranchName"           = @{ "value" = $(git rev-parse --abbrev-ref HEAD) }
     }
     Set-Content -Path $parameters -Value (ConvertTo-Json $template_parameters -Depth 5)

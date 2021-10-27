@@ -6,9 +6,9 @@ param appRegPassword string
 param servicePrincipalObjectId string
 param tenantId string = subscription().tenantId
 param utcValue string = utcNow()
-param repoOrgName string = 'stevebus'
-param repoName string = 'unrealdemo'
-param repoBranchName string = 'main'
+param repoOrgName string
+param repoName string
+param repoBranchName string
 param unique string = substring(uniqueString(resourceGroup().id), 0, 2)
 
 var location = resourceGroup().location
