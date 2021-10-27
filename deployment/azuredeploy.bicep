@@ -49,12 +49,9 @@ var tsiWarmStoreDataRetention = 'P7D'
 var tsiEventSourceName = ehTsiName
 
 // Update later when repo becomes public
-// var funcPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/function-code/UnrealIoTIngest/funcapp-deploy.zip'
-// var webAppPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/webapp-code/TsiWebApp/webapp-deploy.zip'
-// var 'azDtCreateScriptUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/deployment/scripts/az-dt-route-create.sh'
-var funcPackageUri = 'https://github.com/marvin-garcia/stuff/raw/main/funcapp-deploy.zip'
-var webAppPackageUri = 'https://github.com/marvin-garcia/stuff/raw/main/webapp-deploy.zip'
-var azDtCreateScriptUri = 'https://github.com/marvin-garcia/stuff/raw/main/az-dt-route-create.sh'
+var funcPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/function-code/UnrealIoTIngest/funcapp-deploy.zip'
+var webAppPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/webapp-code/TsiWebApp/webapp-deploy.zip'
+var azDtCreateScriptUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/deployment/scripts/az-dt-route-create.sh'
 
 var identityName = '${baseName}-scriptidentity'
 var rgRoleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')
