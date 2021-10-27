@@ -54,5 +54,5 @@ Repeat the steps above to also download `/azure-digital-twins-unreal-integration
 
 Depending on your browser, your files will be downloaded somewhere to your machine.  Note the location as we'll need it later.
 
-Now you are ready to move on with the Unreal demo. Click [here](/README.md#configure-unreal-connections-to-azure) to go back to the main page.
+Now you are ready to move on with the Unreal demo. Click [here](../README.md#configure-unreal-connections-to-azure) to go back to the main page.
 
