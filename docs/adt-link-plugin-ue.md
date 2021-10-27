@@ -1,50 +1,45 @@
 
 # ADT Link Plugin
 
-This guide walks you through the installation and setup of the ADT Link plugin for Unreal Engine. By the end of this document you will have a sample scene of the WSP office building connected to an Azure Digital Twins instance. Virtual sensors will exist in both environments and will stay in sync once the sensor data is activated in a later stage.
+This guide walks you through the installation and setup of the ADT Link for Unreal Engine plugin in combination with the sample project. The plugin can be used in any project, but following this guide will be extremely beneficial for understanding how the plugin relates to resources in Azure. By the end of this document you will have a sample scene of the WSP office building connected to an Azure Digital Twins instance. Virtual sensors will exist in both environments and will stay in sync once the sensor data is activated in a later stage.
 
-## Installing the Plugin
+## Installing the Plugin and Project
 
-This GitHub repository hosts the files and documentation required to deploy an Azure Digital Twins solution, but the Unreal Engine plugin is hosted externally. You will first need to [download the zip file] titled "AdtLink_plugin" (https://epicgames.box.com/s/x1nx6o45tsghoh3shj9zg4jjg5wzq2gk) and unzip it somewhere convenient.
+### The Plugin
 
-## What's Included
+The ADT Link for Unreal plugin is the main piece of technology driving this digital twin experience. If you don't already have it, you'll need to download it from the Unreal Engine Marketplace [here](). Once you add it to your account, you must "Install to Engine", selecting either 4.26 or 4.27.  It can be enabled in any project to connect the scene with a live ADT instance in the cloud. The main components of this plugin are:
 
-To showcase the general workflow and capabilities, this Unreal Engine plugin contains the following components that you can dig into and explore:
+1. The ability to send twin model data into ADT and subscribe to a SignalR feed.
+2. An editor utility widget that guides the user through the management of the digital twin.
 
-1. The ADT Link plugin
-2. A high resolution point cloud of the WSP office
-3. A Datasmith and Revit model of the WSP office, for reference
-4. An example level with a live connection to our active ADT instance
+[IMAGE HERE}
+
+### The Project
+
+For the sample project, you can get it for free on the Unreal Engine Marketplace [here](). Once it is added to your account, you must "Create Project" and then open it either from your Library in the Launcher, or from the folder directory. The sample project relies on the plugin being installed to your engine, so make sure you complete that step first before opening it.
+
+To showcase the general workflow and capabilities, the sample project uses the ADT Link plugin to connect to the live ADT sensors that you set up [in the previous step](./deploy-azure-resources.md).  The project contains the following components that you can dig into and explore:
+
+1. A high resolution point cloud of the WSP office
+2. A Datasmith model of the WSP office, for reference
+3. A sleek UMG-based UI for navigating the scene and reading live data
+4. Particle effects and character animations for certain data types
 5. Examples of custom device models
 
-## Setting Up Your First Digital Twin
+# Setting Up a Digital Twin - The Sample Project
 
- To use the ADT Link plugin, you'll need to create a new Unreal Engine project or use an existing one (4.26). We recommend starting a project from the "Architecure, Engineering, and Construction" category. Make sure your project is closed before proceeding. You need to add the ADT Link plugin to your chosen project by copying the "AdtLink" folder you unzipped and placing it into the "Plugins" folder of your Unreal Engine project. If no Plugins folder exists, create one.
-
-![PluginFolder](../media/adt-link-plugin-ue/PluginFolder.png "PluginFolder")
-
- Open your project, and when it's open, enable the ADT Link plugin by going to Edit > Plugins and searching for it. Also verify that the Datasmith plugin and LiDAR Point Cloud plugin are enabled. This may require a restart for your project.
-
-![EditPlugins](../media/adt-link-plugin-ue/EditPlugins.png "Edit Plugins")
-
-![AdtLink_Plugin](../media/adt-link-plugin-ue/AdtLink_Plugin.PNG "AdtLink_Plugin")
-
-![Datasmith_Plugin](../media/adt-link-plugin-ue/Datasmith_Plugin.PNG "Datasmith_Plugin")
-
-![LidarPlugin](../media/adt-link-plugin-ue/LidarPlugin.png "LidarPlugin")
-
-We provide a sample level in the plugin content that already has a Datasmith scene that correlates with the sensors being set up in this guide. To access it, you need to make sure you have Show Plugin Content enabled in your Content Browser. If the AdtLink plugin is enabled, you should see a “AdtLink Content” folder in your list of sources. If you don’t see this list, click on the Sources icon next to Filters.
+Open the sample project. We provide a sample level that already has a Datasmith scene that correlates with the sensors being set up in this guide. To access it, you need to make sure you have both "Show Plugin Content" and "Show Engine Content" enabled in your Content Browser settings. If the AdtLink plugin is enabled, you should see an “AdtLink Content” folder in your list of sources. If you don’t see this list, click on the Sources icon next to Filters.
 
 ![AdtLink_Content](../media/adt-link-plugin-ue/AdtLink_Content.png "AdtLink_Content")
 
-It's called "StartupLevel" and is located in AdtLink Content/WspOfficeDemo/Level. Double-click to open it.
+It's called "SampleLevel" and is located in AdtLink Content/WspOfficeDemo/Level. Double-click to open it.
 
 ![StartupLevel](../media/adt-link-plugin-ue/StartupLevel.png "StartupLevel")
 ![StartupLevel_View](../media/adt-link-plugin-ue/StartupLevel_View.png "StartupLevel_View")
 
-### Connecting to Azure Digital Twin
+## Connecting to Azure Digital Twin
 
-Accessing live data and devices from ADT is all handled through the AdtLink plugin, but the initial connection and sensor setup must be done by you. Luckily we provide a utility with the plugin that will help you do this.
+Accessing live data and devices from ADT is all handled through the AdtLink plugin, but the initial connection and sensor setup must be configured. Luckily we provide a utility with the plugin that will help you do this.
 
 You’ll find a Blueprint utility called “BP_AdtSetup” in the AdtLink Content/AdtLink/Utilities folder. Right click on this widget blueprint and select Run Editor Utility Widget. A user interface window will appear on top of the editor.
 
@@ -58,7 +53,7 @@ The flow of this interface goes like this:
 2. Create Model - Uploading our sensor types to ADT
 3. Create Twin - Create our virtual sensors in UE and register their twins in ADT
 
-### Connection
+## Connection
 
 To start, you will choose “Spawn New Communicator” in the Connection menu. This adds a Blueprint actor of type “BP_ADTCommunicator” into your scene and you should see a “Communicator found” message if it succeeded. If you’re working in a level that already has this blueprint, just click “Find Communicator in Level” instead.
 
@@ -70,11 +65,11 @@ To establish a connection to a live instance of Azure Digital Twins via the Comm
 
 ![Utility_ValidateConnection](../media/adt-link-plugin-ue/Utility_ValidateConnection.png "Utility_ValidateConnection")
 
-### Create Models
+## Create Models
 
 Azure Digital Twins uses the concept of “models” to represent the entities that you need to replicate from the physical world to the digital. A model can be used to define a device or sensor, but can also be used to define broader concepts such as a room, a floor, a building, or a capability _within_ another model. Any data we want to get from our digital twin must first be defined inside Unreal Engine as a Blueprint, and then uploaded to ADT.
 
-For the purposes of this sample we have already created Model Blueprints that correspond with the sample devices provided. Creation your own custom models and devices will be covered in another guide.
+For the purposes of this sample we have already created Model Blueprints that correspond with the sample devices provided. When you're ready to create your own models later you can follow [this guide](./create-custom-models.md).
 
 In the AdtLink plugin we’ve predefined 8 models using the [Real Estate Core ontology](https://github.com/Azure/opendigitaltwins-building), which is a good starting place for typical AECO models:
 
@@ -94,7 +89,7 @@ In this image, we are using a filter for "Blueprint Class" to only show the Blue
 
 Some of these models “extend” others. For example, the Temperature Sensor model is an extension of the base model Sensor. And Sensor has a variety of Capabilities within it. This is important to understand in the next step because you cannot upload and create a model if the model it extends isn’t already there.
 
-Inside the plugin content we’ve also extended Sensor, Capability, and Space to create 5 custom WSP models::
+Inside the sample project content we’ve also extended Sensor, Capability, and Space to create 5 custom WSP models:
 
 * WSP Room
 * WSP HVAC Sensor
@@ -102,7 +97,7 @@ Inside the plugin content we’ve also extended Sensor, Capability, and Space to
 * WSP Occupancy Sensor
 * WSP Temperature Sensor
 
-These can be found in sub-folders under AdtLinkContent/WspOfficeDemo/Blueprint/RECExtended.
+These can be found in sub-folders under Content/WspOfficeDemo/Blueprint/RECExtended.
 In this image, we are using a filter for "Blueprint Class" to only show the Blueprint assets.
 
 ![REC_Extended](../media/adt-link-plugin-ue/REC_Extended.png "REC_Extended")
@@ -134,11 +129,11 @@ From /AdtLink/WspOfficeDemo/Blueprint/**RECExtended**/...:
 6. BP_WspOccupancySensor
 7. BP_WspTemperatureSensor
 
-After you’ve finished uploading the models, you can head to the “Edit Mode” menu to synchronize with ADT and see what models are living up there. You can “Edit” each model, but for any substantial changes you should delete it and upload a new version.
+After you’ve finished uploading the models, you can head to the “Edit Model” menu to synchronize with ADT and see what models are living up there. You can “Edit” each model, but for any substantial changes you should delete it and upload a new version.
 
-### Create Twin
+## Create Twin
 
-The “models” that now reside on ADT define what type of entities and sensors exist in your digital twin, and the “twins” that we will now create are the specific instances of each entity that we will be reflecting between UE and ADT.
+The “models” that now reside on ADT define what type of entities and sensors exist in your digital twin, and the “twins” that we will now create are the specific instances of each entity that will be reflected in UE.
 
 There are two ways to create twins:
 
@@ -163,12 +158,26 @@ The Log will populate with the various twins being spawned and synchronized in b
 
 ![Twin_Details](../media/adt-link-plugin-ue/Twin_Details.png "Twin_Details")
 
-If these twins need editing for any reason, there is an “Edit Twin” window back in the utility. Here you can click the “Edit” button next to any active twin and see or modify its properties.
+If these twins need editing for any reason, there is an “Edit Twin” window back in the utility. Here you can click the “Edit” button next to any active twin and see or modify its properties. If you need to add or remove any properties, you should delete the twin from ADT and re-upload it through the utility.
 
 ![Utility_EditTwins](../media/adt-link-plugin-ue/Utility_EditTwins.png "Utility_EditTwins")
 
 ![Utility_EditTwinProperties](../media/adt-link-plugin-ue/Utility_EditTwinProperties.png "Utility_EditTwinProperties")
 
-### Next Steps
+## Next Steps
 
 If everything was successful, you should now have a level with the WSP office and a handful of sensor Blueprints with a valid connection to Azure Digital Twins. However, the data coming from our ADT instance is currently static and relatively meaningless. To emulate live sensors and visualize their effects in UE, you'll move on to the next step and set up [Mock Devices.](./simulate-iot-devices.md)
+
+## Continue In Your Own Project
+
+Once you're comfortable with the sample project, you can use the ADT Link plugin in any UE project of your own. We recommend starting a project from the "Architecure, Engineering, and Construction" category. With your project open, enable the ADT Link plugin by going to Edit > Plugins and searching for it. Also verify that the Datasmith plugin is enabled. If you're deriving your project from the sample dataset, you'll also need the LiDAR Point Cloud plugin and Sun Position Calculator plugin. This may require a restart for your project.
+
+![EditPlugins](../media/adt-link-plugin-ue/EditPlugins.png "Edit Plugins")
+
+![AdtLink_Plugin](../media/adt-link-plugin-ue/AdtLink_Plugin.PNG "AdtLink_Plugin")
+
+![Datasmith_Plugin](../media/adt-link-plugin-ue/Datasmith_Plugin.PNG "Datasmith_Plugin")
+
+![LidarPlugin](../media/adt-link-plugin-ue/LidarPlugin.png "LidarPlugin")
+
+![SunPosition_Plugin](../media/adt-link-plugin-ue/SunPosition_Plugin.png "SunPositionPlugin")
