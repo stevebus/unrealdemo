@@ -345,7 +345,9 @@ function New-Deployment() {
     #endregion
 
     #region region
-    $locations = Get-ResourceProviderLocations -provider 'Microsoft.DigitalTwins' -typeName 'DigitalTwinsInstances' | Sort-Object
+    $adt_locations = Get-ResourceProviderLocations -provider 'Microsoft.DigitalTwins' -typeName 'DigitalTwinsInstances'
+    $tsi_locations = Get-ResourceProviderLocations -provider 'Microsoft.TimeSeriesInsights' -typeName 'environments'
+    $locations = $adt_locations | Where-Object { $tsi_locations -contains $_ } | Sort-Object
 
     $option = Get-InputSelection `
         -options $locations `
