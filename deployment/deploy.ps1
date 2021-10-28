@@ -491,6 +491,7 @@ function New-Deployment() {
     #endregion
 
     Write-Host
+    Write-Host -ForegroundColor Yellow "Resoruce Group: $($script:resource_group_name)"
     Write-Host -ForegroundColor Yellow "Unreal config file path: $((Get-ChildItem -Path $unreal_file).FullName)"
     Write-Host -ForegroundColor Yellow "Mock devices config file: $((Get-ChildItem -Path $devices_file).FullName)"
 
