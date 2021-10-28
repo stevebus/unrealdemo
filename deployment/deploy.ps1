@@ -177,7 +177,7 @@ function Set-ProjectName {
     $script:create_resource_group = $false
     $first = $true
 
-    while ([string]::IsNullOrEmpty($script:project_name) -or ($script:project_name -notmatch "^[a-z0-9-_]{5,14}[a-z0-9]{1}$")) {
+    while ([string]::IsNullOrEmpty($script:project_name) -or ($script:project_name -notmatch "^[a-z0-9-_]{4,14}[a-z0-9]{1}$")) {
         if ($first -eq $false) {
             Write-Host "Use alphanumeric characters, hyphens and underscores, between 5 and 15 characters long"
         }
