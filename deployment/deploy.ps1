@@ -364,7 +364,7 @@ function New-Deployment() {
     $script:userId = az ad signed-in-user show --query objectId -o tsv
 
     $script:appRegName = "$($script:resource_group_name)-$($script:env_hash)"
-    
+
     Write-Host
     Write-Host "Creating app registration manifest"
     $manifest = @(
@@ -388,6 +388,19 @@ function New-Deployment() {
         --reply-urls http://localhost `
         --native-app `
         --required-resource-accesses "@manifest.json" | ConvertFrom-Json
+
+    $found = $false
+    $count = 3
+    while (!$found -and $count -gt 0) {
+        $appReg = az ad app show --id $($script:appReg.appId) | ConvertFrom-Json -ErrorAction SilentlyContinue
+        if ($appReg.appId) {
+            $found = $true
+        }
+        else {
+            Start-Sleep -Milliseconds 1000
+            $count = $count - 1
+        }
+    }
 
     Write-Host
     Write-Host "Creating service principal associated with the app registration"
