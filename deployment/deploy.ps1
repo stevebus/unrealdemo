@@ -169,9 +169,9 @@ function Set-ProjectName {
     $script:create_resource_group = $false
     $first = $true
 
-    while ([string]::IsNullOrEmpty($script:project_name) -or ($script:project_name -notmatch "^[a-z0-9]{5,10}$")) {
+    while ([string]::IsNullOrEmpty($script:project_name) -or ($script:project_name -notmatch "^[a-z0-9-_]{5,14}[a-z0-9]{1}$")) {
         if ($first -eq $false) {
-            Write-Host "Use alphanumeric characters only, between 5 and 10 characters long"
+            Write-Host "Use alphanumeric characters, hyphens and underscores, between 5 and 15 characters long"
         }
         else {
             Write-Host
@@ -293,6 +293,9 @@ function New-IoTMockDevices {
 
 function New-Deployment() {
 
+    # Set environment's uniqeu hash
+    Set-EnvironmentHash -hash_length 8
+
     #region greetings
     Write-Host
     Write-Host "################################################"
@@ -357,8 +360,6 @@ function New-Deployment() {
     #endregion
 
     #region AAD
-    Set-EnvironmentHash -hash_length 4
-
     Write-Host
     Write-Host "Collecting current user information"
     $script:userId = az ad signed-in-user show --query objectId -o tsv
@@ -419,7 +420,6 @@ function New-Deployment() {
     $deployment_id = "$($script:project_name)-$($script:env_hash)"
 
     $template_parameters = @{
-        "projectName"              = @{ "value" = $script:project_name }
         "unique"                   = @{ "value" = $script:env_hash }
         "userId"                   = @{ "value" = $script:userId }
         "appRegId"                 = @{ "value" = $script:appReg.appId }

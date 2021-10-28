@@ -1,4 +1,3 @@
-param projectName string
 param userId string
 param appRegId string
 @secure()
@@ -12,36 +11,30 @@ param repoBranchName string
 param unique string = substring(uniqueString(resourceGroup().id), 0, 2)
 
 var location = resourceGroup().location
-
-//var unique = ''
-
-// storage accounts (and maybe others) must be lower case, so we ToLower the name the user passed in
-var baseName = toLower(projectName)
-
-var iotHubName = '${baseName}hub${unique}'
-var adtName = '${baseName}adt${unique}'
-var signalrName = '${baseName}signalr${unique}'
-var serverFarmName = '${baseName}farm${unique}'
-var storageName = '${baseName}store${unique}'
-//var eventGridName = '${baseName}eg${unique}'
-var funcAppName = '${baseName}funcapp${unique}'
-var webAppName = '${baseName}webapp${unique}'
-var eventGridIngestName = '${baseName}egingest${unique}'
+var iotHubName = 'iothub-${unique}'
+var adtName = 'adt-${unique}'
+var signalrName = 'signalr-${unique}'
+var serverFarmName = 'farm-${unique}'
+var storageName = 'store${unique}'
+//var eventGridName = 'eg${unique}'
+var funcAppName = 'funcapp-${unique}'
+var webAppName = 'webapp-${unique}'
+var eventGridIngestName = 'egingest-${unique}'
 var ingestFuncName = 'IoTHubIngest'
 var signalrFuncName = 'broadcast'
-var adtChangeLogTopicName = '${baseName}adtchangelogtopic${unique}'
-var ehNamespace = '${baseName}eventhubs${unique}'
+var adtChangeLogTopicName = 'adtchangelogtopic-${unique}'
+var ehNamespace = 'eventhubs-${unique}'
 var ehNamespaceAuthRule = 'RootManageSharedAccessKey'
-var ehTwinsName = '${baseName}ehtwin'
+var ehTwinsName = 'ehtwin'
 var ehTwinsAuthRule = 'twinsauthrule'
-var ehTsiName = '${baseName}ehtsi'
+var ehTsiName = 'ehtsi'
 var ehTsiAuthRule = 'tsiauthrule'
 var adtEhEndpoint = 'twinendpoint'
 var adtEhRoute = 'twinroute'
 var adtEgEndpoint = 'changelogendpoint'
 var adtEgRoute = 'changelogroute'
-var tsiName = '${baseName}tsi${unique}'
-var tsiStorageName = '${baseName}tsistr${unique}'
+var tsiName = 'tsi-${unique}'
+var tsiStorageName = 'tsistr${unique}'
 var tsiSkuName = 'L1'
 var tsiCapacity = 1
 var tsiTimeSeriesId = '$dtId'
@@ -53,7 +46,7 @@ var funcPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBr
 var webAppPackageUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/webapp-code/TsiWebApp/webapp-deploy.zip'
 var azDtCreateScriptUri = 'https://github.com/${repoOrgName}/${repoName}/raw/${repoBranchName}/deployment/scripts/az-dt-route-create.sh'
 
-var identityName = '${baseName}-scriptidentity'
+var identityName = 'scriptidentity-${unique}'
 var rgRoleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')
 var rgRoleDefinitionName = guid(identity.id, rgRoleDefinitionId, resourceGroup().id)
 var ADTroleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', 'bcd981a7-7f74-457b-83e1-cceb9e632ffe')
@@ -62,16 +55,23 @@ var ADTroleDefinitionAppName = guid(resourceId('Microsoft.ManagedIdentity/userAs
 var ADTRoleDefinitionUserName = guid(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', userId), ADTroleDefinitionId, resourceGroup().id)
 var ADTRoleDefinitionAppRegName = guid(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', appRegId), ADTroleDefinitionId, resourceGroup().id)
 
+var tags = {
+  type: 'adt-unreal-demo'
+  deploymentId: unique
+}
+
 // create user assigned managed identity for this script to run under
 resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
   name: identityName
   location: location
+  tags: tags
 }
 
 // create event hub namepace
 resource eventHubNamespace 'Microsoft.EventHub/namespaces@2021-01-01-preview' = {
   name: ehNamespace
   location: location
+  tags: tags
   sku: {
     name: 'Standard'
     tier: 'Standard'
@@ -158,6 +158,7 @@ resource tsiEventHub 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-preview
 resource iot 'microsoft.devices/iotHubs@2020-03-01' = {
   name: iotHubName
   location: location
+  tags: tags
   sku: {
     name: 'S1'
     capacity: 1
@@ -188,10 +189,11 @@ resource iot 'microsoft.devices/iotHubs@2020-03-01' = {
   ]
 }
 
-//create storage account (used by the azure function app)
+// create storage account (used by the azure function app)
 resource storage 'Microsoft.Storage/storageAccounts@2018-02-01' = {
   name: storageName
   location: location
+  tags: tags
   sku: {
     name: 'Standard_LRS'
   }
@@ -205,7 +207,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2018-02-01' = {
 resource adt 'Microsoft.DigitalTwins/digitalTwinsInstances@2020-12-01' = {
   name: adtName
   location: location
-  tags: {}
+  tags: tags
   properties: {}
   dependsOn: [
     identity
@@ -238,6 +240,7 @@ resource adt 'Microsoft.DigitalTwins/digitalTwinsInstances@2020-12-01' = {
 resource signalr 'Microsoft.SignalRService/signalR@2020-07-01-preview' = {
   name: signalrName
   location: location
+  tags: tags
   sku: {
     name: 'Standard_S1'
     capacity: 1
@@ -262,6 +265,7 @@ resource signalr 'Microsoft.SignalRService/signalR@2020-07-01-preview' = {
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: serverFarmName
   location: location
+  tags: tags
   kind: 'web'
   properties: {
     Application_Type: 'web'
@@ -274,6 +278,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 resource appserver 'Microsoft.Web/serverfarms@2021-01-15' = {
   name: serverFarmName
   location: location
+  tags: tags
   kind: 'app'
   sku: {
     name: 'B1'
@@ -287,8 +292,9 @@ resource appserver 'Microsoft.Web/serverfarms@2021-01-15' = {
 // create Function app for hosting the IoTHub ingress and SignalR egress
 resource funcApp 'Microsoft.Web/sites@2021-01-15' = {
   name: funcAppName
-  kind: 'functionapp'
   location: location
+  tags: tags
+  kind: 'functionapp'
   identity: {
     type: 'SystemAssigned'
   }
@@ -360,7 +366,7 @@ resource funcApp 'Microsoft.Web/sites@2021-01-15' = {
 resource funcAppDeploy 'Microsoft.Web/sites/extensions@2020-12-01' = {
   name: '${funcApp.name}/MSDeploy'
   properties: {
-  packageUri: funcPackageUri
+    packageUri: funcPackageUri
   }
   dependsOn: [
     funcApp
@@ -371,6 +377,7 @@ resource funcAppDeploy 'Microsoft.Web/sites/extensions@2020-12-01' = {
 resource eventGridIngestTopic 'Microsoft.EventGrid/systemTopics@2020-04-01-preview' = {
   name: eventGridIngestName
   location: location
+  tags: tags
   properties: {
     source: iot.id
     topicType: 'microsoft.devices.iothubs'
@@ -411,6 +418,7 @@ resource eventGridIoTHubIngest 'Microsoft.EventGrid/systemTopics/eventSubscripti
 resource eventGridADTChangeLogTopic 'Microsoft.EventGrid/topics@2020-10-15-preview' = {
   name: adtChangeLogTopicName
   location: location
+  tags: tags
   sku: {
     name: 'Basic'
   }
@@ -508,6 +516,7 @@ resource ADTRoleDefinitionAppReg 'Microsoft.Authorization/roleAssignments@2018-0
 resource tsiStorageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   name: tsiStorageName
   location: location
+  tags: tags
   sku: {
     name: 'Standard_LRS'
   }
@@ -521,6 +530,7 @@ resource tsiStorageAccount 'Microsoft.Storage/storageAccounts@2019-06-01' = {
 resource tsiEnvironment 'Microsoft.TimeSeriesInsights/environments@2020-05-15' = {
   name: tsiName
   location: location
+  tags: tags
   dependsOn: [
     tsiEventHub
   ]
@@ -571,6 +581,7 @@ resource tsiEnvironment 'Microsoft.TimeSeriesInsights/environments@2020-05-15' =
 resource tsiEventSource 'Microsoft.TimeSeriesInsights/environments/eventSources@2020-05-15' = {
   name: '${tsiEnvironment.name}/${tsiEventSourceName}'
   location: location
+  tags: tags
   kind: 'Microsoft.EventHub'
   properties: {
     eventSourceResourceId: '${tsiEventHub.id}'
@@ -585,8 +596,9 @@ resource tsiEventSource 'Microsoft.TimeSeriesInsights/environments/eventSources@
 // create web app to visualize TSI data
 resource webApp 'Microsoft.Web/sites@2021-01-15' = {
   name: webAppName
-  kind: 'app'
   location: location
+  tags: tags
+  kind: 'app'
   identity: {
     type: 'SystemAssigned'
   }
@@ -664,6 +676,7 @@ resource webAppDeploy 'Microsoft.Web/sites/extensions@2020-12-01' = {
 resource adtEventHubRoute 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   name: 'adtEventHubRoute'
   location: location
+  tags: tags
   kind: 'AzureCLI'
   identity: {
     type: 'UserAssigned'
@@ -693,6 +706,7 @@ resource adtEventHubRoute 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
 resource azDtEventGridRoute 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
   name: 'azDtEventGridRoute'
   location: location
+  tags: tags
   kind: 'AzureCLI'
   identity: {
     type: 'UserAssigned'
