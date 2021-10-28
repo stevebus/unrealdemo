@@ -89,7 +89,14 @@ function Read-CliExtensionVersion {
     Write-Host "Verifying '$name' extension version..."
     Start-Sleep -Milliseconds 500
 
-    if ($min_version -gt $extension_version) {
+    if ($null -eq $extension_version) {
+        Write-Host
+        Write-Host "You currently don't have the '$name' CLI extension. Installing it now..."
+        az extension add --name $name
+
+        return $true
+    }
+    elseif ($min_version -gt $extension_version) {
         
         Write-Host
         Write-Host "You are currently using the version $($extension_version) of the extension '$($name)' and this wizard requires version $($min_version) or later."
@@ -119,16 +126,17 @@ function Read-CliExtensionVersion {
             return $false
         }
     }
-    elseif (!$extension_version) {
+    elseif ($min_version -le $extension_version) {
         Write-Host
-        Write-Host "Adding '$name' CLI extension"
-        az extension add --name $name
+        Write-Host "Great! You are using a supported version of the extension '$name'."
+
+        return $true
     }
     else {
         Write-Host
-        Write-Host "Great! You are using a supported version of the extension $name."
+        Write-Host "Unrecognized CLI extension output. Exiting now."
 
-        return $true
+        return $false
     }
 }
 
