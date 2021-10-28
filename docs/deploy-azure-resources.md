@@ -2,7 +2,7 @@
 
 This document walks you through steps to deploy the backend Azure resources for the demo.
 
-> NOTE:  this section assumes you have already set up the pre-requisites mentioned on the [home page](/README.md), in particular that you have an Azure Subscription and have set up a PowerShell cloud shell connection.
+> NOTE:  this section assumes you have already set up the pre-requisites mentioned on the [home page](../README.md), in particular that you have an Azure Subscription and have set up a PowerShell cloud shell connection.
 
 ## Clone repository in Cloud Shell
 
@@ -20,7 +20,7 @@ Run the command below to kick off the wizard that will help you deploy the Azure
 > NOTE: The wizard will ask you a few questions that are relevant to the deployment, like desired Azure subscription (in case you have more than one), Azure region and a distinctive name for your project.
 
 ```powershell
-. ./deployment/deploy.ps1
+./deployment/deploy.ps1
 ```
 
 ## Collect output files location

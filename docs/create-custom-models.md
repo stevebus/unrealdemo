@@ -52,7 +52,24 @@ When a value of the corresponding type is updated, this custom event will be fir
 
 ![ImplementedEvent](../media/create-custom-models/ImplementedEvent.png "ImplementedEvent")
 
+
+
+> NOTE: Not all DTDL schemas are supported by Unreal Engine, so we automatically convert them where possible. These are the supported property types and their conversion:
+
+| DTDL     | Unreal                 |
+| -------- | ---------------------- |
+| Boolean  | Boolean                |
+| DateTime | DateTime               |
+| Date     | DateTime (ignore Time) |
+| Time     | DateTime (ignore Date) |
+| Float    | Float                  |
+| Double   | Float                  |
+| Integer  | Integer                |
+| Long     | Integer                |
+| String   | String                 |
+
 ## Managing Your Custom Models and Twins
-Now that you have an updated model, it's ready to be synced with ADT and instantiated into the world. Follow [these steps] to set it up. If the Model ID and Twin ID are not embedded into your 3D model (see: Preparing CAD Models [todo link]) you will select "Manually Create" in the "Create Twin" tab. This will place it straight into your level or optionally attach it to an existing mesh.
+Now that you have an updated model, it's ready to be synced with ADT and instantiated into the world. Follow [these steps](./adt-link-plugin-ue.md#uploading-the-models) to set it up and upload to ADT. If the Model ID and Twin ID are not embedded into your 3D model (see: [Preparing CAD Models](./preparing-cad-models.md)) you will select "Manually Create" in the "Create Twin" tab. This will place it straight into your level or optionally attach it to an existing actor.
 
 ![ManuallyCreate](../media/create-custom-models/ManuallyCreate.png "ManuallyCreate")
+

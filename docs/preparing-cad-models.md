@@ -2,7 +2,7 @@
 
 If you've gone through the setup of the sample scene, you'll know that the ADTLink plugin can automatically detect and place devices (twins) in your scene based on the contents of your Datasmith file. This quick guide will show you how to prepare your own CAD model with the right metadata before exporting it as a Datasmith file.
 
-We will be using Revit in our example below, but any CAD or BIM software that exports to Datasmith will be similar.  This sample file can be downloaded from GitHub <HERE.>
+We will be using Revit in our example below, but any CAD or BIM software that exports to Datasmith will be similar.  This sample file can be downloaded from GitHub [here](../wsp-office-model/)
 
 ![SampleRevit](../media/preparing-cad-models/SampleRevit.png "SampleRevit")
 
@@ -28,4 +28,5 @@ Now we can export the 3D view from the Datasmith tab and it would be ready for a
 
 ![ViewExport](../media/preparing-cad-models/ViewExport.png "ViewExport")
 
-Inside Unreal, the imported Datasmith mesh should have the relevant metadata embedded in Asset User Data > Datasmith User Data > Metadata
+Inside Unreal, the imported Datasmith mesh should have the relevant metadata embedded in Asset User Data > Datasmith User Data > Metadata. When using the [ADTLinkSetup utility](./adt-link-plugin-ue.md#create-twin), it should find the various twins in your level when using the "Find Twins in DS" functionality.
+
