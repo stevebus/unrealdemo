@@ -32,11 +32,7 @@ To showcase the general workflow and capabilities, the sample project uses the A
 
 # Setting Up a Digital Twin - The Sample Project
 
-Open the sample project. We provide a sample level that already has a Datasmith scene that correlates with the sensors being set up in this guide. To access it, you need to make sure you have both "Show Plugin Content" and "Show Engine Content" enabled in your Content Browser settings. If the AdtLink plugin is enabled, you should see an “AdtLink Content” folder in your list of sources. If you don’t see this list, click on the Sources icon next to Filters.
-
-![AdtLink_Content](../media/adt-link-plugin-ue/AdtLink_Content.png "AdtLink_Content")
-
-It's called "SampleLevel" and is located in Content/WspOfficeDemo/Level. Double-click to open it.
+Open the sample project. We provide a sample level that already has a Datasmith scene that correlates with the sensors being set up in this guide. It's called "SampleLevel" and is located in Content/WspOfficeDemo/Level. Double-click to open it.
 
 ![StartupLevel](../media/adt-link-plugin-ue/StartupLevel.png "StartupLevel")
 
@@ -45,6 +41,10 @@ It's called "SampleLevel" and is located in Content/WspOfficeDemo/Level. Double-
 ## Connecting to Azure Digital Twin
 
 Accessing live data and devices from ADT is all handled through the AdtLink plugin, but the initial connection and sensor setup must be configured. Luckily we provide a utility with the plugin that will help you do this.
+
+To access it, you need to make sure you have both "Show Plugin Content" and "Show Engine Content" enabled in your Content Browser settings. If the AdtLink plugin is enabled, you should see an “AdtLink Content” folder in your list of sources. If you don’t see this list, click on the Sources icon next to Filters. 
+
+![AdtLink_Content](../media/adt-link-plugin-ue/AdtLink_Content.png "AdtLink_Content")
 
 You’ll find a Blueprint utility called “BP_AdtLinkSetup” in the AdtLink Content/AdtLink/Utilities folder. Right click on this widget blueprint and select Run Editor Utility Widget. A user interface window will appear on top of the editor.
 
@@ -121,7 +121,7 @@ Upload your first model by navigating to AdtLink Content/AdtLink/ModelBP/REC/Spa
 
 Assuming the first model works, proceed to convert and upload the other models in this exact order:
 
-From /AdtLink/ModelBP/**REC**/...:
+From ADTLink Content/AdtLink/ModelBP/**REC**/...:
 
 1. BP_Space (_done)_
 2. BP_Capability
@@ -133,6 +133,7 @@ From /Content/WspOfficeDemo/Blueprint/**RECExtended**/...:
 5. BP_WspLightingSensor
 6. BP_WspOccupancySensor
 7. BP_WspTemperatureSensor
+8. BP_WSPRoom
 
 After you’ve finished uploading the models, you can head to the “Edit Model” menu to synchronize with ADT and see what models are living up there. You can “Edit” each model, but for any substantial changes you should delete it and upload a new version.
 
@@ -143,21 +144,17 @@ The “models” that now reside on ADT define what type of entities and sensors
 There are two ways to create twins:
 
 1. Detecting twins from a Datasmith import
-2. Manually defining a twin
+2. Manually creating a twin
 
-For this example project we will only be focusing on the first option. The Datasmith model that exists in the StarterLevel contains a few meshes with ADT-specific metadata for “ModelID” and “TwinID” that were originally defined in Revit.
+For this example project we will only be focusing on the first option. The Datasmith model that exists in the SampleLevel contains a few meshes with ADT-specific metadata for “ModelID” and “TwinID” that were originally defined in Revit.
 
 In the Create Twin window, there is a button for “Find Twins in DS”. Clicking on this will detect any twins present in our scene and should populate the list with the various Twin IDs and their Model IDs. The utility also associates them with the appropriate ModelBP’s we uploaded earlier. You can change the Model ID or Twin ID to a different type if there’s ever an error.
 
 ![Utility_FindTwins](../media/adt-link-plugin-ue/Utility_FindTwins.png "Utility_FindTwins")
 
-Now that they are detected and valid, we will create new Blueprint Actors in our scene for each one. Click the “Select All” button to highlight all the Twins. You can also select or deselect by clicking on each model individually.
+Now that they are detected and valid, we will create new Blueprint Actors in our scene for each one. Click the checkbox above the right-hand column to highlight all the Twins. You can also select or deselect by clicking on each one individually. Then press “Create Selected Twins”.
 
 ![Utility_SelectTwins](../media/adt-link-plugin-ue/Utility_SelectTwins.png "Utility_SelectTwins")
-
-Then press “Create Selected Twins” below.
-
-![Utility_CreateSelectedTwins](../media/adt-link-plugin-ue/Utility_CreateSelectedTwins.png "Utility_CreateSelectedTwins")
 
 The Log will populate with the various twins being spawned and synchronized in both UE and ADT. In your World Outliner you should now notice that there are various Blueprint actors such as “lightingsensor2” and “occupancysensor1” attached to their respective 3D meshes. Each of these have an ADT Twin Component that brokers the connection to ADT via the Communicator we set up earlier.
 
@@ -195,9 +192,11 @@ Repeat this for the other rooms in the scene.
 
 ### Establishing Relationships
 
-To tell ADT that certain rooms contain certain devices, we need to do a little work back in the AdtLinkSetup Utility widget we previously launched. Go to the Edit Twin tab and click the Edit button next to your room of choice.
+To tell ADT that certain rooms contain certain devices, we need to do a little work back in the AdtLinkSetup Utility widget we previously launched. Go to the Edit Twin tab and click the Edit button next to your room of choice, and go to the "Relationships" tab on the right. 
 
 ![](D:\Documents\Unreal Projects\AzureDigitalTwin\unrealdemo\media\adt-link-plugin-ue\RoomEdit.png)
+
+![](D:\Documents\Unreal Projects\AzureDigitalTwin\unrealdemo\media\adt-link-plugin-ue\EditTwinRel.png)
 
 There is a section in the lower half of the window called "Create Relationships." Use the first dropdown box to select the type of relationship we're establishing, which is "hasCapability" in this case. Click the "Select Overlapping" button to precisely grab only the twins that are inside our resized room. Then press "Add Selected" to create a new relationship with those twins. 
 
@@ -237,5 +236,5 @@ To prepare your CAD model for automatic twin placement during setup, follow [thi
 
 ### Connecting to ADT
 
-In order to leverage this plugin you will need to set up Azure resources as outlined [in this documentation](./deploy-azure-resources) and use the generated configuration file; at this time it is not plug-and-play with any existing ADT instance. If you need to customize the various Azure resources for your unique situation, the deployment source code is available on this repo.
+In order to leverage this plugin you will need to set up Azure resources as outlined [in this documentation](./deploy-azure-resources) and use the generated configuration file; at this time it is not plug-and-play with any existing ADT instance. If you need to customize the various Azure resources for your unique situation, the deployment source code is available on this repo. You are also responsible for managing your own device connections into IoT Hub.
 
