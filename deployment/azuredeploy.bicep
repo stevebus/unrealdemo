@@ -499,7 +499,7 @@ resource ADTRoleDefinitionAppReg 'Microsoft.Authorization/roleAssignments@2018-0
   name: ADTRoleDefinitionAppRegName
   properties: {
     roleDefinitionId: ADTroleDefinitionId
-    principalId: appRegId
+    principalId: servicePrincipalObjectId
     principalType: 'ServicePrincipal'
   }
 }
