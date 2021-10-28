@@ -30,3 +30,4 @@ Now we can export the 3D view from the Datasmith tab and it would be ready for a
 
 Inside Unreal, the imported Datasmith mesh should have the relevant metadata embedded in Asset User Data > Datasmith User Data > Metadata. When using the [ADTLinkSetup utility](./adt-link-plugin-ue.md#create-twin), it should find the various twins in your level when using the "Find Twins in DS" functionality.
 
+![](D:\Documents\Unreal Projects\AzureDigitalTwin\unrealdemo\media\preparing-cad-models\Metadata.png)
